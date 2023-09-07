@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 //Benjamin Muslic
 //Trying to fix this app
 
+//testing git
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
