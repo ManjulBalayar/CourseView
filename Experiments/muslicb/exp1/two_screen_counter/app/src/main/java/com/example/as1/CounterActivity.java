@@ -1,6 +1,8 @@
 package com.example.as1;
 
 import androidx.appcompat.app.AppCompatActivity;
+//Benjamin Muslic
+//Trying to fix this app
 
 import android.content.Intent;
 import android.os.Bundle;
