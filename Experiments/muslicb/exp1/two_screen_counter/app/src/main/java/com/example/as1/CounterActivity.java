@@ -14,7 +14,7 @@ public class CounterActivity extends AppCompatActivity {
     Button backBtn;
     TextView numberTxt;
 
-    int counter = 0;
+    int counter = 9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
