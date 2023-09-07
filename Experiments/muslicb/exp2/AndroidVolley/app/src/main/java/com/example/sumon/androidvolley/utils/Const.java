@@ -1,5 +1,6 @@
 package com.example.sumon.androidvolley.utils;
 
+//added Devin's linkedin picture
 public class Const {
 	public static final String URL_JSON_OBJECT = "https://jsonplaceholder.typicode.com/users/1";
 	public static final String URL_JSON_ARRAY = "https://jsonplaceholder.typicode.com/users";
