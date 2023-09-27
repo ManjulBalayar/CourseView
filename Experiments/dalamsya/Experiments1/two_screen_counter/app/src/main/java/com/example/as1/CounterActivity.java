@@ -21,7 +21,7 @@ public class CounterActivity extends AppCompatActivity {
     TextView numberTxt;
     //TextView helloWorldTxt;
 
-    int counter = 0;
+    //int counter = 0;
     String helloWorld = "Hello World!";
 
     @Override
