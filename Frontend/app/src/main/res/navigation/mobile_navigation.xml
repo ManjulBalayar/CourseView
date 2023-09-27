@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/profile"
-        android:name="com.example.navigation_screen.ui.profile.ScheduleFragment"
+        android:name="com.example.navigation_screen.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/navigation_schedule"
