@@ -15,5 +15,10 @@
         android:id="@+id/profile"
         android:icon="@drawable/profile_icon2"
         android:title="@string/title_profile" />
+    <item
+        android:id="@+id/schedule"
+        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:title="Schedule" />
+
 
 </menu>
