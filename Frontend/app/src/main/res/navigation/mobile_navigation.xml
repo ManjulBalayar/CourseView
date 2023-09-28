@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/schedule"
         android:name="com.example.navigation_screen.ui.schedule.ScheduleFragment"
-        android:label="@string/title_schedule"
+        android:label="Schedule"
         tools:layout="@layout/fragment_schedule" />
 
 
