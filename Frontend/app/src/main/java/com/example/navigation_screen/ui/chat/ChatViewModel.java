@@ -16,4 +16,6 @@ public class ChatViewModel extends ViewModel {
     public LiveData<String> getText() {
         return mText;
     }
+
+    //testing branch
 }
