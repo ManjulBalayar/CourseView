@@ -45,7 +45,7 @@
         android:textColorHint="@color/black" />
 
     <EditText
-        android:id="@+id/studentid"
+        android:id="@+id/userid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/password"
@@ -61,7 +61,7 @@
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/studentid"
+        android:layout_below="@id/userid"
         android:layout_margin="10dp"
         android:drawableLeft="@drawable/baseline_email_24"
         android:drawablePadding="20dp"
@@ -72,12 +72,12 @@
 
     <Spinner
         android:spinnerMode="dropdown"
-        android:id="@+id/userid"
+        android:id="@+id/userrole"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/email"
         android:layout_margin="10dp"
-        android:drawableLeft="@drawable/baseline_info_24"
+        android:drawableLeft="@android:drawable/btn_dropdown"
         android:drawablePadding="20dp"
         android:hint="User Role"
         android:padding="20dp"
@@ -88,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/loginbtn"
-        android:layout_below="@id/userid"
+        android:layout_below="@id/userrole"
         android:text="Sign Up"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
