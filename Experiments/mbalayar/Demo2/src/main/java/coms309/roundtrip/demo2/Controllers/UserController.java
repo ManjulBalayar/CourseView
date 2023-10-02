@@ -18,11 +18,13 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @PostMapping("users/post/info/{n}/{e}")
-    Users PostUserByPath(@PathVariable String n, @PathVariable String e) {
+    @PostMapping("users/post/info/{u}/{n}/{e}/{p}")
+    Users PostUserByPath(@PathVariable String u, @PathVariable String n, @PathVariable String e, @PathVariable String p) {
         Users newUser = new Users();
+        newUser.setUsername(u);
         newUser.setName(n);
         newUser.setEmail(e);
+        newUser.setPassword(p);
         userRepository.save(newUser);
         return newUser;
     }

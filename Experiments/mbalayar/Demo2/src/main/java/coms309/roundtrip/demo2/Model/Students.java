@@ -1,0 +1,8 @@
+package coms309.roundtrip.demo2.Model;
+
+public class Students extends Users{
+
+    public Students(int id, String name, String email) {
+        super(id, name, email);
+    }
+}
