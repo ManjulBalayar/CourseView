@@ -168,18 +168,28 @@ public class CoursesFragment extends Fragment {
         binding = null;
     }
 
+    // This method loads courses from a specified URL and populates course-related variables.
     private void loadCourses() {
+        // URL pointing to the courses resource
         String url = "http://coms-309-030.class.las.iastate.edu:8080/courses";
+
+        // Create a new JSON array request to receive a JSON array from the given URL
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                // Listener for successful responses
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
+                            // Clear existing course data
                             courseNames.clear();
                             courseDescriptions.clear();
                             courseIds.clear();
+
+                            // Iterate through the JSON array response
                             for (int i = 0; i < response.length(); i++) {
+                                // Get each course as a JSON object
                                 JSONObject course = response.getJSONObject(i);
+                                // Extract and store relevant information from each course object
                                 int id = course.getInt("id");
                                 String name = course.getString("courseName");
                                 String description = course.getString("description");
@@ -188,17 +198,24 @@ public class CoursesFragment extends Fragment {
                                 courseIds.add(id);
                             }
 
+                            // Notify adapter of data changes
                             adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
+                            // Print stack trace for JSONException
                             e.printStackTrace();
                         }
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("VolleyError", error.toString());
-            }
-        });
+                },
+                // Listener for error responses
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Log error responses with tag "VolleyError"
+                        Log.e("VolleyError", error.toString());
+                    }
+                });
+
+        // Add the created request to the Volley request queue
         Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
     }
 
