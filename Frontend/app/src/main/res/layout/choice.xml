@@ -9,8 +9,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/signup"
-        android:text="Sign Up"
+        android:id="@+id/choice"
+        android:text="Log In Or Sign Up"
         android:textColor="@color/black"
         android:textSize="35dp"
         android:textStyle="bold"
@@ -18,95 +18,33 @@
         android:gravity="center"
         />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/username"
-        android:layout_below="@id/signup"
-        android:layout_margin="10dp"
-        android:drawableLeft="@drawable/baseline_person_outline_24"
-        android:drawablePadding="20dp"
-        android:hint="Username"
-        android:padding="20dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/username"
-        android:layout_margin="10dp"
-        android:drawableLeft="@drawable/baseline_lock_24"
-        android:drawablePadding="20dp"
-        android:hint="Password"
-        android:padding="20dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black" />
-
-    <EditText
-        android:id="@+id/studentid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/password"
-        android:layout_margin="10dp"
-        android:drawableLeft="@drawable/baseline_info_24"
-        android:drawablePadding="20dp"
-        android:hint="School ID"
-        android:padding="20dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black" />
-
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/studentid"
-        android:layout_margin="10dp"
-        android:drawableLeft="@drawable/baseline_email_24"
-        android:drawablePadding="20dp"
-        android:hint="School Email"
-        android:padding="20dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black" />
-
-    <Spinner
-        android:spinnerMode="dropdown"
-        android:id="@+id/userid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/email"
-        android:layout_margin="10dp"
-        android:drawableLeft="@drawable/baseline_info_24"
-        android:drawablePadding="20dp"
-        android:hint="User Role"
-        android:padding="20dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black" />
-
-    <Spinner
-        android:spinnerMode="dropdown"
-        android:id="@+id/test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/email"
-        android:layout_margin="10dp"
-        android:drawableLeft="@drawable/baseline_info_24"
-        android:drawablePadding="20dp"
-        android:hint="User Role"
-        android:padding="20dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black" />
-
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/loginbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/loginbtn"
-        android:layout_below="@id/userid"
-        android:text="Sign Up"
+        android:layout_below="@id/choice"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Log In"
+        android:textSize="50dp"
+        android:width="250dp"
         />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/signupbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginbtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Sign Up"
+        android:textSize="50dp" />
 
 
 
