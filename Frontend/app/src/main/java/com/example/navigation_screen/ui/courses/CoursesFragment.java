@@ -160,7 +160,7 @@ public class CoursesFragment extends Fragment {
         // Return the root view of the fragment.
         return root;
     }
-
+//text comment
 
     @Override
     public void onDestroyView() {
