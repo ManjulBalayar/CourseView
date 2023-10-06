@@ -8,7 +8,7 @@
     <string name="schedule">Schedule</string>
     <string name="title_schedule" />
     <!--user role dropdown-->
-    <string-array name="user_role">
+    <string-array name="reg_userrole">
         <item>Student</item>
         <item>Advisor</item>
         <item>Admin</item>

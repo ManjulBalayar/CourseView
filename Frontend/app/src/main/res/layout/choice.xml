@@ -19,7 +19,7 @@
         />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/loginbtn"
+        android:id="@+id/loginchoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/choice"
@@ -34,10 +34,10 @@
         />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/signupbtn"
+        android:id="@+id/signupchoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/loginbtn"
+        android:layout_below="@id/loginchoice"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"

@@ -3,6 +3,7 @@ package com.example.navigation_screen;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,20 +19,24 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.choice);
 
-        loginchoice = findViewById(R.id.login);
-        //signupchoice = findViewById(R.id.signupchoice);
+        loginchoice = findViewById(R.id.loginchoice);
+        signupchoice = findViewById(R.id.signupchoice);
 
         loginchoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setContentView(R.layout.login);
+                Intent myintent = new Intent(MainActivity.this, Login.class);
+                startActivity(myintent);
+                //setContentView(R.layout.login);
             }
         });
 
         signupchoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setContentView(R.layout.login);
+                Intent myintent = new Intent(MainActivity.this, SignUp.class);
+                startActivity(myintent);
+                //setContentView(R.layout.signup);
             }
         });
         /*binding = ActivityMainBinding.inflate(getLayoutInflater());

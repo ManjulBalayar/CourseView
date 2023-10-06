@@ -21,7 +21,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/username"
+        android:id="@+id/reg_username"
         android:layout_below="@id/signup"
         android:layout_margin="10dp"
         android:drawableLeft="@drawable/baseline_person_outline_24"
@@ -32,10 +32,10 @@
         android:textColorHint="@color/black" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/reg_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/username"
+        android:layout_below="@id/reg_username"
         android:layout_margin="10dp"
         android:drawableLeft="@drawable/baseline_lock_24"
         android:drawablePadding="20dp"
@@ -45,10 +45,10 @@
         android:textColorHint="@color/black" />
 
     <EditText
-        android:id="@+id/userid"
+        android:id="@+id/reg_userid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/password"
+        android:layout_below="@id/reg_password"
         android:layout_margin="10dp"
         android:drawableLeft="@drawable/baseline_info_24"
         android:drawablePadding="20dp"
@@ -58,10 +58,10 @@
         android:textColorHint="@color/black" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/reg_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/userid"
+        android:layout_below="@id/reg_userid"
         android:layout_margin="10dp"
         android:drawableLeft="@drawable/baseline_email_24"
         android:drawablePadding="20dp"
@@ -72,10 +72,10 @@
 
     <Spinner
         android:spinnerMode="dropdown"
-        android:id="@+id/userrole"
+        android:id="@+id/reg_userrole"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/email"
+        android:layout_below="@id/reg_email"
         android:layout_margin="10dp"
         android:drawableLeft="@android:drawable/btn_dropdown"
         android:drawablePadding="20dp"
@@ -88,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/loginbtn"
-        android:layout_below="@id/userrole"
+        android:layout_below="@id/reg_userrole"
         android:text="Sign Up"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
