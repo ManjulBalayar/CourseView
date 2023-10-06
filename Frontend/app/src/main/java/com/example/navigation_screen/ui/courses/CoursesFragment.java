@@ -65,6 +65,8 @@ public class CoursesFragment extends Fragment {
     private List<Integer> courseIds = new ArrayList<>();
 
 
+
+
     /**
      * Called to have the fragment instantiate its user interface view.
      * This fragment inflates a layout file and sets up the UI components.
@@ -228,7 +230,7 @@ public class CoursesFragment extends Fragment {
         JSONObject postData = new JSONObject();
         try {
             // Populating postData with student_id and course_id (student_id is hard-coded for now)
-            postData.put("student_id", 4); // Note: student is hard-coded at the moment
+            postData.put("student_id", 3); // Note: student is hard-coded at the moment
             postData.put("course_id", courseId);
         } catch (JSONException e) {
             // Print stack trace for any JSON exception while populating postData
