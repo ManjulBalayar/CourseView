@@ -12,6 +12,8 @@ public class SignUp extends AppCompatActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.signup);
         //get the spinner from the xml.
         Spinner dropdown = (Spinner) findViewById(R.id.userrole);
 
