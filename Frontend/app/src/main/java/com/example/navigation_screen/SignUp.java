@@ -5,20 +5,28 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 
 
 public class SignUp extends AppCompatActivity {
 
     Button signupbtn;
     Spinner dropdown;
-    EditText reg_username, reg_password, reg_email, reg_userid;
+    EditText reg_username, reg_password, reg_email, reg_firstname, reg_lastname;
 
 
     @Override
@@ -32,7 +40,8 @@ public class SignUp extends AppCompatActivity {
         reg_username = findViewById(R.id.reg_username);
         reg_password = findViewById(R.id.reg_password);
         reg_email = findViewById(R.id.reg_email);
-        reg_userid = findViewById(R.id.reg_userid);
+        reg_firstname = findViewById(R.id.reg_firstname);
+        reg_lastname = findViewById(R.id.reg_lastname);
 
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
         //There are multiple variations of this, but this is the basic variant.
@@ -63,19 +72,47 @@ public class SignUp extends AppCompatActivity {
             String password = reg_password.getText().toString();
             String userrole = dropdown.getSelectedItem().toString();
             String email = reg_email.getText().toString();
+            String firstname = reg_firstname.getText().toString();
+            String lastname = reg_lastname.getText().toString();
 
             // JSON object that will contain the payload of the POST request
             JSONObject postData = new JSONObject();
             try {
 
                 postData.put("username", username);
-                postData.put("password", password);
+                postData.put("firstname", firstname);
+                postData.put("lastname", lastname);
                 postData.put("email", email);
+                postData.put("password", password);
                 postData.put("role", userrole);
             } catch (JSONException e) {
                 // Print stack trace for any JSON exception while populating postData
                 e.printStackTrace();
             }
+
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.POST,
+                    url,
+                    postData,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            // handle the response here
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // handle error here
+                        }
+                    }
+            );
+
+            requestQueue.add(jsonObjectRequest);
+            //Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
+
         }
 
     }
