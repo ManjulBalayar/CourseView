@@ -1,6 +1,7 @@
 package com.example.navigation_screen;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,13 +12,22 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.navigation_screen.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class Login extends AppCompatActivity{
 
-    EditText username, password;
+    EditText login_username, login_password;
     Button loginbtn;
 
     private ActivityMainBinding binding;
@@ -27,14 +37,16 @@ public class Login extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        username = findViewById(R.id.username);
-        password = findViewById(R.id.password);
+        login_username = findViewById(R.id.login_username);
+        login_password = findViewById(R.id.login_password);
         loginbtn = findViewById(R.id.loginbtn);
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                login();
+
                 binding = ActivityMainBinding.inflate(getLayoutInflater());
                 setContentView(binding.getRoot());
 
@@ -50,9 +62,53 @@ public class Login extends AppCompatActivity{
 
             }
         });
+    }
+    private void login() {
+        // URL endpoint for adding courses
+        String url = "http://coms-309-030.class.las.iastate.edu:8080/login";
 
+        String username = login_username.getText().toString();
+        String password = login_password.getText().toString();
 
+        // JSON object that will contain the payload of the POST request
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("username", username);
+            postData.put("password", password);
+        } catch (JSONException e) {
+            // Print stack trace for any JSON exception while populating postData
+            e.printStackTrace();
+        }
 
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                postData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        String jsonResponse = response.toString();
+                        System.out.println(jsonResponse);
+                        Log.d("DEBUG", jsonResponse);
+
+                        if(jsonResponse == null){
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // handle error here
+                    }
+                }
+        );
+
+        requestQueue.add(jsonObjectRequest);
+        //Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
 
     }
+
 }
