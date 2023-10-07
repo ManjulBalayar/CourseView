@@ -1,40 +1,80 @@
 package com.example.navigation_screen.ui.schedule;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.navigation_screen.databinding.FragmentScheduleBinding;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.navigation_screen.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScheduleFragment extends Fragment {
 
-    private FragmentScheduleBinding binding;
+    private List<String> courseNames = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        ScheduleViewModel scheduleViewModel =
-                new ViewModelProvider(this).get(ScheduleViewModel.class);
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_schedule, container, false);
 
+        // Set up the ListView and adapter
+        ListView listViewCourses = root.findViewById(R.id.listView_courses);
+        adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, courseNames);
+        listViewCourses.setAdapter(adapter);
 
-        binding = FragmentScheduleBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        // Load courses for the given student ID
+        loadCourses(3);
 
-
-        final TextView textView = binding.textSchedule;
-        scheduleViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    private void loadCourses(int studentId) {
+        Log.d("Debug", "Student ID: " + studentId);
+
+        String url = "http://coms-309-030.class.las.iastate.edu:8080/student/" + studentId + "/courses";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            courseNames.clear();
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject course = response.getJSONObject(i);
+                                String name = course.getString("courseName");
+                                courseNames.add(name);
+                            }
+                            adapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("VolleyError", error.toString());
+                    }
+                });
+
+        Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
     }
+
 }
