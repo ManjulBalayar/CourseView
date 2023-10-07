@@ -87,7 +87,7 @@
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/loginbtn"
+        android:id="@+id/signupbtn"
         android:layout_below="@id/reg_userrole"
         android:text="Sign Up"
         android:layout_centerHorizontal="true"

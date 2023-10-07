@@ -5,16 +5,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.navigation_screen.databinding.ActivityMainBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import androidx.navigation.ui.AppBarConfiguration;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-
+import com.example.navigation_screen.databinding.ActivityMainBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class Login extends AppCompatActivity{
@@ -45,8 +43,8 @@ public class Login extends AppCompatActivity{
                      AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                         R.id.courses, R.id.chat, R.id.profile, R.id.schedule)
                         .build();
-                    NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-                    NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+                    NavController navController = Navigation.findNavController(Login.this, R.id.nav_host_fragment_activity_main);
+                    NavigationUI.setupActionBarWithNavController(Login.this, navController, appBarConfiguration);
                     NavigationUI.setupWithNavController(binding.navView, navController);
 
             }
