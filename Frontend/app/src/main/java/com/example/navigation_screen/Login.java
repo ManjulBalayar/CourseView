@@ -32,6 +32,7 @@ public class Login extends AppCompatActivity{
         loginbtn = findViewById(R.id.loginbtn);
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 binding = ActivityMainBinding.inflate(getLayoutInflater());
