@@ -13,21 +13,16 @@ import java.util.Set;
 @RestController
 public class CourseController {
 
-
     @Autowired
     CourseRepository repo;
 
     // POST METHODS
-
     @PostMapping("/course")
     public Course addAlien(@RequestBody Course course) {
         repo.save(course);
         return course;
     }
-
     // END of POST METHODS
-
-
 
 
     // GET METHODS
