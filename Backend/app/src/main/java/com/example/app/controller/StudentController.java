@@ -62,7 +62,7 @@ public class StudentController {
         return repo.findById(student_id);
     }
 
-        // Get certain student course list
+    // Get certain student course list
     @GetMapping("/student/{student_id}/courses")
     public Set<Course> getCoursesLikedByStudent(@PathVariable("student_id") Long student_id) {
 
