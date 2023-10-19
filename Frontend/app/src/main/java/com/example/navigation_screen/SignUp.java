@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -57,6 +58,7 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 regData();
+                Toast.makeText(SignUp.this, "User Successfully Created!", Toast.LENGTH_SHORT).show();
 
                 Intent myintent = new Intent(SignUp.this, Login.class);
                 startActivity(myintent);
