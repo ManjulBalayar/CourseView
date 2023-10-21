@@ -65,19 +65,17 @@ public class CoursesFragment extends Fragment {
     private List<Integer> courseIds = new ArrayList<>();
 
 
-
-
     /**
      * Called to have the fragment instantiate its user interface view.
      * This fragment inflates a layout file and sets up the UI components.
-     * @param inflater The LayoutInflater object that can be used to inflate
-     * any views in the fragment,
-     * @param container If non-null, this is the parent view that the fragment's
-     * UI should be attached to.  The fragment should not add the view itself,
-     * but this can be used to generate the LayoutParams of the view.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     * from a previous saved state as given here.
      *
+     * @param inflater           The LayoutInflater object that can be used to inflate
+     *                           any views in the fragment,
+     * @param container          If non-null, this is the parent view that the fragment's
+     *                           UI should be attached to.  The fragment should not add the view itself,
+     *                           but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     *                           from a previous saved state as given here.
      * @return
      */
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -122,7 +120,7 @@ public class CoursesFragment extends Fragment {
                 textViewCourseDescription.setText("Course Description: " + courseDescriptions.get(position));
 
                 // Check if a valid course is selected and adjust the visibility of the Add Course button accordingly.
-                if(selectedCourse != null && !selectedCourse.isEmpty()) {
+                if (selectedCourse != null && !selectedCourse.isEmpty()) {
                     buttonAddCourse.setVisibility(View.VISIBLE);
                 } else {
                     buttonAddCourse.setVisibility(View.GONE);
@@ -146,7 +144,7 @@ public class CoursesFragment extends Fragment {
                 // Retrieve selected position in the Spinner.
                 int position = spinnerCourses.getSelectedItemPosition();
 
-               // Log.d("DEBUG", "Selected Position: " + position);
+                // Log.d("DEBUG", "Selected Position: " + position);
 
                 // Validate selected position and ensure it corresponds to a valid course, then add the course.
                 if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
@@ -245,7 +243,7 @@ public class CoursesFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                       // Log.d("DEBUG", "Received response: " + response.toString());
+                        // Log.d("DEBUG", "Received response: " + response.toString());
 
                         // Create a dialog builder for user feedback
                         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
