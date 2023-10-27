@@ -60,6 +60,8 @@ public class CoursesFragment extends Fragment {
 
     // Button widget for adding a course
     private Button buttonAddCourse;
+    // Button widget for rating a course
+    private Button buttonRateCourse;
 
     // List of course IDs, corresponding to the course names in courseNames
     private List<Integer> courseIds = new ArrayList<>();
@@ -101,6 +103,8 @@ public class CoursesFragment extends Fragment {
         courseDescriptions = new ArrayList<>();
         // Find and assign the Add Course button from the layout.
         buttonAddCourse = root.findViewById(R.id.button_add_course);
+        // Find and assign the Rate Course button from the layout.
+        buttonRateCourse = root.findViewById(R.id.button_rate_course);
         // Find and assign TextView for selected course display.
         TextView textViewSelectedCourse = root.findViewById(R.id.textView_selected_course);
 
@@ -121,11 +125,17 @@ public class CoursesFragment extends Fragment {
                 textViewSelectedCourse.setText("Selected Course: " + selectedCourse);
                 textViewCourseDescription.setText("Course Description: " + courseDescriptions.get(position));
 
-                // Check if a valid course is selected and adjust the visibility of the Add Course button accordingly.
+                // Check if a valid course is selected and adjust the visibility of the Add Course button and Rate Course button accordingly.
                 if(selectedCourse != null && !selectedCourse.isEmpty()) {
                     buttonAddCourse.setVisibility(View.VISIBLE);
                 } else {
                     buttonAddCourse.setVisibility(View.GONE);
+                }
+
+                if(selectedCourse != null && !selectedCourse.isEmpty()) {
+                    buttonRateCourse.setVisibility(View.VISIBLE);
+                } else {
+                    buttonRateCourse.setVisibility(View.GONE);
                 }
             }
 
