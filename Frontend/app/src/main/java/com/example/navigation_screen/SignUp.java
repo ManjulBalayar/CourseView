@@ -118,45 +118,5 @@ public class SignUp extends AppCompatActivity {
             //Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
 
         }
-
-    /*private void verifyUserCreation(final String expectedUsername) {
-        String url = "http://coms-309-030.class.las.iastate.edu:8080/users/all"; // Endpoint that returns list of users
-
-        JsonArrayRequest getRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        // Iterate through response array and check if user is created
-                        try {
-                            for (int i = 0; i < response.length(); i++) {
-                                JSONObject user = response.getJSONObject(i);
-                                String receivedUsername = user.getString("username"); // Adjust field name based on your actual JSON structure
-                                if (receivedUsername.equals(expectedUsername)) {
-                                    Toast.makeText(SignUp.this, "Account successfully created!", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                            }
-                            Toast.makeText(SignUp.this, "Account creation failed!", Toast.LENGTH_SHORT).show(); // Handle appropriately
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Handle error
-                    }
-                }
-        );
-
-        // Add the GET request to the RequestQueue
-        requestQueue.add(getRequest);
-    }*/
-
-
 }
 

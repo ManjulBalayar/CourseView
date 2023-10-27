@@ -13,5 +13,22 @@
         <item>Advisor</item>
         <item>Admin</item>
     </string-array>
+    <!--professor rating dropdown-->
+    <string-array name="professor_rating">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <!--class difficulty dropdown-->
+    <string-array name="rating">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
 
 </resources>

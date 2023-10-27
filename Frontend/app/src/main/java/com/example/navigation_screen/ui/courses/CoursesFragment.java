@@ -145,6 +145,7 @@ public class CoursesFragment extends Fragment {
                 // Update UI elements to reflect the lack of a selected course.
                 textViewSelectedCourse.setText("No Course Selected");
                 buttonAddCourse.setVisibility(View.GONE);
+                buttonRateCourse.setVisibility(View.GONE);
                 textViewCourseDescription.setText("Course Description: None");
             }
         });
@@ -162,6 +163,25 @@ public class CoursesFragment extends Fragment {
                 if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
                     int selectedCourseId = courseIds.get(position);
                     addCourse(selectedCourseId);
+                } else {
+                    // Show a toast message if an invalid course is selected.
+                    Toast.makeText(getContext(), "Please select a valid course", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        // Set a click listener for the Add Course button.
+        buttonRateCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Retrieve selected position in the Spinner.
+                int position = spinnerCourses.getSelectedItemPosition();
+
+                // Log.d("DEBUG", "Selected Position: " + position);
+
+                // Validate selected position and ensure it corresponds to a valid course, then add the course.
+                if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
+
                 } else {
                     // Show a toast message if an invalid course is selected.
                     Toast.makeText(getContext(), "Please select a valid course", Toast.LENGTH_SHORT).show();
