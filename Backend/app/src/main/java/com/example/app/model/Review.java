@@ -11,44 +11,44 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long review_id;
 
-    private String review_comment;
+    private String comment;
 
-    private Long review_rating;
+    private Long rating;
 
-    private Long review_difficulty;
+    private Long difficulty;
 
-    private Long review_time_commitment;
+    private Long time_commitment;
 
-    public Long getReview_difficulty() {
-        return review_difficulty;
+    public String getComment() {
+        return comment;
     }
 
-    public void setReview_difficulty(Long review_difficulty) {
-        this.review_difficulty = review_difficulty;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public Long getReview_time_commitment() {
-        return review_time_commitment;
+    public Long getRating() {
+        return rating;
     }
 
-    public void setReview_time_commitment(Long review_time_commitment) {
-        this.review_time_commitment = review_time_commitment;
+    public void setRating(Long rating) {
+        this.rating = rating;
     }
 
-    public String getReview_comment() {
-        return review_comment;
+    public Long getDifficulty() {
+        return difficulty;
     }
 
-    public void setReview_comment(String review_comment) {
-        this.review_comment = review_comment;
+    public void setDifficulty(Long difficulty) {
+        this.difficulty = difficulty;
     }
 
-    public Long getReview_rating() {
-        return review_rating;
+    public Long getTime_commitment() {
+        return time_commitment;
     }
 
-    public void setReview_rating(Long review_rating) {
-        this.review_rating = review_rating;
+    public void setTime_commitment(Long time_commitment) {
+        this.time_commitment = time_commitment;
     }
 
     public void setReview_id(Long reviewId) {

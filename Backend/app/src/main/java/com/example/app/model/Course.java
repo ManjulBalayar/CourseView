@@ -12,11 +12,11 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long course_id;
 
-    private String course_name;
+    private String name;
 
-    private String course_description;
+    private String description;
 
-    private String course_department;
+    private String department;
 
     // TODO
     // 1) add relationship oneToMany with review
@@ -31,27 +31,27 @@ public class Course {
         this.course_id = course_id;
     }
 
-    public String getCourse_name() {
-        return course_name;
+    public String getName() {
+        return name;
     }
 
-    public void setCourse_name(String course_name) {
-        this.course_name = course_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCourse_description() {
-        return course_description;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCourse_description(String course_description) {
-        this.course_description = course_description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getCourse_department() {
-        return course_department;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setCourse_department(String course_department) {
-        this.course_department = course_department;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }
