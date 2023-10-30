@@ -1,9 +1,6 @@
 package com.example.app.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Review {
@@ -18,6 +15,15 @@ public class Review {
     private Long difficulty;
 
     private Long time_commitment;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserProfile userProfile;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
+
 
     public String getComment() {
         return comment;

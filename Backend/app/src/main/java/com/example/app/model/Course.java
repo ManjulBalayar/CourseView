@@ -1,9 +1,7 @@
 package com.example.app.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Course {
@@ -20,8 +18,9 @@ public class Course {
 
     // TODO
     // 1) add relationship oneToMany with review
-    // 2) add relationship oneToMany with shcedule
-
+    // 2) add relationship oneToMany with schedule
+    @OneToMany(mappedBy = "course")
+    private List<Review> reviews;
 
     public Long getCourse_id() {
         return course_id;

@@ -1,6 +1,8 @@
 package com.example.app.model;
 
 import javax.persistence.*;
+import java.util.List;
+
 @Entity
 public class UserProfile {
 
@@ -11,6 +13,8 @@ public class UserProfile {
     private String password;
     private String email;
     private String role;
+    @OneToMany(mappedBy = "userProfile")
+    private List<Review> reviews;
 
     public void setUser_id(Long userId) {
         this.user_id = userId;
