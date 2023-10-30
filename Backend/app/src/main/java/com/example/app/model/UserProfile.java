@@ -2,7 +2,7 @@ package com.example.app.model;
 
 import javax.persistence.*;
 @Entity
-public class User {
+public class UserProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,16 +11,6 @@ public class User {
     private String password;
     private String email;
     private String role;
-
-    public User(String username, String password, String email, String role) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-    }
-
-    public User() {
-    }
 
     public void setUser_id(Long userId) {
         this.user_id = userId;
