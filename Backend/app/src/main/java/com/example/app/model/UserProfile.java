@@ -16,6 +16,9 @@ public class UserProfile {
     @OneToMany(mappedBy = "userProfile")
     private List<Review> reviews;
 
+    @OneToMany(mappedBy = "userProfile")
+    private  List<Schedule> schedules;
+
     public void setUser_id(Long userId) {
         this.userid = userId;
     }

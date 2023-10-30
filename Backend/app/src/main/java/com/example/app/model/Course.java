@@ -22,6 +22,9 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Review> reviews;
 
+    @OneToMany(mappedBy = "course")
+    private List<Schedule> schedules;
+
     public Long getCourse_id() {
         return courseid;
     }
