@@ -64,4 +64,28 @@ public class Review {
     public Long getReview_id() {
         return review_id;
     }
+
+    // Getter and setter for userId
+    public Long getUserId() {
+        return userProfile != null ? userProfile.getUser_id() : null;
+    }
+
+    public void setUserId(Long userId) {
+        if (userProfile == null) {
+            userProfile = new UserProfile();
+        }
+        userProfile.setUser_id(userId);
+    }
+
+    // Getter and setter for courseId
+    public Long getCourseId() {
+        return course != null ? course.getCourse_id() : null;
+    }
+
+    public void setCourseId(Long courseId) {
+        if (course == null) {
+            course = new Course();
+        }
+        course.setCourse_id(courseId);
+    }
 }
