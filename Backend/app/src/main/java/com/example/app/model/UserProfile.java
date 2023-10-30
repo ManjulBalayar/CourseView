@@ -8,7 +8,7 @@ public class UserProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    private Long userid;
     private String username;
     private String password;
     private String email;
@@ -17,11 +17,11 @@ public class UserProfile {
     private List<Review> reviews;
 
     public void setUser_id(Long userId) {
-        this.user_id = userId;
+        this.userid = userId;
     }
 
     public Long getUser_id() {
-        return user_id;
+        return userid;
     }
 
     public String getUsername() {

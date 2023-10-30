@@ -17,11 +17,11 @@ public class Review {
     private Long time_commitment;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userid")
     private UserProfile userProfile;
 
     @ManyToOne
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "courseid")
     private Course course;
 
 

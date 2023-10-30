@@ -8,7 +8,7 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long course_id;
+    private Long courseid;
 
     private String name;
 
@@ -23,11 +23,11 @@ public class Course {
     private List<Review> reviews;
 
     public Long getCourse_id() {
-        return course_id;
+        return courseid;
     }
 
     public void setCourse_id(Long course_id) {
-        this.course_id = course_id;
+        this.courseid = course_id;
     }
 
     public String getName() {

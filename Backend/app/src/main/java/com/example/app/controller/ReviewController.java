@@ -23,6 +23,11 @@ public class ReviewController {
 
 
     // GET METHODS //
+
+    @GetMapping("/reviews/byUser/{userId}")
+    public List<Review> getReviewsByUserId(@PathVariable Long userId) {
+        return repo.findByUserId(userId);
+    }
     @GetMapping("/review/{review_id}")
     public Optional<Review> getReview(@PathVariable("review_id") Long review_id) {
         return repo.findById(review_id);
