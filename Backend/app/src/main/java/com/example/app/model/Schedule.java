@@ -8,13 +8,14 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long schedule_id;
 
-    @ManyToOne
-    @JoinColumn(name = "userid")
-    private UserProfile userProfile;
 
     @ManyToOne
     @JoinColumn(name = "courseid")
     private Course course;
+
+    @OneToOne
+    @JoinColumn(name = "userid", unique = true)
+    private UserProfile userProfile;
 
     public Long getSchedule_id() {
         return schedule_id;

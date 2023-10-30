@@ -16,8 +16,9 @@ public class UserProfile {
     @OneToMany(mappedBy = "userProfile")
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "userProfile")
-    private  List<Schedule> schedules;
+    @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Schedule schedule;
+
 
     public void setUser_id(Long userId) {
         this.userid = userId;
