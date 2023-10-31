@@ -22,7 +22,7 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "course")
+    @ManyToMany(mappedBy = "courses")
     private List<Schedule> schedules;
 
     public Long getCourse_id() {
@@ -47,6 +47,30 @@ public class Course {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getCourseid() {
+        return courseid;
+    }
+
+    public void setCourseid(Long courseid) {
+        this.courseid = courseid;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
 
     public String getDepartment() {

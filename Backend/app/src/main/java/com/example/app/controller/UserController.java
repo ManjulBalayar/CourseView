@@ -1,6 +1,8 @@
 package com.example.app.controller;
 
+import com.example.app.model.Schedule;
 import com.example.app.model.UserProfile;
+import com.example.app.repository.ScheduleRepository;
 import com.example.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,9 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ScheduleRepository scheduleRepository;
+
     @GetMapping({"users/all"})
     List<UserProfile> GetAllUsers() {
         return this.userRepository.findAll();
@@ -23,6 +28,9 @@ public class UserController {
     @PostMapping({"users/post"})
     UserProfile PostUserByBody(@RequestBody UserProfile newUser) {
         this.userRepository.save(newUser);
+        Schedule emptySchedule = new Schedule();
+        emptySchedule.setUserProfile(newUser);
+        scheduleRepository.save(emptySchedule);
         return newUser;
     }
 

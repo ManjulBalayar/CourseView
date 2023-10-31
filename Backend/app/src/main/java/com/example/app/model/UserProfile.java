@@ -1,5 +1,7 @@
 package com.example.app.model;
 
+import org.springframework.beans.MutablePropertyValues;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -59,4 +61,29 @@ public class UserProfile {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
+
 }
