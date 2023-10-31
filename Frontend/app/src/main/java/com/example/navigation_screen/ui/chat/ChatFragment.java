@@ -6,14 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigation_screen.R;
 
 import org.java_websocket.handshake.ServerHandshake;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChatFragment extends Fragment implements WebSocketListener {
 
@@ -21,7 +25,12 @@ public class ChatFragment extends Fragment implements WebSocketListener {
 
     private Button connectBtn, sendBtn;
     private EditText usernameEtx, msgEtx;
-    private TextView msgTv;
+   // private TextView msgTv;
+
+    private RecyclerView rvMessages;
+    private MessageAdapter messageAdapter;
+    private List<Message> messageList = new ArrayList<>();
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -33,7 +42,16 @@ public class ChatFragment extends Fragment implements WebSocketListener {
         sendBtn = root.findViewById(R.id.bt2);
         usernameEtx = root.findViewById(R.id.et1);
         msgEtx = root.findViewById(R.id.et2);
-        msgTv = root.findViewById(R.id.tx1);
+      //  msgTv = root.findViewById(R.id.tx1);
+
+
+        rvMessages = root.findViewById(R.id.rvMessages);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        rvMessages.setLayoutManager(layoutManager);
+
+        messageAdapter = new MessageAdapter(messageList);
+        rvMessages.setAdapter(messageAdapter);
+
 
         /* connect button listener */
         connectBtn.setOnClickListener(view -> {
@@ -45,11 +63,19 @@ public class ChatFragment extends Fragment implements WebSocketListener {
         /* send button listener */
         sendBtn.setOnClickListener(v -> {
             try {
-                WebSocketManager.getInstance().sendMessage(msgEtx.getText().toString());
+                String messageToSend = msgEtx.getText().toString();
+                WebSocketManager.getInstance().sendMessage(messageToSend);
+
+                // Add to the local list
+                Message sentMessage = new Message(messageToSend, "user");
+                messageList.add(sentMessage);
+                messageAdapter.notifyDataSetChanged();
+                rvMessages.scrollToPosition(messageList.size() - 1); // Scroll to the bottom
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
+
 
         return root;
     }
@@ -57,18 +83,24 @@ public class ChatFragment extends Fragment implements WebSocketListener {
     @Override
     public void onWebSocketMessage(String message) {
         getActivity().runOnUiThread(() -> {
-            String s = msgTv.getText().toString();
-            msgTv.setText(s + "\n" + message);
+            String sender = msgEtx.getText().toString().equals(message) ? "user" : "other";
+            Message newMessage = new Message(message, sender);
+            messageList.add(newMessage);
+            messageAdapter.notifyDataSetChanged();
+            rvMessages.scrollToPosition(messageList.size() - 1); // Scroll to the bottom
         });
     }
 
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
         getActivity().runOnUiThread(() -> {
-            String s = msgTv.getText().toString();
-            msgTv.setText(s + "---\nconnection closed by " + (remote ? "server" : "local") + "\nreason: " + reason);
+            Message closeMessage = new Message("---\nconnection closed by " + (remote ? "server" : "local") + "\nreason: " + reason, "system");
+            messageList.add(closeMessage);
+            messageAdapter.notifyDataSetChanged();
+            rvMessages.scrollToPosition(messageList.size() - 1);
         });
     }
+
 
     @Override
     public void onWebSocketOpen(ServerHandshake handshakedata) {}
