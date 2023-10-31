@@ -1,5 +1,7 @@
 package com.example.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class Schedule {
 
     @OneToOne
     @JoinColumn(name = "userid", unique = true)
+    @JsonIgnore
     private UserProfile userProfile;
 
     public Long getScheduleid() {

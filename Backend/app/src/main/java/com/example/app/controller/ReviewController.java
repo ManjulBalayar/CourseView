@@ -26,7 +26,7 @@ public class ReviewController {
 
     @GetMapping("/reviews/byUser/{userId}")
     public List<Review> getReviewsByUserId(@PathVariable Long userId) {
-        return repo.findByUserId(userId);
+        return repo.findByUserProfileUserid(userId);
     }
     @GetMapping("/review/{review_id}")
     public Optional<Review> getReview(@PathVariable("review_id") Long review_id) {

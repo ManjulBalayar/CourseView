@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-    @Query("SELECT r FROM Review r WHERE r.userProfile.userid = :userId")
-    List<Review> findByUserId(Long userId);
+    List<Review> findByUserProfileUserid(Long userId);
+
 }
