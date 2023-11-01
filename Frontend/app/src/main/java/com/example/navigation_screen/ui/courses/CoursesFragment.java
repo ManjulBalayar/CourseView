@@ -1,6 +1,7 @@
 package com.example.navigation_screen.ui.courses;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.navigation_screen.R;
+import com.example.navigation_screen.RateCourse;
 import com.example.navigation_screen.databinding.FragmentHomeBinding;
 
 import org.json.JSONArray;
@@ -143,6 +145,7 @@ public class CoursesFragment extends Fragment {
                 // Update UI elements to reflect the lack of a selected course.
                 textViewSelectedCourse.setText("No Course Selected");
                 buttonAddCourse.setVisibility(View.GONE);
+                buttonRateCourse.setVisibility(View.GONE);
                 textViewCourseDescription.setText("Course Description: None");
             }
         });
@@ -160,6 +163,26 @@ public class CoursesFragment extends Fragment {
                 if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
                     int selectedCourseId = courseIds.get(position);
                     addCourse(selectedCourseId);
+                } else {
+                    // Show a toast message if an invalid course is selected.
+                    Toast.makeText(getContext(), "Please select a valid course", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        // Set a click listener for the Add Course button.
+        buttonRateCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Retrieve selected position in the Spinner.
+                int position = spinnerCourses.getSelectedItemPosition();
+
+                // Log.d("DEBUG", "Selected Position: " + position);
+
+                // Validate selected position and ensure it corresponds to a valid course, then add the course.
+                if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
+                    Intent myintent = new Intent(getActivity(), RateCourse.class);
+                    startActivity(myintent);
                 } else {
                     // Show a toast message if an invalid course is selected.
                     Toast.makeText(getContext(), "Please select a valid course", Toast.LENGTH_SHORT).show();

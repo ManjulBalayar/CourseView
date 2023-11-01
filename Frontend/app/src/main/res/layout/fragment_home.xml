@@ -59,7 +59,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.800"
-        app:layout_constraintL_toBottomOf="@+id/textView_selected_course"
+        app:layout_constraintTop_toBottomOf="@+id/textView_selected_course"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="462dp" />
 
