@@ -1,48 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     tools:context=".ui.chat.ChatFragment"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <EditText
-        android:layout_marginTop="20dp"
-        android:layout_height="50dp"
+    <LinearLayout
+        android:id="@+id/usernameLayout"
         android:layout_width="match_parent"
-        android:hint="username"
-        android:textSize="20dp"
-        android:id="@+id/et1" />
-    <Button
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Connect"
-        android:id="@+id/bt1" />
-    <EditText
-        android:layout_height="50dp"
-        android:layout_width="match_parent"
-        android:hint="message"
-        android:textSize="20dp"
-        android:id="@+id/et2" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Send"
-        android:id="@+id/bt2" />
+        android:orientation="vertical"
+        android:layout_alignParentTop="true">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvMessages"
+        <EditText
+            android:layout_marginTop="20dp"
+            android:layout_height="50dp"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:hint="username"
+            android:textSize="20dp"
+            android:id="@+id/et1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connect"
+            android:id="@+id/bt1" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMessages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_below="@+id/usernameLayout"
+        android:layout_above="@+id/layout_message" />
+
+    <!-- Layout for message EditText and Send Button -->
+    <LinearLayout
+        android:id="@+id/layout_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="47dp"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <EditText
+            android:id="@+id/et2"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:padding="16dp" />
+            android:hint="message"
+            android:textSize="20dp" />
 
-    </ScrollView>
-
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+        <Button
+            android:id="@+id/bt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,6 +1,5 @@
 package com.example.navigation_screen.ui.chat;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,9 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private List<Message> messages;
 
     private static final int VIEW_TYPE_SENT = 0;
+
+    private static final int VIEW_TYPE_IGNORE = 2;
+
     private static final int VIEW_TYPE_RECEIVED = 1;
 
     public MessageAdapter(List<Message> messages) {
@@ -26,41 +28,53 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        if (viewType == 0) {
+        if (viewType == VIEW_TYPE_SENT) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_sent, parent, false);
             return new SentMessageHolder(view);
-        } else {
+        } else if (viewType == VIEW_TYPE_RECEIVED) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_recieved, parent, false);
             return new ReceivedMessageHolder(view);
+        } else {
+            return null; // Return null for invalid type
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Message message = messages.get(position);
-
-        if (holder.getItemViewType() == 0) {
+        if (holder.getItemViewType() == VIEW_TYPE_SENT) {
             ((SentMessageHolder) holder).bind(message);
-        } else {
+        } else if (holder.getItemViewType() == VIEW_TYPE_RECEIVED) {
             ((ReceivedMessageHolder) holder).bind(message);
         }
+        // Do nothing for invalid type (-1)
     }
+
 
     @Override
     public int getItemViewType(int position) {
         Message message = messages.get(position);
-        Log.d("DEBUG", "Sender: " + message.getSender());
         if (message.getSender().equals("user")) {
             return VIEW_TYPE_SENT;
-        } else {
+        } else if (!message.getSender().contains(":")) { // Check if sender is not a user (doesn't contain colon)
             return VIEW_TYPE_RECEIVED;
+        } else {
+            return -1; // Invalid type
         }
     }
 
+
     @Override
     public int getItemCount() {
-        return messages.size();
+        int count = 0;
+        for (Message message : messages) {
+            if (!message.getSender().contains(":")) {
+                count++;
+            }
+        }
+        return count;
     }
+
 
     private class SentMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText;

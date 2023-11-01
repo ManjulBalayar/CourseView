@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,6 +27,8 @@ public class ChatFragment extends Fragment implements WebSocketListener {
     private Button connectBtn, sendBtn;
     private EditText usernameEtx, msgEtx;
    // private TextView msgTv;
+   private LinearLayout usernameLayout;
+
 
     private RecyclerView rvMessages;
     private MessageAdapter messageAdapter;
@@ -44,6 +47,7 @@ public class ChatFragment extends Fragment implements WebSocketListener {
         msgEtx = root.findViewById(R.id.et2);
       //  msgTv = root.findViewById(R.id.tx1);
 
+        usernameLayout = root.findViewById(R.id.usernameLayout);
 
         rvMessages = root.findViewById(R.id.rvMessages);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -58,6 +62,7 @@ public class ChatFragment extends Fragment implements WebSocketListener {
             String serverUrl = BASE_URL + usernameEtx.getText().toString();
             WebSocketManager.getInstance().connectWebSocket(serverUrl);
             WebSocketManager.getInstance().setWebSocketListener(ChatFragment.this);
+            usernameLayout.setVisibility(View.GONE);
         });
 
         /* send button listener */
@@ -65,8 +70,8 @@ public class ChatFragment extends Fragment implements WebSocketListener {
             try {
                 String messageToSend = msgEtx.getText().toString();
                 WebSocketManager.getInstance().sendMessage(messageToSend);
+                msgEtx.setText(""); // Clear the input field after sending
 
-                // Add to the local list
                 Message sentMessage = new Message(messageToSend, "user");
                 messageList.add(sentMessage);
                 messageAdapter.notifyDataSetChanged();
@@ -77,19 +82,20 @@ public class ChatFragment extends Fragment implements WebSocketListener {
         });
 
 
+
         return root;
     }
 
     @Override
     public void onWebSocketMessage(String message) {
         getActivity().runOnUiThread(() -> {
-            String sender = msgEtx.getText().toString().equals(message) ? "user" : "other";
-            Message newMessage = new Message(message, sender);
+            Message newMessage = new Message(message, "other");
             messageList.add(newMessage);
             messageAdapter.notifyDataSetChanged();
             rvMessages.scrollToPosition(messageList.size() - 1); // Scroll to the bottom
         });
     }
+
 
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
