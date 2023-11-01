@@ -1,6 +1,7 @@
 package com.example.navigation_screen.ui.courses;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.navigation_screen.R;
+import com.example.navigation_screen.RateCourse;
 import com.example.navigation_screen.databinding.FragmentHomeBinding;
 
 import org.json.JSONArray;
@@ -181,7 +183,8 @@ public class CoursesFragment extends Fragment {
 
                 // Validate selected position and ensure it corresponds to a valid course, then add the course.
                 if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
-
+                    Intent myintent = new Intent(getActivity(), RateCourse.class);
+                    startActivity(myintent);
                 } else {
                     // Show a toast message if an invalid course is selected.
                     Toast.makeText(getContext(), "Please select a valid course", Toast.LENGTH_SHORT).show();
