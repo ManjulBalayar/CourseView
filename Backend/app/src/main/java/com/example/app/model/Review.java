@@ -91,11 +91,4 @@ public class Review {
         course.setCourse_id(courseId);
     }
 
-    public Course[] getCourse() {
-        return new Course[]{course};
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
 }
