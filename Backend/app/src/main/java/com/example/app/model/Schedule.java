@@ -17,6 +17,7 @@ public class Schedule {
             name = "schedule_course",
             joinColumns = @JoinColumn(name = "scheduleid"),
             inverseJoinColumns = @JoinColumn(name = "courseid"))
+    @JsonIgnore
     private List<Course> courses;
 
     @OneToOne
