@@ -1,6 +1,8 @@
 package com.example.app.model;
 
+import com.example.app.repository.ScheduleRepository;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.List;
@@ -47,4 +49,6 @@ public class Schedule {
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
+
+
 }

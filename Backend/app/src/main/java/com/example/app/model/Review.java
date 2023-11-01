@@ -1,5 +1,7 @@
 package com.example.app.model;
 
+import net.minidev.json.annotate.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -87,5 +89,13 @@ public class Review {
             course = new Course();
         }
         course.setCourse_id(courseId);
+    }
+
+    public Course[] getCourse() {
+        return new Course[]{course};
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

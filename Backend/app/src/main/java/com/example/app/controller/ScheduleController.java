@@ -45,4 +45,5 @@ public class ScheduleController {
     public List<Schedule> getSchedules() {
         return repo.findAll();
     }
+
 }
