@@ -25,13 +25,6 @@ public class Course {
     @ManyToMany(mappedBy = "courses")
     private List<Schedule> schedules;
 
-    public Long getCourse_id() {
-        return courseid;
-    }
-
-    public void setCourse_id(Long course_id) {
-        this.courseid = course_id;
-    }
 
     public String getName() {
         return name;
