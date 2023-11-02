@@ -24,10 +24,10 @@ public class WorkloadController {
     public Workload getStudent(@PathVariable("course_id") Long course_id) {
 
         List<Review> reviewList = reviewRepository.findByCourseCourseid(course_id);
-        Long R = 0L;
-        Long D = 0L;
-        Long T = 0L;
-        Long size = 0L;
+        Float R = 0F;
+        Float D = 0F;
+        Float T = 0F;
+        Float size = 0F;
 
         for(Review r: reviewList){
             R += r.getRating();
