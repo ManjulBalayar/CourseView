@@ -36,8 +36,8 @@ public class ChatServer {
 
     // Store all socket session and their corresponding username
     // Two maps for the ease of retrieval by key
-    private static Map < Session, String > sessionUsernameMap = new Hashtable < > ();
-    private static Map < String, Session > usernameSessionMap = new Hashtable < > ();
+    private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
+    private static Map<String, Session> usernameSessionMap = new Hashtable<>();
 
     // server side logger
     private final Logger logger = LoggerFactory.getLogger(ChatServer.class);
@@ -45,7 +45,7 @@ public class ChatServer {
     /**
      * This method is called when a new WebSocket connection is established.
      *
-     * @param session represents the WebSocket session for the connected user.
+     * @param session  represents the WebSocket session for the connected user.
      * @param username username specified in path parameter.
      */
     @OnOpen
@@ -58,8 +58,7 @@ public class ChatServer {
         if (usernameSessionMap.containsKey(username)) {
             session.getBasicRemote().sendText("Username already exists");
             session.close();
-        }
-        else {
+        } else {
             // map current session with username
             sessionUsernameMap.put(session, username);
 
@@ -67,10 +66,10 @@ public class ChatServer {
             usernameSessionMap.put(username, session);
 
             // send to the user joining in
-            sendMessageToPArticularUser(username, "Welcome to the chat server, "+username);
+            sendMessageToPArticularUser(username, "Welcome to the chat server, " + username);
 
             // send to everyone in the chat
-          //  broadcast("User: " + username + " has Joined the Chat");
+            //  broadcast("User: " + username + " has Joined the Chat");
         }
     }
 
@@ -93,7 +92,7 @@ public class ChatServer {
         if (message.startsWith("@")) {
 
             // split by space
-            String[] split_msg =  message.split("\\s+");
+            String[] split_msg = message.split("\\s+");
 
             // Combine the rest of message
             StringBuilder actualMessageBuilder = new StringBuilder();
@@ -104,8 +103,7 @@ public class ChatServer {
             String actualMessage = actualMessageBuilder.toString();
             sendMessageToPArticularUser(destUserName, "[DM from " + username + "]: " + actualMessage);
             sendMessageToPArticularUser(username, "[DM from " + username + "]: " + actualMessage);
-        }
-        else { // Message to whole chat
+        } else { // Message to whole chat
             broadcast(username + ": " + message, session);
         }
 
@@ -130,7 +128,7 @@ public class ChatServer {
         usernameSessionMap.remove(username);
 
         // send the message to chat
-      //  broadcast(username + " disconnected");
+        //  broadcast(username + " disconnected");
     }
 
     /**
@@ -170,7 +168,7 @@ public class ChatServer {
      */
     private void broadcast(String message, Session excludeSession) {
         sessionUsernameMap.forEach((session, username) -> {
-            if(!session.equals(excludeSession)) { // Exclude the sender's session
+            if (!session.equals(excludeSession)) { // Exclude the sender's session
                 try {
                     session.getBasicRemote().sendText(message);
                 } catch (IOException e) {
@@ -179,5 +177,4 @@ public class ChatServer {
             }
         });
     }
-
 }
