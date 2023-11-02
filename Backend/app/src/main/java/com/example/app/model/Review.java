@@ -1,6 +1,6 @@
 package com.example.app.model;
 
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -24,6 +24,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "courseid")
+    @JsonIgnore
     private Course course;
 
 
