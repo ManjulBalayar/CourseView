@@ -20,10 +20,10 @@ public class WorkloadController {
     ReviewRepository reviewRepository;
 
 
-    @GetMapping("/workload/{coure_id}")
-    public Workload getStudent(@PathVariable("coure_id") Long coure_id) {
+    @GetMapping("/workload/byCourseID/{course_id}")
+    public Workload getStudent(@PathVariable("course_id") Long course_id) {
 
-        List<Review> reviewList = reviewRepository.findByCourseCourseid(coure_id);
+        List<Review> reviewList = reviewRepository.findByCourseCourseid(course_id);
         Long R = 0L;
         Long D = 0L;
         Long T = 0L;
@@ -40,7 +40,6 @@ public class WorkloadController {
         D = D/size;
         T = T/size;
 
-        Workload workload = new Workload(R,D,T);
-        return workload;
+        return new Workload(R,D,T);
     }
 }
