@@ -81,14 +81,14 @@ public class Review {
 
     // Getter and setter for courseId
     public Long getCourseId() {
-        return course != null ? course.getCourse_id() : null;
+        return course != null ? course.getCourseid() : null;
     }
 
     public void setCourseId(Long courseId) {
         if (course == null) {
             course = new Course();
         }
-        course.setCourse_id(courseId);
+        course.setCourseid(courseId);
     }
 
 }
