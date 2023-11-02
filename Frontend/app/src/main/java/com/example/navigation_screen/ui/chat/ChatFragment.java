@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ChatFragment extends Fragment implements WebSocketListener {
 
-    private String BASE_URL = "ws://10.0.2.2:8080/chat/";
+    private String BASE_URL = "http://coms-309-030.class.las.iastate.edu:8080/chat";
 
     private Button connectBtn, sendBtn;
     private EditText usernameEtx, msgEtx;
