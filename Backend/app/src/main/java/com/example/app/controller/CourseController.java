@@ -36,6 +36,11 @@ public class CourseController {
         return repo.findAll();
     }
 
+    @GetMapping("/courses/{search}")
+    public List<Course> getSearched(@PathVariable("search") String search) {
+
+        return repo.findByNameStartsWithSorted(search);
+    }
 
     // END of GET METHODS
 

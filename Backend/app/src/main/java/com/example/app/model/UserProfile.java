@@ -4,6 +4,7 @@ import org.springframework.beans.MutablePropertyValues;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class UserProfile {
@@ -21,6 +22,12 @@ public class UserProfile {
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL, orphanRemoval = true)
     private Schedule schedule;
 
+    @ManyToMany
+    @JoinTable(
+            name = "course_like",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    Set<Course> courses;
 
     public void setUser_id(Long userId) {
         this.userid = userId;
@@ -86,4 +93,11 @@ public class UserProfile {
         this.schedule = schedule;
     }
 
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
+    }
 }
