@@ -1,6 +1,7 @@
 package com.example.navigation_screen.ui.courses;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.navigation_screen.R;
+import com.example.navigation_screen.RateCourse;
 import com.example.navigation_screen.databinding.FragmentHomeBinding;
 
 import org.json.JSONArray;
@@ -60,24 +62,24 @@ public class CoursesFragment extends Fragment {
 
     // Button widget for adding a course
     private Button buttonAddCourse;
+    // Button widget for rating a course
+    private Button buttonRateCourse;
 
     // List of course IDs, corresponding to the course names in courseNames
     private List<Integer> courseIds = new ArrayList<>();
 
 
-
-
     /**
      * Called to have the fragment instantiate its user interface view.
      * This fragment inflates a layout file and sets up the UI components.
-     * @param inflater The LayoutInflater object that can be used to inflate
-     * any views in the fragment,
-     * @param container If non-null, this is the parent view that the fragment's
-     * UI should be attached to.  The fragment should not add the view itself,
-     * but this can be used to generate the LayoutParams of the view.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     * from a previous saved state as given here.
      *
+     * @param inflater           The LayoutInflater object that can be used to inflate
+     *                           any views in the fragment,
+     * @param container          If non-null, this is the parent view that the fragment's
+     *                           UI should be attached to.  The fragment should not add the view itself,
+     *                           but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     *                           from a previous saved state as given here.
      * @return
      */
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -101,6 +103,8 @@ public class CoursesFragment extends Fragment {
         courseDescriptions = new ArrayList<>();
         // Find and assign the Add Course button from the layout.
         buttonAddCourse = root.findViewById(R.id.button_add_course);
+        // Find and assign the Rate Course button from the layout.
+        buttonRateCourse = root.findViewById(R.id.button_rate_course);
         // Find and assign TextView for selected course display.
         TextView textViewSelectedCourse = root.findViewById(R.id.textView_selected_course);
 
@@ -121,11 +125,17 @@ public class CoursesFragment extends Fragment {
                 textViewSelectedCourse.setText("Selected Course: " + selectedCourse);
                 textViewCourseDescription.setText("Course Description: " + courseDescriptions.get(position));
 
-                // Check if a valid course is selected and adjust the visibility of the Add Course button accordingly.
+                // Check if a valid course is selected and adjust the visibility of the Add Course button and Rate Course button accordingly.
                 if(selectedCourse != null && !selectedCourse.isEmpty()) {
                     buttonAddCourse.setVisibility(View.VISIBLE);
                 } else {
                     buttonAddCourse.setVisibility(View.GONE);
+                }
+
+                if(selectedCourse != null && !selectedCourse.isEmpty()) {
+                    buttonRateCourse.setVisibility(View.VISIBLE);
+                } else {
+                    buttonRateCourse.setVisibility(View.GONE);
                 }
             }
 
@@ -135,6 +145,7 @@ public class CoursesFragment extends Fragment {
                 // Update UI elements to reflect the lack of a selected course.
                 textViewSelectedCourse.setText("No Course Selected");
                 buttonAddCourse.setVisibility(View.GONE);
+                buttonRateCourse.setVisibility(View.GONE);
                 textViewCourseDescription.setText("Course Description: None");
             }
         });
@@ -146,12 +157,33 @@ public class CoursesFragment extends Fragment {
                 // Retrieve selected position in the Spinner.
                 int position = spinnerCourses.getSelectedItemPosition();
 
-               // Log.d("DEBUG", "Selected Position: " + position);
+                // Log.d("DEBUG", "Selected Position: " + position);
 
                 // Validate selected position and ensure it corresponds to a valid course, then add the course.
                 if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
                     int selectedCourseId = courseIds.get(position);
+                    System.out.println(selectedCourseId);
                     addCourse(selectedCourseId);
+                } else {
+                    // Show a toast message if an invalid course is selected.
+                    Toast.makeText(getContext(), "Please select a valid course", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        // Set a click listener for the Add Course button.
+        buttonRateCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Retrieve selected position in the Spinner.
+                int position = spinnerCourses.getSelectedItemPosition();
+
+                // Log.d("DEBUG", "Selected Position: " + position);
+
+                // Validate selected position and ensure it corresponds to a valid course, then add the course.
+                if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
+                    Intent myintent = new Intent(getActivity(), RateCourse.class);
+                    startActivity(myintent);
                 } else {
                     // Show a toast message if an invalid course is selected.
                     Toast.makeText(getContext(), "Please select a valid course", Toast.LENGTH_SHORT).show();
@@ -192,8 +224,8 @@ public class CoursesFragment extends Fragment {
                                 // Get each course as a JSON object
                                 JSONObject course = response.getJSONObject(i);
                                 // Extract and store relevant information from each course object
-                                int id = course.getInt("id");
-                                String name = course.getString("courseName");
+                                int id = course.getInt("courseid");
+                                String name = course.getString("name");
                                 String description = course.getString("description");
                                 courseNames.add(name);
                                 courseDescriptions.add(description);
@@ -230,8 +262,8 @@ public class CoursesFragment extends Fragment {
         JSONObject postData = new JSONObject();
         try {
             // Populating postData with student_id and course_id (student_id is hard-coded for now)
-            postData.put("student_id", 3); // Note: student is hard-coded at the moment
-            postData.put("course_id", courseId);
+            postData.put("student_id", 1); // Note: student is hard-coded at the moment
+            postData.put("course_id", 1);
         } catch (JSONException e) {
             // Print stack trace for any JSON exception while populating postData
             e.printStackTrace();
@@ -245,7 +277,7 @@ public class CoursesFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                       // Log.d("DEBUG", "Received response: " + response.toString());
+                        // Log.d("DEBUG", "Received response: " + response.toString());
 
                         // Create a dialog builder for user feedback
                         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());

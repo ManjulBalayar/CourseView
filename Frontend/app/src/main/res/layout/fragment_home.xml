@@ -42,12 +42,26 @@
         android:id="@+id/button_add_course"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Add Course"
         android:visibility="gone"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.200"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_selected_course"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView_selected_course" />
+
+    <Button
+        android:id="@+id/button_rate_course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_add_course"
+        android:text="Rate Course"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.800"
+        app:layout_constraintTop_toBottomOf="@+id/textView_selected_course"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="462dp" />
 
     <TextView
         android:id="@+id/textView_course_description"

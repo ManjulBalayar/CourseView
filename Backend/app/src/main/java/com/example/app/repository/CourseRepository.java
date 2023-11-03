@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CourseRepository extends JpaRepository<Course, Long> {
-
-    @Query("FROM Course WHERE courseName LIKE ?1% ORDER BY courseName")
+    @Query("FROM Course WHERE name LIKE ?1% ORDER BY name")
     List<Course> findByNameStartsWithSorted(String courseName);
-
 }

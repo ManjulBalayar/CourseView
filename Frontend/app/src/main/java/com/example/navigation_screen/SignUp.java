@@ -84,10 +84,10 @@ public class SignUp extends AppCompatActivity {
             try {
 
                 postData.put("username", username);
-                postData.put("firstname", firstname);
-                postData.put("lastname", lastname);
-                postData.put("email", email);
+                //postData.put("firstname", firstname);
+                //postData.put("lastname", lastname);
                 postData.put("password", password);
+                postData.put("email", email);
                 postData.put("role", userrole);
             } catch (JSONException e) {
                 // Print stack trace for any JSON exception while populating postData
@@ -105,6 +105,8 @@ public class SignUp extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             // handle the response here
+                            System.out.println("It works");
+                            System.out.println(response.toString());
                         }
                     },
                     new Response.ErrorListener() {
@@ -120,45 +122,5 @@ public class SignUp extends AppCompatActivity {
             //Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
 
         }
-
-    /*private void verifyUserCreation(final String expectedUsername) {
-        String url = "http://coms-309-030.class.las.iastate.edu:8080/users/all"; // Endpoint that returns list of users
-
-        JsonArrayRequest getRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                url,
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        // Iterate through response array and check if user is created
-                        try {
-                            for (int i = 0; i < response.length(); i++) {
-                                JSONObject user = response.getJSONObject(i);
-                                String receivedUsername = user.getString("username"); // Adjust field name based on your actual JSON structure
-                                if (receivedUsername.equals(expectedUsername)) {
-                                    Toast.makeText(SignUp.this, "Account successfully created!", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                            }
-                            Toast.makeText(SignUp.this, "Account creation failed!", Toast.LENGTH_SHORT).show(); // Handle appropriately
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Handle error
-                    }
-                }
-        );
-
-        // Add the GET request to the RequestQueue
-        requestQueue.add(getRequest);
-    }*/
-
-
 }
 

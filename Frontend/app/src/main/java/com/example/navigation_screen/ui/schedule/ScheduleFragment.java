@@ -1,11 +1,13 @@
 package com.example.navigation_screen.ui.schedule;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ScheduleFragment extends Fragment {
 
     private List<String> courseNames = new ArrayList<>();
@@ -40,7 +43,18 @@ public class ScheduleFragment extends Fragment {
         listViewCourses.setAdapter(adapter);
 
         // Load courses for the given student ID
-        loadCourses(3);
+        loadCourses(1);
+
+        // Find the button by ID and set an OnClickListener
+        Button calculateWorkloadButton = root.findViewById(R.id.button_calculate_workload);
+        calculateWorkloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Execute your GET request logic here
+                calculateWorkload();
+            }
+        });
+
 
         return root;
     }
@@ -77,4 +91,15 @@ public class ScheduleFragment extends Fragment {
         Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
     }
 
+    private void calculateWorkload() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("LOOKING AT YOUR COURSES AND BOOM MAGIC");
+        builder.setMessage("Your calculated workload is: ");
+        builder.setPositiveButton("OK", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+
+    }
 }

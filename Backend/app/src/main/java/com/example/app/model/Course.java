@@ -1,39 +1,37 @@
 package com.example.app.model;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class Course {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long courseid;
 
-    private String courseName;
+    private String name;
 
     private String description;
 
+    private String department;
+
+    // TODO
+    // 1) add relationship oneToMany with review
+    // 2) add relationship oneToMany with schedule
+    @OneToMany(mappedBy = "course")
+    private List<Review> reviews;
+
     @ManyToMany(mappedBy = "courses")
-    @JsonIgnore
-    Set<Student> likes;
+    private List<Schedule> schedules;
 
-    public Long getId() {
-        return id;
+
+    public String getName() {
+        return name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -44,11 +42,35 @@ public class Course {
         this.description = description;
     }
 
-    public Set<Student> getLikes() {
-        return likes;
+    public Long getCourseid() {
+        return courseid;
     }
 
-    public void setLikes(Set<Student> likes) {
-        this.likes = likes;
+    public void setCourseid(Long courseid) {
+        this.courseid = courseid;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }

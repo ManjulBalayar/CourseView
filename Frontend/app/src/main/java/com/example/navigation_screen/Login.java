@@ -16,11 +16,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.navigation_screen.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +31,8 @@ public class Login extends AppCompatActivity{
 
     EditText login_username, login_password;
     Button loginbtn;
+
+    public static int userid = 0;
 
     private ActivityMainBinding binding;
 
@@ -46,6 +50,8 @@ public class Login extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 login();
+                getID();
+                System.out.println(userid);
 
                 binding = ActivityMainBinding.inflate(getLayoutInflater());
                 setContentView(binding.getRoot());
@@ -109,6 +115,47 @@ public class Login extends AppCompatActivity{
         requestQueue.add(jsonObjectRequest);
         //Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
 
+    }
+
+    //
+    private void getID() {
+        String username = login_username.getText().toString();
+        String url = "http://coms-309-030.class.las.iastate.edu:8080/userprofiles/" + username;
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                // Listener for successful responses
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        System.out.println(response.toString());
+                        try {
+                            // Get the first (and only) object from the array
+                            JSONObject firstObject = response.getJSONObject(0);
+
+                            // Access the "user ID" value
+                            userid = firstObject.getInt("userid");
+
+                            // Now, userId contains the user ID value
+                            System.out.println("userid: " + userid);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                // Listener for error responses
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Log error responses with tag "VolleyError"
+                        Log.e("VolleyError", error.toString());
+                    }
+                });
+
+        // Add the created request to the Volley request queue
+        requestQueue.add(jsonArrayRequest);
+        //Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
     }
 
 }
