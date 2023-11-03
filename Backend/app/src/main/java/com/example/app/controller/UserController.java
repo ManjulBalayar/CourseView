@@ -42,16 +42,6 @@ public class UserController {
         return userRepository.findById(userid);
     }
 
-    // Get certain user's course list
-    @GetMapping("/userprofile/{userid}/courses")
-    public Set<Course> getCoursesLikedByUserProfile(@PathVariable("userid") Long userid) {
-
-        UserProfile userProfile = userRepository.findById(userid)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        return userProfile.getCourses();
-    }
-
     // Gets all user names only
     @GetMapping("/userprofiles/names")
     public List<Map<String, Object>> getNames() {
