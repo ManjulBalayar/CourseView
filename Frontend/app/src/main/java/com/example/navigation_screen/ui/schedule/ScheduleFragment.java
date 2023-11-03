@@ -62,7 +62,7 @@ public class ScheduleFragment extends Fragment {
     private void loadCourses(int studentId) {
         Log.d("Debug", "Student ID: " + studentId);
 
-        String url = "http://coms-309-030.class.las.iastate.edu:8080/student/" + studentId + "/courses";
+        String url = "http://coms-309-030.class.las.iastate.edu:8080/schedule/" + studentId;
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -72,7 +72,7 @@ public class ScheduleFragment extends Fragment {
                             courseNames.clear();
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject course = response.getJSONObject(i);
-                                String name = course.getString("courseName");
+                                String name = course.getString("name");
                                 courseNames.add(name);
                             }
                             adapter.notifyDataSetChanged();

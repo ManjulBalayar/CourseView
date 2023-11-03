@@ -262,7 +262,7 @@ public class CoursesFragment extends Fragment {
         JSONObject postData = new JSONObject();
         try {
             // Populating postData with student_id and course_id (student_id is hard-coded for now)
-            postData.put("student_id", 1); // Note: student is hard-coded at the moment
+            postData.put("user_id", 1); // Note: student is hard-coded at the moment
             postData.put("course_id", 1);
         } catch (JSONException e) {
             // Print stack trace for any JSON exception while populating postData
@@ -283,7 +283,7 @@ public class CoursesFragment extends Fragment {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
                         // Check if response contains student_id and course_id indicating success
-                        if (response.has("student_id") && response.has("course_id")) {
+                        if (response.has("user_id") && response.has("course_id")) {
                             // Show success message to the user
                             builder.setTitle("Success");
                             builder.setMessage("Course successfully added!");

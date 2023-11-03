@@ -56,15 +56,15 @@ public class Login extends AppCompatActivity{
                 binding = ActivityMainBinding.inflate(getLayoutInflater());
                 setContentView(binding.getRoot());
 
-                    BottomNavigationView navView = findViewById(R.id.nav_view);
-                    // Passing each menu ID as a set of Ids because each
-                    // menu should be considered as top level destinations.
-                     AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                BottomNavigationView navView = findViewById(R.id.nav_view);
+                // Passing each menu ID as a set of Ids because each
+                // menu should be considered as top level destinations.
+                AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                         R.id.courses, R.id.chat, R.id.profile, R.id.schedule)
                         .build();
-                    NavController navController = Navigation.findNavController(Login.this, R.id.nav_host_fragment_activity_main);
-                    NavigationUI.setupActionBarWithNavController(Login.this, navController, appBarConfiguration);
-                    NavigationUI.setupWithNavController(binding.navView, navController);
+                NavController navController = Navigation.findNavController(Login.this, R.id.nav_host_fragment_activity_main);
+                NavigationUI.setupActionBarWithNavController(Login.this, navController, appBarConfiguration);
+                NavigationUI.setupWithNavController(binding.navView, navController);
 
             }
         });
