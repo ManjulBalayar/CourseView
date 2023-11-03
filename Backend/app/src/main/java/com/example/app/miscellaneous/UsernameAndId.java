@@ -1,4 +1,4 @@
-package com.example.app.repository;
+package com.example.app.miscellaneous;
 
 public interface UsernameAndId {
     String getUsername();

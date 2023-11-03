@@ -44,5 +44,4 @@ public class CourseController {
 
     // END of GET METHODS
 
-
 }

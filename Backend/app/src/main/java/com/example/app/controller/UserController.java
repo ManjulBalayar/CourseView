@@ -4,7 +4,7 @@ import com.example.app.model.Schedule;
 import com.example.app.model.UserProfile;
 import com.example.app.repository.ScheduleRepository;
 import com.example.app.repository.UserRepository;
-import com.example.app.repository.UsernameAndId;
+import com.example.app.miscellaneous.UsernameAndId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
