@@ -162,6 +162,7 @@ public class CoursesFragment extends Fragment {
                 // Validate selected position and ensure it corresponds to a valid course, then add the course.
                 if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
                     int selectedCourseId = courseIds.get(position);
+                    System.out.println(selectedCourseId);
                     addCourse(selectedCourseId);
                 } else {
                     // Show a toast message if an invalid course is selected.
@@ -223,8 +224,8 @@ public class CoursesFragment extends Fragment {
                                 // Get each course as a JSON object
                                 JSONObject course = response.getJSONObject(i);
                                 // Extract and store relevant information from each course object
-                                int id = course.getInt("id");
-                                String name = course.getString("courseName");
+                                int id = course.getInt("courseid");
+                                String name = course.getString("name");
                                 String description = course.getString("description");
                                 courseNames.add(name);
                                 courseDescriptions.add(description);
@@ -261,8 +262,8 @@ public class CoursesFragment extends Fragment {
         JSONObject postData = new JSONObject();
         try {
             // Populating postData with student_id and course_id (student_id is hard-coded for now)
-            postData.put("student_id", 3); // Note: student is hard-coded at the moment
-            postData.put("course_id", courseId);
+            postData.put("student_id", 1); // Note: student is hard-coded at the moment
+            postData.put("course_id", 1);
         } catch (JSONException e) {
             // Print stack trace for any JSON exception while populating postData
             e.printStackTrace();

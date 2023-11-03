@@ -82,10 +82,10 @@ public class SignUp extends AppCompatActivity {
             try {
 
                 postData.put("username", username);
-                postData.put("firstname", firstname);
-                postData.put("lastname", lastname);
-                postData.put("email", email);
+                //postData.put("firstname", firstname);
+                //postData.put("lastname", lastname);
                 postData.put("password", password);
+                postData.put("email", email);
                 postData.put("role", userrole);
             } catch (JSONException e) {
                 // Print stack trace for any JSON exception while populating postData
@@ -103,6 +103,8 @@ public class SignUp extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             // handle the response here
+                            System.out.println("It works");
+                            System.out.println(response.toString());
                         }
                     },
                     new Response.ErrorListener() {

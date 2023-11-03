@@ -22,7 +22,13 @@ public class UserController {
     @Autowired
     ScheduleRepository scheduleRepository;
 
-    @GetMapping("/users/{user_id}")
+
+    @GetMapping({"users/searchByName/{username}"})
+    public UserProfile getUserByName(@PathVariable("username") String username) {
+        return userRepository.findByUsername(username);
+    }
+
+        @GetMapping("/users/{user_id}")
     public Optional<UserProfile> getStudent(@PathVariable("user_id") Long user_id) {
         return userRepository.findById(user_id);
     }
