@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<UserProfile, Long> {
     UserProfile findByUsername(String username);
-
-    // This will return a list of Users with the specified username
     List<UserProfile> findAllByUsername(String username);
 }
+
