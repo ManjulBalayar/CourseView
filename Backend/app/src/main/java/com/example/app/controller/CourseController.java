@@ -39,7 +39,7 @@ public class CourseController {
     @GetMapping("/courses/{search}")
     public List<Course> getSearched(@PathVariable("search") String search) {
 
-        return repo.findByNameStartsWithSorted(search);
+        return repo.findByNameStartingWithOrderByName(search);
     }
 
     // END of GET METHODS
