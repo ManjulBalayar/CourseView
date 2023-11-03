@@ -43,7 +43,7 @@ public class ScheduleFragment extends Fragment {
         listViewCourses.setAdapter(adapter);
 
         // Load courses for the given student ID
-        loadCourses(3);
+        loadCourses(1);
 
         // Find the button by ID and set an OnClickListener
         Button calculateWorkloadButton = root.findViewById(R.id.button_calculate_workload);
