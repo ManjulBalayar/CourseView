@@ -17,6 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.navigation_screen.Login;
 import com.example.navigation_screen.R;
@@ -97,26 +98,30 @@ public class ScheduleFragment extends Fragment {
     private void calculateWorkload() {
         String url = "http://coms-309-030.class.las.iastate.edu:8080/workload/byUserid/" + userid;
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
-                        //try {
+                    public void onResponse(JSONObject response) {
+                        try {
 
                             System.out.println(response);
-                            String workload = response.toString();
+                            //String workload = response.toString();
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                             builder.setTitle("LOOKING AT YOUR COURSES AND BOOM MAGIC");
-                            builder.setMessage("Your calculated workload is: " + workload);
+
+                            String rating = response.getString("rating");
+                            String difficulty = response.getString("difficulty");
+                            String time_commitment = response.getString("time_commitment");
+
+                            builder.setMessage("Your calculated workload is... \nRating: " + rating +
+                            "\nDifficulty: " + difficulty + "\nTime Commitment: " + time_commitment);
                             builder.setPositiveButton("OK", null);
                             AlertDialog dialog = builder.create();
                             dialog.show();
-
-
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -126,7 +131,7 @@ public class ScheduleFragment extends Fragment {
                     }
                 });
 
-        Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
+        Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
 
 
     }
