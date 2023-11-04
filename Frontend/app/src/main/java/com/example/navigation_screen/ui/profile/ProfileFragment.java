@@ -15,12 +15,14 @@ import androidx.lifecycle.ViewModelProvider;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.navigation_screen.Login;
 import com.example.navigation_screen.R;
 import com.example.navigation_screen.databinding.FragmentProfileBinding;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -109,11 +111,11 @@ public class ProfileFragment extends Fragment {
         String url = "http://coms-309-030.class.las.iastate.edu:8080/reviews/byUser/" + userid;
 
         // Create a new JSON array request to receive a JSON array from the given URL
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 // Listener for successful responses
-                new Response.Listener<JSONObject>() {
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
                         System.out.println(response.toString());
 //                        try {
 //                            System.out.println(response.toString());
@@ -139,7 +141,7 @@ public class ProfileFragment extends Fragment {
                 });
 
         // Add the created request to the Volley request queue
-        Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
+        Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
     }
 
 }

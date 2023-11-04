@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.navigation_screen.Login;
 import com.example.navigation_screen.R;
 
 import org.json.JSONArray;
@@ -33,6 +34,8 @@ public class ScheduleFragment extends Fragment {
     private List<String> courseNames = new ArrayList<>();
     private ArrayAdapter<String> adapter;
 
+    int userid = Login.userid;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_schedule, container, false);
@@ -43,7 +46,7 @@ public class ScheduleFragment extends Fragment {
         listViewCourses.setAdapter(adapter);
 
         // Load courses for the given student ID
-        loadCourses(1);
+        loadCourses(userid);
 
         // Find the button by ID and set an OnClickListener
         Button calculateWorkloadButton = root.findViewById(R.id.button_calculate_workload);
@@ -59,10 +62,10 @@ public class ScheduleFragment extends Fragment {
         return root;
     }
 
-    private void loadCourses(int studentId) {
-        Log.d("Debug", "Student ID: " + studentId);
+    private void loadCourses(int userid) {
+        Log.d("Debug", "Student ID: " + userid);
 
-        String url = "http://coms-309-030.class.las.iastate.edu:8080/schedule/" + studentId;
+        String url = "http://coms-309-030.class.las.iastate.edu:8080/schedule/" + userid;
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -92,13 +95,38 @@ public class ScheduleFragment extends Fragment {
     }
 
     private void calculateWorkload() {
+        String url = "http://coms-309-030.class.las.iastate.edu:8080/workload/byUserid/" + userid;
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("LOOKING AT YOUR COURSES AND BOOM MAGIC");
-        builder.setMessage("Your calculated workload is: ");
-        builder.setPositiveButton("OK", null);
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        //try {
+
+                            System.out.println(response.toString());
+                            String workload = response.toString();
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder.setTitle("LOOKING AT YOUR COURSES AND BOOM MAGIC");
+                            builder.setMessage("Your calculated workload is: " + workload);
+                            builder.setPositiveButton("OK", null);
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+
+
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("VolleyError", error.toString());
+                    }
+                });
+
+        Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
 
 
     }
