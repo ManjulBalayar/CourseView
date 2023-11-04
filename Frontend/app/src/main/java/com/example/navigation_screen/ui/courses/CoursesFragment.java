@@ -24,6 +24,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.navigation_screen.Login;
+import com.example.navigation_screen.PreferencesUtil;
 import com.example.navigation_screen.R;
 import com.example.navigation_screen.RateCourse;
 import com.example.navigation_screen.databinding.FragmentHomeBinding;
@@ -35,12 +37,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 /**
  * Fragment representing the course selection screen in the application.
  * Users can select courses from a spinner, view their descriptions,
  * and add selected courses to their profile (in progress).
  */
-public class CoursesFragment extends Fragment {
+public class CoursesFragment extends Fragment  {
 
     // Binding object for the FragmentHome layout
     private FragmentHomeBinding binding;
@@ -67,6 +71,8 @@ public class CoursesFragment extends Fragment {
 
     // List of course IDs, corresponding to the course names in courseNames
     private List<Integer> courseIds = new ArrayList<>();
+
+    int userid = Login.userid;
 
 
     /**
@@ -256,14 +262,16 @@ public class CoursesFragment extends Fragment {
     // This method sends a POST request to add a course with the specified courseId for a student
     private void addCourse(int courseId) {
         // URL endpoint for adding courses
+        userid = PreferencesUtil.getUserId(getContext());
         String url = "http://coms-309-030.class.las.iastate.edu:8080/addCourse";
-
+        Log.d("userid: ", "" + userid);
+        Log.d("courseId: ", "" + courseId);
         // JSON object that will contain the payload of the POST request
         JSONObject postData = new JSONObject();
         try {
-            // Populating postData with student_id and course_id (student_id is hard-coded for now)
-            postData.put("user_id", 1); // Note: student is hard-coded at the moment
-            postData.put("course_id", 1);
+            // Populating postData with student_id and course_id
+            postData.put("user_id", userid);
+            postData.put("course_id", courseId);
         } catch (JSONException e) {
             // Print stack trace for any JSON exception while populating postData
             e.printStackTrace();
@@ -327,6 +335,11 @@ public class CoursesFragment extends Fragment {
         // Add the created request to the Volley request queue
         Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
     }
+
+
+
+
+
 
 
 }

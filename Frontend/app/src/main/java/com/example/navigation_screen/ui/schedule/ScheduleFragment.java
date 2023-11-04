@@ -103,7 +103,7 @@ public class ScheduleFragment extends Fragment {
                     public void onResponse(JSONArray response) {
                         //try {
 
-                            System.out.println(response.toString());
+                            System.out.println(response);
                             String workload = response.toString();
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());

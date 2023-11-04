@@ -1,5 +1,6 @@
 package com.example.navigation_screen;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -96,6 +97,15 @@ public class Login extends AppCompatActivity{
                     @Override
                     public void onResponse(JSONObject response) {
                         String jsonResponse = response.toString();
+                        try {
+                            PreferencesUtil.saveUserId(getApplicationContext(), response.getInt("userid"));
+                            userid = response.getInt("userid");
+                            Log.d("userid: ", ""+ userid);
+                        }
+                        catch (JSONException e) {
+                            // Print stack trace for JSONException
+                            e.printStackTrace();
+                        }
                         System.out.println(jsonResponse);
                         Log.d("DEBUG", jsonResponse);
 
@@ -157,5 +167,12 @@ public class Login extends AppCompatActivity{
         requestQueue.add(jsonArrayRequest);
         //Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
     }
+    public void saveUserId(int userId) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+        myEdit.putInt("userid", userId);
+        myEdit.apply();
+    }
+
 
 }
