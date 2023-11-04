@@ -27,6 +27,9 @@ public class RateCourse extends AppCompatActivity {
 
 
     Button submitbtn;
+
+    Button backBtn;
+
     Spinner rate_course, rate_difficulty;
     EditText comments,time;
 
@@ -70,6 +73,7 @@ public class RateCourse extends AppCompatActivity {
 
 
         submitbtn = findViewById(R.id.submitbtn);
+        backBtn = findViewById(R.id.back_button);
 
 
         submitbtn.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +82,13 @@ public class RateCourse extends AppCompatActivity {
                 //regData();
 
                 submitCourseRating();
+            }
+        });
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish(); // This will close the current activity and go back to the previous activity
             }
         });
     }
