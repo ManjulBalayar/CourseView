@@ -52,51 +52,51 @@
         android:textColorHint="@color/black" />
         />
 
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/professor_name"-->
+<!--        android:text="Professor Name"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="20dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_below="@id/comments"-->
+<!--        />-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/professor"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/professor_name"-->
+<!--        android:layout_marginStart="5dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:layout_marginEnd="5dp"-->
+<!--        android:layout_marginBottom="5dp"-->
+<!--        android:hint="Ex. John Doe"-->
+<!--        android:paddingLeft="20dp"-->
+<!--        android:paddingRight="20dp"-->
+<!--        android:paddingBottom="10dp"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textColorHint="@color/black" />-->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/professor_name"
-        android:text="Professor Name"
+        android:id="@+id/course_rate"
+        android:text="Course Rating (Out Of 5)"
         android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"
         android:gravity="center"
-        android:layout_below="@id/comments"
-        />
-
-    <EditText
-        android:id="@+id/professor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/professor_name"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        android:hint="Ex. John Doe"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/professor_rate"
-        android:text="Professor Rating (Out Of 5)"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_below="@id/professor"
+        android:layout_below="@id/course_rate"
         />
 
     <Spinner
         android:id="@+id/professor_rating"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/professor_rate"
+        android:layout_below="@id/course_rate"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
