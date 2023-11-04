@@ -47,7 +47,7 @@ import java.util.List;
 public class CoursesFragment extends Fragment  {
 
     // Binding object for the FragmentHome layout
-    private FragmentHomeBinding binding;
+    FragmentHomeBinding binding;
 
     // Spinner widget for selecting courses
     private Spinner spinnerCourses;
@@ -71,6 +71,8 @@ public class CoursesFragment extends Fragment  {
 
     // List of course IDs, corresponding to the course names in courseNames
     private List<Integer> courseIds = new ArrayList<>();
+
+    private Integer selectedCourseId;
 
     int userid = Login.userid;
 
@@ -143,6 +145,12 @@ public class CoursesFragment extends Fragment  {
                 } else {
                     buttonRateCourse.setVisibility(View.GONE);
                 }
+
+                if(position >= 0 && position < courseIds.size()) {
+                    selectedCourseId = courseIds.get(position);
+                } else {
+                    selectedCourseId = null;
+                }
             }
 
             // Handle the case where nothing is selected in the Spinner.
@@ -162,6 +170,7 @@ public class CoursesFragment extends Fragment  {
             public void onClick(View view) {
                 // Retrieve selected position in the Spinner.
                 int position = spinnerCourses.getSelectedItemPosition();
+
 
                 // Log.d("DEBUG", "Selected Position: " + position);
 
@@ -187,8 +196,9 @@ public class CoursesFragment extends Fragment  {
                 // Log.d("DEBUG", "Selected Position: " + position);
 
                 // Validate selected position and ensure it corresponds to a valid course, then add the course.
-                if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
+                if (selectedCourseId != null) {
                     Intent myintent = new Intent(getActivity(), RateCourse.class);
+                    myintent.putExtra("COURSE_ID", selectedCourseId);
                     startActivity(myintent);
                 } else {
                     // Show a toast message if an invalid course is selected.
@@ -272,6 +282,7 @@ public class CoursesFragment extends Fragment  {
             // Populating postData with student_id and course_id
             postData.put("user_id", userid);
             postData.put("course_id", courseId);
+
         } catch (JSONException e) {
             // Print stack trace for any JSON exception while populating postData
             e.printStackTrace();
