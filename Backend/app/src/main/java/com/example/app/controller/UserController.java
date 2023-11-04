@@ -1,17 +1,15 @@
 package com.example.app.controller;
 
-import com.example.app.model.Course;
 import com.example.app.model.Schedule;
 import com.example.app.model.UserProfile;
 import com.example.app.repository.ScheduleRepository;
 import com.example.app.repository.UserRepository;
+import com.example.app.miscellaneous.UsernameAndId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 @RestController
 public class UserController {
@@ -48,26 +46,16 @@ public class UserController {
         return userRepository.findById(userid);
     }
 
-    // Get certain user's course list
-    @GetMapping("/userprofile/{userid}/courses")
-    public Set<Course> getCoursesLikedByUserProfile(@PathVariable("userid") Long userid) {
-
-        UserProfile userProfile = userRepository.findById(userid)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        return userProfile.getCourses();
-    }
-
     // Gets all user names only
     @GetMapping("/userprofiles/names")
-    public List<Map<String, Object>> getNames() {
-        return userRepository.findAllUserProfileNames();
+    public List<UsernameAndId> getNames() {
+        return userRepository.findAllByOrderByUsername();
     }
 
     // Gets all users that start with "search"
     @GetMapping("/userprofiles/{search}")
     public List<UserProfile> getSearched(@PathVariable("search") String search) {
-        return userRepository.findByNameStartsWithSorted(search);
+        return userRepository.findByUsernameStartingWithOrderByUsername(search);
     }
 
     @PostMapping({"users/post"})
