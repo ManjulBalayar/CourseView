@@ -89,11 +89,11 @@
         android:textSize="20dp"
         android:textStyle="bold"
         android:gravity="center"
-        android:layout_below="@id/course_rate"
+        android:layout_below="@id/comments"
         />
 
     <Spinner
-        android:id="@+id/professor_rating"
+        android:id="@+id/course_rating"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/course_rate"
@@ -102,7 +102,6 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:drawablePadding="20dp"
-        android:hint="Professor Rating"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingBottom="10dp"
@@ -119,7 +118,7 @@
         android:textSize="20dp"
         android:textStyle="bold"
         android:gravity="center"
-        android:layout_below="@id/professor_rating"
+        android:layout_below="@id/course_rating"
         />
 
     <EditText
