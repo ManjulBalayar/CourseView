@@ -1,60 +1,79 @@
 package com.example.navigation_screen;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import com.example.navigation_screen.databinding.ActivityMainBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.navigation_screen.databinding.RateCourseBinding;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class RateCourse extends AppCompatActivity {
 
 
     Button submitbtn;
-    Spinner rate_course, rate_difficulty;
-    EditText comments, professor, time;
 
-    private ActivityMainBinding binding;
+    Button backBtn;
+
+    Spinner rate_course, rate_difficulty;
+    EditText comments,time;
+
+    RateCourseBinding binding;
+
+
+
     //List<String> userList = new ArrayList<>();
+
+
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.rate_course);
-        //get the spinner from the xml.
-        rate_course = (Spinner) findViewById(R.id.course_rating);
-        rate_difficulty = (Spinner) findViewById(R.id.rating);
-        submitbtn = findViewById(R.id.submitbtn);
+        binding = RateCourseBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+
         comments = findViewById(R.id.comments);
-        //  professor = findViewById(R.id.professor);
+        rate_course = findViewById(R.id.course_rating);
+        rate_difficulty = findViewById(R.id.rating);
         time = findViewById(R.id.time);
 
 
-        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        //There are multiple variations of this, but this is the basic variant.
-        ArrayAdapter<String> professor = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.professor_rating));
-        //set the spinners adapter to the previously created one.
-        professor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        rate_course.setAdapter(professor);
 
-        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        //There are multiple variations of this, but this is the basic variant.
-        ArrayAdapter<String> difficulty = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.rating));
-        //set the spinners adapter to the previously created one.
-        difficulty.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        rate_difficulty.setAdapter(difficulty);
+
+        ArrayAdapter<String> difficultyAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.rating));
+        difficultyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        rate_difficulty.setAdapter(difficultyAdapter);
+
+        ArrayAdapter<String> courseAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.rating));
+        courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        rate_course.setAdapter(courseAdapter);
+
+
+
+
+        submitbtn = findViewById(R.id.submitbtn);
+        backBtn = findViewById(R.id.back_button);
 
 
         submitbtn.setOnClickListener(new View.OnClickListener() {
@@ -62,74 +81,56 @@ public class RateCourse extends AppCompatActivity {
             public void onClick(View view) {
                 //regData();
 
-                binding = ActivityMainBinding.inflate(getLayoutInflater());
-                setContentView(binding.getRoot());
+                submitCourseRating();
+            }
+        });
 
-                BottomNavigationView navView = findViewById(R.id.nav_view);
-                // Passing each menu ID as a set of Ids because each
-                // menu should be considered as top level destinations.
-                AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                        R.id.courses, R.id.chat, R.id.profile, R.id.schedule)
-                        .build();
-                NavController navController = Navigation.findNavController(RateCourse.this, R.id.nav_host_fragment_activity_main);
-                NavigationUI.setupActionBarWithNavController(RateCourse.this, navController, appBarConfiguration);
-                NavigationUI.setupWithNavController(binding.navView, navController);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish(); // This will close the current activity and go back to the previous activity
             }
         });
     }
 
-    //username, password, email, userrole
-    /*private void regData() {
-        // URL endpoint for adding courses
-        String url = "http://coms-309-030.class.las.iastate.edu:8080/users/post";
-
-        String username = reg_username.getText().toString();
-        String password = reg_password.getText().toString();
-        String userrole = dropdown.getSelectedItem().toString();
-        String email = reg_email.getText().toString();
-        String firstname = reg_firstname.getText().toString();
-        String lastname = reg_lastname.getText().toString();
-
-        // JSON object that will contain the payload of the POST request
-        JSONObject postData = new JSONObject();
+    private void submitCourseRating() {
+        int userId = PreferencesUtil.getUserId(this);
+        Intent intent = getIntent();
+        int courseId = intent.getIntExtra("COURSE_ID", -1);
+        Log.d("RateCourse", "Received Course ID: " + courseId);
         try {
+            String url = "http://coms-309-030.class.las.iastate.edu:8080/review";
 
-            postData.put("username", username);
-            postData.put("firstname", firstname);
-            postData.put("lastname", lastname);
-            postData.put("email", email);
-            postData.put("password", password);
-            postData.put("role", userrole);
+            JSONObject postData = new JSONObject();
+            postData.put("comment", comments.getText().toString());
+            postData.put("rating", Integer.valueOf(rate_course.getSelectedItem().toString()));
+            postData.put("difficulty", Integer.valueOf(rate_course.getSelectedItem().toString()));
+            postData.put("time_commitment", Integer.valueOf(time.getText().toString()));
+            postData.put("userId", userId); // Retrieved from session
+            postData.put("courseId", courseId); // Retrieved from session
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            // Handle response
+                            Toast.makeText(RateCourse.this, "Rating submitted successfully!", Toast.LENGTH_SHORT).show();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // Handle error
+                            Toast.makeText(RateCourse.this, "Failed to submit rating: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+            // Add the request to the RequestQueue.
+            Volley.newRequestQueue(this).add(jsonObjectRequest);
         } catch (JSONException e) {
-            // Print stack trace for any JSON exception while populating postData
             e.printStackTrace();
+            Toast.makeText(this, "Failed to build JSON for rating submission.", Toast.LENGTH_LONG).show();
         }
-
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.POST,
-                url,
-                postData,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // handle the response here
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Log error responses with tag "VolleyError"
-                        Log.e("VolleyError", error.toString());
-                    }
-                }
-        );
-
-        requestQueue.add(jsonObjectRequest);
-        //Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
-
-    }*/
+    }
 }
 
