@@ -38,7 +38,7 @@ public class RateCourse extends AppCompatActivity {
         rate_difficulty = (Spinner) findViewById(R.id.rating);
         submitbtn = findViewById(R.id.submitbtn);
         comments = findViewById(R.id.comments);
-        professor = findViewById(R.id.professor);
+      //  professor = findViewById(R.id.professor);
         time = findViewById(R.id.time);
 
 

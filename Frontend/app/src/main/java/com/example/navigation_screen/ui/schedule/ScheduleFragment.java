@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.navigation_screen.PreferencesUtil;
 import com.example.navigation_screen.R;
 
 import org.json.JSONArray;
@@ -41,9 +42,10 @@ public class ScheduleFragment extends Fragment {
         ListView listViewCourses = root.findViewById(R.id.listView_courses);
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, courseNames);
         listViewCourses.setAdapter(adapter);
-
+        int userid = PreferencesUtil.getUserId(getContext());
+        Log.d("userid", "" + userid);
         // Load courses for the given student ID
-        loadCourses(1);
+        loadCourses(userid);
 
         // Find the button by ID and set an OnClickListener
         Button calculateWorkloadButton = root.findViewById(R.id.button_calculate_workload);
