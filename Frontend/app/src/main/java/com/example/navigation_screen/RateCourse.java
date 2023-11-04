@@ -21,7 +21,7 @@ public class RateCourse extends AppCompatActivity {
 
 
     Button submitbtn;
-    Spinner rate_professor, rate_difficulty;
+    Spinner rate_course, rate_difficulty;
     EditText comments, professor, time;
 
     private ActivityMainBinding binding;
@@ -34,11 +34,11 @@ public class RateCourse extends AppCompatActivity {
 
         setContentView(R.layout.rate_course);
         //get the spinner from the xml.
-        rate_professor = (Spinner) findViewById(R.id.professor_rating);
+        rate_course = (Spinner) findViewById(R.id.course_rating);
         rate_difficulty = (Spinner) findViewById(R.id.rating);
         submitbtn = findViewById(R.id.submitbtn);
         comments = findViewById(R.id.comments);
-      //  professor = findViewById(R.id.professor);
+        //  professor = findViewById(R.id.professor);
         time = findViewById(R.id.time);
 
 
@@ -47,7 +47,7 @@ public class RateCourse extends AppCompatActivity {
         ArrayAdapter<String> professor = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.professor_rating));
         //set the spinners adapter to the previously created one.
         professor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        rate_professor.setAdapter(professor);
+        rate_course.setAdapter(professor);
 
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
         //There are multiple variations of this, but this is the basic variant.
