@@ -72,8 +72,10 @@ public class CoursesFragment extends Fragment  {
     // List of course IDs, corresponding to the course names in courseNames
     private List<Integer> courseIds = new ArrayList<>();
 
+    // The ID of the currently selected course.
     private Integer selectedCourseId;
 
+    // User ID of the currently logged-in user.
     int userid = Login.userid;
 
 
@@ -88,7 +90,7 @@ public class CoursesFragment extends Fragment  {
      *                           but this can be used to generate the LayoutParams of the view.
      * @param savedInstanceState If non-null, this fragment is being re-constructed
      *                           from a previous saved state as given here.
-     * @return
+     * @return The view for the fragment's UI.
      */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -126,6 +128,17 @@ public class CoursesFragment extends Fragment  {
 
         // Set a listener to handle item selection in the Spinner.
         spinnerCourses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            /**
+             * Handles the selection of an item in the spinner.
+             * This method updates the UI based on the selected course, including displaying its description
+             * and adjusting the visibility of the Add Course and Rate Course buttons.
+             *
+             * @param parent The AdapterView where the selection happened. This is the spinner in the current context.
+             * @param view The view within the AdapterView that was clicked.
+             * @param position The position of the view in the adapter.
+             * @param id The row id of the item that is selected
+             */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Retrieve and display selected course and its description.
@@ -153,7 +166,13 @@ public class CoursesFragment extends Fragment  {
                 }
             }
 
-            // Handle the case where nothing is selected in the Spinner.
+            /**
+             * Called when no item is selected in the spinner.
+             * This method updates the UI to reflect that no course is currently selected by resetting
+             * relevant text views and hiding certain buttons.
+             *
+             * @param parent The AdapterView where the selection would have happened. In this context, it's the spinner.
+             */
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Update UI elements to reflect the lack of a selected course.
@@ -166,6 +185,15 @@ public class CoursesFragment extends Fragment  {
 
         // Set a click listener for the Add Course button.
         buttonAddCourse.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Called when the Add Course button is clicked.
+             * This method checks the selected position in the spinner, validates it,
+             * and triggers the addition of the course if the selection is valid.
+             * A toast message is displayed if an invalid course is selected.
+             *
+             * @param view The view (button) that was clicked.
+             */
             @Override
             public void onClick(View view) {
                 // Retrieve selected position in the Spinner.
@@ -186,9 +214,12 @@ public class CoursesFragment extends Fragment  {
             }
         });
 
-        // Set a click listener for the Add Course button.
+
         buttonRateCourse.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * button
+             */
             public void onClick(View view) {
                 // Retrieve selected position in the Spinner.
                 int position = spinnerCourses.getSelectedItemPosition();
@@ -210,15 +241,25 @@ public class CoursesFragment extends Fragment  {
         // Return the root view of the fragment.
         return root;
     }
-//text comment////
 
+    /**
+     * Called when the view hierarchy associated with the fragment is being removed.
+     * Used to clean up resources associated with this fragment.
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 
-    // This method loads courses from a specified URL and populates course-related variables.
+
+    /**
+     * Loads course information from a remote server and updates the UI components.
+     * This method sends a GET request to a specified URL to fetch course data in JSON format.
+     * On successful response, it parses the JSON data to extract course IDs, names, and descriptions,
+     * and then updates the corresponding lists and the spinner adapter.
+     * In case of an error, it logs the error response.
+     */
     private void loadCourses() {
         // URL pointing to the courses resource
         String url = "http://coms-309-030.class.las.iastate.edu:8080/courses";
@@ -227,6 +268,11 @@ public class CoursesFragment extends Fragment  {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 // Listener for successful responses
                 new Response.Listener<JSONArray>() {
+
+                    /**
+                     *
+                     * @param response
+                     */
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
