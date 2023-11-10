@@ -42,7 +42,7 @@ import java.util.List;
 /**
  * Fragment representing the course selection screen in the application.
  * Users can select courses from a spinner, view their descriptions,
- * and add selected courses to their profile (in progress).
+ * and add selected courses to their profile
  */
 public class CoursesFragment extends Fragment  {
 
@@ -72,8 +72,10 @@ public class CoursesFragment extends Fragment  {
     // List of course IDs, corresponding to the course names in courseNames
     private List<Integer> courseIds = new ArrayList<>();
 
+    // The ID of the currently selected course.
     private Integer selectedCourseId;
 
+    // User ID of the currently logged-in user.
     int userid = Login.userid;
 
 
@@ -126,6 +128,17 @@ public class CoursesFragment extends Fragment  {
 
         // Set a listener to handle item selection in the Spinner.
         spinnerCourses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            /**
+             * Handles the selection of an item in the spinner.
+             * This method updates the UI based on the selected course, including displaying its description
+             * and adjusting the visibility of the Add Course and Rate Course buttons.
+             *
+             * @param parent The AdapterView where the selection happened. This is the spinner in the current context.
+             * @param view The view within the AdapterView that was clicked.
+             * @param position The position of the view in the adapter.
+             * @param id The row id of the item that is selected
+             */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Retrieve and display selected course and its description.
@@ -212,13 +225,18 @@ public class CoursesFragment extends Fragment  {
     }
 //text comment////
 
+    /**
+     * on destroy view
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 
-    // This method loads courses from a specified URL and populates course-related variables.
+    /**
+     * Loads courses from backend via GET method
+     */
     private void loadCourses() {
         // URL pointing to the courses resource
         String url = "http://coms-309-030.class.las.iastate.edu:8080/courses";
@@ -269,7 +287,9 @@ public class CoursesFragment extends Fragment  {
         Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
     }
 
-    // This method sends a POST request to add a course with the specified courseId for a student
+    /**
+     *  This method sends a POST request to add a course with the specified courseId for a student
+     */
     private void addCourse(int courseId) {
         // URL endpoint for adding courses
         userid = PreferencesUtil.getUserId(getContext());
