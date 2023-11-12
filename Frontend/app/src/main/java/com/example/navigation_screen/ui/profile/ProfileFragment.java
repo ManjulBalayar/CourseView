@@ -30,21 +30,43 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Fragment representing the user profile in the application.
+ * It handles displaying user profile information and user reviews.
+ * This fragment is part of the application's navigation.
+ */
 public class ProfileFragment extends Fragment {
 
+    // Binding object for interacting with the view elements in this fragment.
     private FragmentProfileBinding binding;
 
+    // TextViews for displaying the username and email.
     TextView textUsername, textEmail;
 
+    // Button to view user reviews.
     Button viewReviewsBtn;
 
+    // Lists to hold course IDs and descriptions.
     private List<String> courseIds = new ArrayList<>();
     private List<String> courseDescriptions = new ArrayList<>();
-
     private List<String> courseNames = new ArrayList<>();
 
+    // User ID of the currently logged-in user.
     int userid = Login.userid;
 
+    /**
+     * Called to have the fragment instantiate its user interface view.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return Return the View for the fragment's UI, or null.
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         ProfileViewModel profileViewModel =
@@ -62,7 +84,12 @@ public class ProfileFragment extends Fragment {
 
         viewReviewsBtn.setOnClickListener(new View.OnClickListener() {
 
+            /**
+             * Upon clicking call getReviews() method
+             * @param view
+             */
             @Override
+
             public void onClick(View view) {
                 getReviews();
             }
@@ -71,13 +98,20 @@ public class ProfileFragment extends Fragment {
         return root;
     }
 
+    /**
+     * Called when the view hierarchy associated with the fragment is being removed.
+     * Used to clean up resources associated with this fragment.
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 
-    // This method loads courses from a specified URL and populates course-related variables.
+    /**
+     * Retrieves the profile information of the user and populates the UI elements.
+     * It fetches data via HTTP GET request such as username and email and updates the views.
+     */
     private void getProfile() {
         // URL pointing to the courses resource
         String url = "http://coms-309-030.class.las.iastate.edu:8080/userprofile/" + userid;
@@ -115,6 +149,10 @@ public class ProfileFragment extends Fragment {
         Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
     }
 
+    /**
+     * Fetches and displays reviews associated with the user.
+     * It makes a HTTP GET request to retrieve user reviews and updates the UI to show these reviews.
+     */
     private void getReviews() {
         // URL pointing to the courses resource
         String url = "http://coms-309-030.class.las.iastate.edu:8080/reviews/byUser/" + userid;
@@ -167,6 +205,12 @@ public class ProfileFragment extends Fragment {
         Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
     }
 
+    /**
+     *   Converts a course ID to a course name by making a HTTP GET request.
+     *   The course name is then used to update relevant UI elements.
+     *
+     * @param courseId The ID of the course to be converted to a name.
+     */
     private void convertToName(String courseId) {
         // URL pointing to the courses resource
         String url = "http://coms-309-030.class.las.iastate.edu:8080/courses/" + courseId;
@@ -197,7 +241,13 @@ public class ProfileFragment extends Fragment {
                 },
                 // Listener for error responses
                 new Response.ErrorListener() {
+
+                    /**
+                     * Log error responses from Volley
+                     * @param error
+                     */
                     @Override
+
                     public void onErrorResponse(VolleyError error) {
                         // Log error responses with tag "VolleyError"
                         Log.e("VolleyError", error.toString());

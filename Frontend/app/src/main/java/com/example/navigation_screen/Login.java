@@ -27,16 +27,28 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+/**
+ * Activity for handling user login in the application.
+ * This class manages the user interface for login and processes the login credentials.
+ */
 public class Login extends AppCompatActivity{
 
+    // UI elements for username and password input and login button.
     EditText login_username, login_password;
     Button loginbtn;
 
+    // Static variable to hold the user ID after successful login.
     public static int userid = 0;
 
+    // Binding for the main activity layout.
     private ActivityMainBinding binding;
 
+    /**
+     * Called when the activity is starting.
+     * Initializes the activity, sets up UI components, and handles login button click events.
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +59,7 @@ public class Login extends AppCompatActivity{
         loginbtn = findViewById(R.id.loginbtn);
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
+
 
             @Override
             public void onClick(View view) {
@@ -70,6 +83,11 @@ public class Login extends AppCompatActivity{
             }
         });
     }
+
+    /**
+     * Processes the login by sending a POST request with the username and password to the server.
+     * If the login is successful, the user ID is stored and used for subsequent requests.
+     */
     private void login() {
         // URL endpoint for adding courses
         String url = "http://coms-309-030.class.las.iastate.edu:8080/login";
@@ -127,7 +145,10 @@ public class Login extends AppCompatActivity{
 
     }
 
-    //
+    /**
+     * Retrieves the user ID based on the username by making a GET request to the server.
+     * Updates the static userid variable with the retrieved user ID.
+     */
     private void getID() {
         String username = login_username.getText().toString();
         String url = "http://coms-309-030.class.las.iastate.edu:8080/userprofiles/" + username;
@@ -167,6 +188,12 @@ public class Login extends AppCompatActivity{
         requestQueue.add(jsonArrayRequest);
         //Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
     }
+
+    /**
+     * Saves the user ID in shared preferences for later use.
+     *
+     * @param userId The user ID to be saved.
+     */
     public void saveUserId(int userId) {
         SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         SharedPreferences.Editor myEdit = sharedPreferences.edit();

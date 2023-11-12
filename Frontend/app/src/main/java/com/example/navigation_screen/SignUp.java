@@ -22,16 +22,25 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+/**
+ * Activity for handling user registration in the application.
+ * This class manages the user interface for sign up and processes the registration details.
+ */
 public class SignUp extends AppCompatActivity {
 
-
+    // UI elements for registration inputs and sign up button.
     Button signupbtn;
     Spinner dropdown;
     EditText reg_username, reg_password, reg_email, reg_firstname, reg_lastname;
     //List<String> userList = new ArrayList<>();
 
-
+    /**
+     * Called when the activity is starting.
+     * Initializes the activity, sets up UI components, and handles
+     * the sign up button click events.
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +76,10 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-        //username, password, email, userrole
+    /**
+     * Processes the registration data by sending a POST request
+     * with the user details to the server.
+     */
         private void regData() {
             // URL endpoint for adding courses
             String url = "http://coms-309-030.class.las.iastate.edu:8080/users/post";

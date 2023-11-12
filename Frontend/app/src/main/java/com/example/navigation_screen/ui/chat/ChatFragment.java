@@ -20,21 +20,45 @@ import org.java_websocket.handshake.ServerHandshake;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Fragment representing a chat interface in the application.
+ * This fragment allows users to connect to a WebSocket server for chat functionality,
+ * send messages, and view chat messages from others in real-time.
+ */
 public class ChatFragment extends Fragment implements WebSocketListener {
 
+    // Base URL for the WebSocket connection.
     private String BASE_URL = "ws://coms-309-030.class.las.iastate.edu:8080/chat/";
 
+    // UI elements for connecting and sending messages.
     private Button connectBtn, sendBtn;
     private EditText usernameEtx, msgEtx;
    // private TextView msgTv;
    private LinearLayout usernameLayout;
 
 
+    // RecyclerView and adapter for displaying messages.
     private RecyclerView rvMessages;
     private MessageAdapter messageAdapter;
     private List<Message> messageList = new ArrayList<>();
 
 
+    /**
+     * Called to have the fragment instantiate its user interface view.
+     * Sets up UI components for the chat functionality, including input fields
+     * and buttons.
+     *
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -86,6 +110,12 @@ public class ChatFragment extends Fragment implements WebSocketListener {
         return root;
     }
 
+    /**
+     * Callback method triggered on receiving a WebSocket message.
+     * Updates the chat interface with the received message.
+     *
+     * @param message The received WebSocket message.
+     */
     @Override
     public void onWebSocketMessage(String message) {
         getActivity().runOnUiThread(() -> {
@@ -97,6 +127,14 @@ public class ChatFragment extends Fragment implements WebSocketListener {
     }
 
 
+    /**
+     *  Callback method triggered when the WebSocket connection is closed.
+     *  Logs the reason for closure and updates the UI accordingly.
+     *
+     * @param code   The status code indicating the reason for closure.
+     * @param reason A human-readable explanation for the closure.
+     * @param remote Indicates whether the closure was initiated by the remote endpoint.
+     */
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
         getActivity().runOnUiThread(() -> {
@@ -108,9 +146,19 @@ public class ChatFragment extends Fragment implements WebSocketListener {
     }
 
 
+    /**
+     * Callback method triggered when the WebSocket connection is opened.
+     *
+     * @param handshakedata Information about the server handshake.
+     */
     @Override
     public void onWebSocketOpen(ServerHandshake handshakedata) {}
 
+    /**
+     * Callback method triggered on a WebSocket error.
+     *
+     * @param ex The exception that describes the error.
+     */
     @Override
     public void onWebSocketError(Exception ex) {}
 }
