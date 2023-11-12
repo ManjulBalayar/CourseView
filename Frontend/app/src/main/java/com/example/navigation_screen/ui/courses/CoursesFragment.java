@@ -270,7 +270,8 @@ public class CoursesFragment extends Fragment  {
                 new Response.Listener<JSONArray>() {
 
                     /**
-                     *
+                     * On response iterate through JSON array and get each course object
+                     * courseid, name, and description
                      * @param response
                      */
                     @Override
@@ -304,6 +305,10 @@ public class CoursesFragment extends Fragment  {
                 },
                 // Listener for error responses
                 new Response.ErrorListener() {
+                    /**
+                     * Log Volley error on error response
+                     * @param error
+                     */
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // Log error responses with tag "VolleyError"
@@ -315,7 +320,11 @@ public class CoursesFragment extends Fragment  {
         Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
     }
 
-    // This method sends a POST request to add a course with the specified courseId for a student
+
+    /**
+     * Sends a POST request to add a course with the specified courseId for a student
+     * @param courseId the course's ID
+     */
     private void addCourse(int courseId) {
         // URL endpoint for adding courses
         userid = PreferencesUtil.getUserId(getContext());
@@ -339,6 +348,13 @@ public class CoursesFragment extends Fragment  {
                 Request.Method.POST, url, postData,
                 // Listener for successful responses
                 new Response.Listener<JSONObject>() {
+
+                    /**
+                     * On response create a dialog builder for user feedback
+                     * Check if response contains student_id and course_id indicating success
+                     * Show alert dialog for successful addition of course
+                     * @param response
+                     */
                     @Override
                     public void onResponse(JSONObject response) {
 
@@ -365,6 +381,11 @@ public class CoursesFragment extends Fragment  {
                 },
                 // Listener for error responses
                 new Response.ErrorListener() {
+
+                    /**
+                     * Log Volley error on error response
+                     * @param error
+                     */
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // Create a dialog builder for displaying error messages to the user
