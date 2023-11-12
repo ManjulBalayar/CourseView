@@ -7,12 +7,22 @@ import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
+/**
+ * Main activity class that serves as the entry point for the application.
+ * This class provides the user with the choice to either log in or sign up.
+ */
 public class MainActivity extends AppCompatActivity {
 
-    //private ActivityMainBinding binding;
+    // Buttons for the user to choose between login and signup.
     Button loginchoice, signupchoice;
 
+    /**
+     * Called when the activity is starting.
+     * Initializes the activity, sets the content view, and sets up the UI components.
+     * It also handles click events for login and signup choices.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

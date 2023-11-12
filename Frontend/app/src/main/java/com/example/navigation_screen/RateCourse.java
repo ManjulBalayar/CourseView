@@ -22,26 +22,37 @@ import com.example.navigation_screen.databinding.RateCourseBinding;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+/**
+ * Activity for rating a course in the application.
+ * Allows users to submit ratings for a course including
+ * difficulty, time commitment, and additional comments.
+ */
 public class RateCourse extends AppCompatActivity {
 
-
+    // UI elements for submitting ratings and navigating back.
     Button submitbtn;
-
     Button backBtn;
 
+    // Spinners for selecting course rating and difficulty.
     Spinner rate_course, rate_difficulty;
+
+    // EditText fields for additional comments and time commitment.
     EditText comments,time;
 
+    // Binding for the layout of this activity.
     RateCourseBinding binding;
 
 
 
     //List<String> userList = new ArrayList<>();
 
-
-
-
+    /**
+     * Called when the activity is starting.
+     * Initializes the activity, sets up UI components, and handles
+     * click events for submission and navigation.
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -93,6 +104,10 @@ public class RateCourse extends AppCompatActivity {
         });
     }
 
+    /**
+     * Submits the course rating based on user inputs.
+     * Sends a POST request with the rating details to the server.
+     */
     private void submitCourseRating() {
         int userId = PreferencesUtil.getUserId(this);
         Intent intent = getIntent();
