@@ -1,0 +1,6 @@
+com.example.navigation_screen
+com.example.navigation_screen.databinding
+com.example.navigation_screen.ui.chat
+com.example.navigation_screen.ui.courses
+com.example.navigation_screen.ui.profile
+com.example.navigation_screen.ui.schedule
