@@ -13,6 +13,7 @@ import java.util.Optional;
  * It interacts with CourseRepository to perform CRUD operations on Course entities.
  */
 @RestController
+@RequestMapping("/api/course")
 public class CourseController {
 
     @Autowired

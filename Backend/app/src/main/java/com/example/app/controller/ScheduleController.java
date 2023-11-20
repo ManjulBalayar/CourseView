@@ -16,6 +16,7 @@ import java.util.List;
  * ScheduleCourseService for handling course scheduling.
  */
 @RestController
+@RequestMapping("/api/schedule")
 public class ScheduleController {
 
     @Autowired

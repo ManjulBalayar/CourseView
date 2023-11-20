@@ -13,6 +13,7 @@ import java.util.Map;
  * It interacts with UserRepository to perform operations related to user login.
  */
 @RestController
+@RequestMapping("/api/login")
 public class LoginController {
 
     @Autowired

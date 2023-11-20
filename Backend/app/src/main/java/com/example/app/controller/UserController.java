@@ -16,6 +16,7 @@ import java.util.Optional;
  * It interacts with UserRepository and ScheduleRepository to perform CRUD operations on UserProfile entities and related operations.
  */
 @RestController
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
