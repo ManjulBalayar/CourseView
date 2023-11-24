@@ -22,7 +22,7 @@ public class WorkloadGauge extends AppCompatActivity {
         // Get the workload difficulty from the intent
         int workloadDifficulty = getIntent().getIntExtra("WORKLOAD_DIFFICULTY", 0);
 
-        // Configure your SpeedView
+        // Configure SpeedView
         speedView.setMaxSpeed(5);
         speedView.setMinSpeed(0);
         speedView.setUnit(""); // Remove km/h
