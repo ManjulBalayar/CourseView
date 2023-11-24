@@ -68,6 +68,8 @@ dependencies {
     implementation("com.daimajia.easing:library:2.0@aar")
     implementation("com.daimajia.androidanimations:library:2.3@aar")
 
+    //difficulty gauge
+    implementation("com.github.anastr:speedviewlib:1.5.4");
 
 
 
