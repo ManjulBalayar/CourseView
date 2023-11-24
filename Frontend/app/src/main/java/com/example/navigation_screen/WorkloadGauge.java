@@ -30,7 +30,7 @@ public class WorkloadGauge extends AppCompatActivity {
         speedView.speedTo(workloadDifficulty);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
+            @Override//
             public void onClick(View view) {
                 finish(); // This will close the current activity and go back to the previous activity
             }
