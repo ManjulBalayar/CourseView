@@ -56,5 +56,9 @@
             <!-- Removed intent-filter for SignUp activity -->
         </activity>
 
+        <activity android:name=".WorkloadGauge">
+
+        </activity>
+
     </application>
 </manifest>

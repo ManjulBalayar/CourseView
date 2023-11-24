@@ -1,6 +1,6 @@
 package com.example.navigation_screen.ui.schedule;
 
-import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.navigation_screen.Login;
 import com.example.navigation_screen.R;
+import com.example.navigation_screen.WorkloadGauge;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +42,11 @@ public class ScheduleFragment extends Fragment {
 
     // ArrayAdapter for populating the ListView with course names.
     private ArrayAdapter<String> adapter;
+
+    private String workloadRating;
+    private String workloadDifficulty;
+    private String workloadTimeCommitment;
+
 
     // User ID of the currently logged-in user.
     int userid = Login.userid;
@@ -77,14 +83,58 @@ public class ScheduleFragment extends Fragment {
         calculateWorkloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Execute your GET request logic here
+
                 calculateWorkload();
+                // Start the WorkloadGaugeActivity
+                Intent intent = new Intent(getActivity(), WorkloadGauge.class);
+
+                startActivity(intent);
             }
         });
 
 
         return root;
     }
+
+    private void calculateWorkload() {
+        String url = "http://coms-309-030.class.las.iastate.edu:8080/workload/byUserid/" + userid;
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            workloadRating = response.getString("rating");
+                            workloadDifficulty = response.getString("difficulty");
+                            workloadTimeCommitment = response.getString("time_commitment");
+
+                            float difficultyValue = Float.parseFloat(workloadDifficulty);
+                            int difficultyIntValue = (int) difficultyValue;
+
+                            // Log statement to verify the parsed integer value
+                            Log.d("WorkloadGauge", "Parsed Difficulty: " + difficultyValue);
+
+
+
+                            Intent intent = new Intent(getActivity(), WorkloadGauge.class);
+                          //  intent.putExtra("WORKLOAD_RATING", workloadRating);
+                            intent.putExtra("WORKLOAD_DIFFICULTY", difficultyIntValue);
+                         //   intent.putExtra("WORKLOAD_TIME_COMMITMENT", workloadTimeCommitment);
+                            startActivity(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("VolleyError", error.toString());
+            }
+        });
+
+        Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
+    }
+
 
     /**
      * Loads courses for a given student ID from a remote server and updates the ListView.
@@ -136,59 +186,5 @@ public class ScheduleFragment extends Fragment {
         Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
     }
 
-    /**
-     * Calculates and displays the academic workload for the user.
-     * This method sends a GET request to retrieve workload data, such as rating, difficulty,
-     * and time commitment. It then displays this information in an AlertDialog.
-     */
-    private void calculateWorkload() {
-        String url = "http://coms-309-030.class.las.iastate.edu:8080/workload/byUserid/" + userid;
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    /**
-                     * On response set AlertDialog builder with rating,
-                     * difficulty and time commitment info in regards
-                     * to calculated workload
-                     * @param response
-                     */
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-
-                            System.out.println(response);
-                            //String workload = response.toString();
-
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                            builder.setTitle("LOOKING AT YOUR COURSES AND BOOM MAGIC");
-
-                            String rating = response.getString("rating");
-                            String difficulty = response.getString("difficulty");
-                            String time_commitment = response.getString("time_commitment");
-
-                            builder.setMessage("Your calculated workload is... \nRating: " + rating +
-                            "\nDifficulty: " + difficulty + "\nTime Commitment: " + time_commitment);
-                            builder.setPositiveButton("OK", null);
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    /**
-                     * Log volley error on error response
-                     * @param error
-                     */
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("VolleyError", error.toString());
-                    }
-                });
-
-        Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
-
-
-    }
 }

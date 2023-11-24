@@ -48,7 +48,7 @@
         android:id="@+id/textView_selected_course"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="396dp"
+        android:layout_marginTop="272dp"
         android:text="Selected Course: None"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
