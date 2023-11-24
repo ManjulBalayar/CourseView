@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.example.navigation_screen"},{"l":"com.example.navigation_screen.databinding"},{"l":"com.example.navigation_screen.ui.chat"},{"l":"com.example.navigation_screen.ui.courses"},{"l":"com.example.navigation_screen.ui.profile"},{"l":"com.example.navigation_screen.ui.schedule"}];updateSearchResults();

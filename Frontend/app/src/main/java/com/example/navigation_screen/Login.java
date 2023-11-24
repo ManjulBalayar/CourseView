@@ -74,7 +74,7 @@ public class Login extends AppCompatActivity{
                 // Passing each menu ID as a set of Ids because each
                 // menu should be considered as top level destinations.
                 AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                        R.id.courses, R.id.chat, R.id.profile, R.id.schedule)
+                        R.id.courses, R.id.chat, R.id.profile, R.id.schedule, R.id.settings)
                         .build();
                 NavController navController = Navigation.findNavController(Login.this, R.id.nav_host_fragment_activity_main);
                 NavigationUI.setupActionBarWithNavController(Login.this, navController, appBarConfiguration);

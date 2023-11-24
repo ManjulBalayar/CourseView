@@ -16,9 +16,6 @@ public class Course {
 
     private String department;
 
-    // TODO
-    // 1) add relationship oneToMany with review
-    // 2) add relationship oneToMany with schedule
     @OneToMany(mappedBy = "course")
     private List<Review> reviews;
 

@@ -10,7 +10,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * ScheduleController manages HTTP requests related to Schedules and Courses.
+ * It uses ScheduleRepository for CRUD operations on Schedule entities and
+ * ScheduleCourseService for handling course scheduling.
+ */
 @RestController
+@RequestMapping("/api/schedule")
 public class ScheduleController {
 
     @Autowired
@@ -19,9 +25,12 @@ public class ScheduleController {
     @Autowired
     private ScheduleCourseService scheduleCourseService;
 
-    // POST METHODS //
-
-    // this will add a course by linking two objects(student, course)
+    /**
+     * Adds a course to a student's schedule by creating a link between the student and the course.
+     *
+     * @param addCourse Contains the information for adding a course (user ID and course ID).
+     * @return The AddCourse object with the link details.
+     */
     @PostMapping("/addCourse")
     public AddCourse addLike(@RequestBody AddCourse addCourse) {
 
@@ -30,14 +39,24 @@ public class ScheduleController {
         return addCourse;
     }
 
+    /**
+     * Adds a new Schedule entity to the database.
+     *
+     * @param schedule The Schedule entity to be added.
+     * @return The added Schedule entity.
+     */
     @PostMapping("/schedule")
     public Schedule addReview(@RequestBody Schedule schedule) {
         repo.save(schedule);
         return schedule;
     }
 
-
-    // GET METHODS //
+    /**
+     * Retrieves a list of Course entities associated with a specific Schedule ID.
+     *
+     * @param schedule_id The Schedule ID to retrieve courses for.
+     * @return A list of Course entities.
+     */
     @GetMapping("/schedule/{schedule_id}")
     public List<Course> getSchedule(@PathVariable("schedule_id") Long schedule_id) {
 
@@ -46,6 +65,12 @@ public class ScheduleController {
 
         return schedule.getCourses();
     }
+
+    /**
+     * Retrieves all Schedule entities in the database.
+     *
+     * @return A list of all Schedule entities.
+     */
     @GetMapping("/schedules")
     public List<Schedule> getSchedules() {
         return repo.findAll();

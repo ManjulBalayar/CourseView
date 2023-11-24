@@ -20,5 +20,11 @@
         android:icon="@android:drawable/ic_menu_my_calendar"
         android:title="@string/schedule" />
 
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/baseline_settings_24"
+        android:title="Settings"/>
+
+
 
 </menu>
