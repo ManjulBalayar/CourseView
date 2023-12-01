@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/Title"
         android:text="Course Survey"
-        android:textColor="@color/black"
         android:textSize="35dp"
         android:textStyle="bold"
         android:layout_margin="50dp"
@@ -25,7 +24,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/comments_title"
         android:text="Comments On Class"
-        android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"
         android:gravity="center"
@@ -49,9 +47,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingBottom="10dp"
-        android:scrollbars="vertical"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black" />
+        android:scrollbars="vertical" />
         />
 
 <!--    <TextView-->
@@ -87,7 +83,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/course_rate"
         android:text="Course Rating (Out Of 5)"
-        android:textColor="@color/black"
+
         android:textSize="20dp"
         android:textStyle="bold"
         android:gravity="center"
@@ -107,16 +103,13 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingBottom="10dp"
-        android:spinnerMode="dropdown"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black" />
+        android:spinnerMode="dropdown" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/time_spent"
         android:text="Time Spent Out Of Class (In Hours)"
-        android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"
         android:gravity="center"
@@ -136,15 +129,13 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingBottom="10dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black" />
+     />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/difficulty_rating"
         android:text="Difficulty Rating (Out Of 5)"
-        android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"
         android:gravity="center"

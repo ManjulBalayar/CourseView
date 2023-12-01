@@ -15,6 +15,9 @@ public class PreferencesUtil {
     // Key used to store the user ID.
     private static final String KEY_USER_ID = "userid";
 
+    private static final String KEY_DARK_MODE = "dark_mode";
+
+
     /**
      * Saves the user ID in shared preferences.
      * This method stores the user ID so it can be retrieved across
@@ -41,5 +44,20 @@ public class PreferencesUtil {
         // Return the saved user id or a default value (0) if not found
         return preferences.getInt(KEY_USER_ID, 0);
     }
+
+    public static void saveDarkModePreference(Context context, boolean enabled) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(KEY_DARK_MODE, enabled);
+        editor.apply();
+    }
+
+    public static boolean getDarkModePreference(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(KEY_DARK_MODE, false); // Default to false if not set
+    }
+
+
+
 }
 

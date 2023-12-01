@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background_dark">#FF121212</color>
+    <color name="muted_gold">#FFA57C00</color>
+    <color name="isu_red_dark">#8C0606</color>
+    <color name="grey">#5A5A5A</color>
+
+
+
+
+
+
 </resources>

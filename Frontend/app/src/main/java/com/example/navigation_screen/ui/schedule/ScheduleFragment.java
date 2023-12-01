@@ -109,6 +109,7 @@ public class ScheduleFragment extends Fragment {
                             workloadTimeCommitment = response.getString("time_commitment");
 
                             float difficultyValue = Float.parseFloat(workloadDifficulty);
+                            Log.d("WorkloadGauge", "Raw Difficulty String: " + workloadDifficulty);
                             int difficultyIntValue = (int) difficultyValue;
 
                             // Log statement to verify the parsed integer value

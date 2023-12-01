@@ -1,6 +1,5 @@
 package com.example.navigation_screen;
 
-import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
@@ -14,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
@@ -31,13 +28,13 @@ public class MainActivity extends AppCompatActivity {
     Button loginchoice, signupchoice;
 
     private final Handler handler = new Handler(Looper.getMainLooper());
-    private final Runnable notificationRunnable = new Runnable() {
+ //   private final Runnable notificationRunnable = new Runnable() {
         @Override
-        public void run() {
-            sendRandomNotification();
-            handler.postDelayed(this, 5000); // Schedule again in 10 seconds
-        }
-    };
+//        public void run() {
+//            sendRandomNotification();
+//            handler.postDelayed(this, 5000); // Schedule again in 10 seconds
+//        }
+//    };
 
     /**
      * Called when the activity is starting.
@@ -46,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param savedInstanceState
      */
-    @SuppressLint("MissingPermission")
-    @Override
+//    @SuppressLint("MissingPermission")
+//    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -58,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         signupchoice = findViewById(R.id.signupchoice);
 
         createNotificationChannel();
-        handler.post(notificationRunnable); // Start the periodic notifications
+    //    handler.post(notificationRunnable); // Start the periodic notifications
 
 
         //Welcome to CourseView! animation
@@ -127,23 +124,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("MissingPermission")
-    private void sendRandomNotification() {
-        String message = "Save yourself a headache next semester and check your schedule!";
-
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "CHANNEL_ID")
-                .setSmallIcon(R.drawable.logo1)
-                .setContentTitle("Registered?")
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
-
-        builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(1, builder.build());
-
-    }
+//    @SuppressLint("MissingPermission")
+//    private void sendRandomNotification() {
+//        String message = "Save yourself a headache next semester and check your schedule!";
+//
+//
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "CHANNEL_ID")
+//                .setSmallIcon(R.drawable.logo1)
+//                .setContentTitle("Registered?")
+//                .setContentText(message)
+//                .setPriority(NotificationCompat.PRIORITY_HIGH);
+//
+//        builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+//
+//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+//        notificationManager.notify(1, builder.build());
+//
+//    }
 
 
 
