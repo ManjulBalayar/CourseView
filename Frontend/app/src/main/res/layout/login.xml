@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/login"
         android:text="Log In"
-        android:textColor="@color/black"
         android:textSize="35dp"
         android:textStyle="bold"
         android:layout_margin="50dp"
@@ -19,17 +18,18 @@
         />
 
     <EditText
+        android:id="@+id/login_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/login_username"
         android:layout_below="@id/login"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:drawableLeft="@drawable/baseline_person_outline_24"
         android:drawablePadding="20dp"
         android:hint="Username"
-        android:padding="20dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black" />
+        android:padding="20dp" />
 
     <EditText
         android:id="@+id/login_password"
@@ -40,9 +40,7 @@
         android:drawableLeft="@drawable/baseline_lock_24"
         android:drawablePadding="20dp"
         android:hint="Password"
-        android:padding="20dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black" />
+        android:padding="20dp" />
 
 <!--    <EditText
         android:id="@+id/studentid"
@@ -67,15 +65,6 @@
         android:layout_margin="20dp"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/forgot"
-        android:layout_below="@id/loginbtn"
-        android:text="Forgot Password?"
-        android:textColor="@color/black"
-        android:layout_margin="20dp"
-        android:layout_centerHorizontal="true"
-        />
+
 
 </RelativeLayout>
