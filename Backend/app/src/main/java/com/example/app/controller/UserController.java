@@ -1,5 +1,6 @@
 package com.example.app.controller;
 
+import com.example.app.model.Course;
 import com.example.app.model.Schedule;
 import com.example.app.model.UserProfile;
 import com.example.app.repository.CourseRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -139,4 +141,30 @@ public class UserController {
         }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized to delete course");
     }
+
+    @PutMapping("/courses/update/{courseId}/{userId}")
+    public ResponseEntity<?> updateCourse(@PathVariable Long courseId, @PathVariable Long userId, @RequestBody Course updatedCourse) {
+        Optional<UserProfile> userOptional = userRepository.findById(userId);
+
+        if (userOptional.isPresent()) {
+            UserProfile user = userOptional.get();
+            if ("Admin".equals(user.getRole())) {
+                Optional<Course> courseOptional = courseRepository.findById(courseId);
+                if (courseOptional.isPresent()) {
+                    Course course = courseOptional.get();
+                    course.setName(updatedCourse.getName());
+                    course.setDescription(updatedCourse.getDescription());
+                    course.setDepartment(updatedCourse.getDepartment());
+                    courseRepository.save(course);
+
+                    return ResponseEntity.ok().body("Course updated successfully");
+                } else {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
+                }
+            }
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized to update course");
+    }
+
+
 }
