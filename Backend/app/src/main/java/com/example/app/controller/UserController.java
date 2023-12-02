@@ -2,11 +2,14 @@ package com.example.app.controller;
 
 import com.example.app.model.Schedule;
 import com.example.app.model.UserProfile;
+import com.example.app.repository.CourseRepository;
 import com.example.app.repository.ScheduleRepository;
 import com.example.app.repository.UserRepository;
 import com.example.app.miscellaneous.UsernameAndId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +27,9 @@ public class UserController {
 
     @Autowired
     ScheduleRepository scheduleRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
 
     /**
      * Retrieves a UserProfile entity by its username.
@@ -120,4 +126,17 @@ public class UserController {
     }
 
 
+    @DeleteMapping("/courses/delete/{courseId}/{username}")
+    public ResponseEntity<?> deleteCourse(@PathVariable Long courseId, @PathVariable String username) {
+        UserProfile user = userRepository.findByUsername(username);
+        if (user != null && "Admin".equals(user.getRole())) {
+            if (courseRepository.existsById(courseId)) {
+                courseRepository.deleteById(courseId);
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
+            }
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized to delete course");
+    }
 }
