@@ -128,7 +128,8 @@ public class ProfileFragment extends Fragment {
                             String email = response.getString("email");
                             System.out.println(username);
                             System.out.println(email);
-                            textUsername.setText(username);
+                            String currentText = textUsername.getText().toString();
+                            textUsername.setText(currentText + username);
                             textEmail.setText(email);
                         } catch (JSONException e) {
                             // Print stack trace for JSONException
