@@ -2,14 +2,17 @@ package com.example.navigation_screen.ui.courses;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +39,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.function.Consumer;
 
 
 /**
@@ -116,7 +119,7 @@ public class CoursesFragment extends Fragment  {
         // Find and assign the Rate Course button from the layout.
         buttonRateCourse = root.findViewById(R.id.button_rate_course);
         // Find and assign TextView for selected course display.
-        TextView textViewSelectedCourse = root.findViewById(R.id.textView_selected_course);
+       // TextView textViewSelectedCourse = root.findViewById(R.id.textView_selected_course);
 
         // Create an ArrayAdapter to populate the Spinner widget, and set the layout for dropdown items.
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, courseNames);
@@ -143,28 +146,27 @@ public class CoursesFragment extends Fragment  {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Retrieve and display selected course and its description.
                 String selectedCourse = (String) parent.getItemAtPosition(position);
-                textViewSelectedCourse.setText("Selected Course: " + selectedCourse);
                 textViewCourseDescription.setText("Course Description: " + courseDescriptions.get(position));
 
                 // Check if a valid course is selected and adjust the visibility of the Add Course button and Rate Course button accordingly.
                 if(selectedCourse != null && !selectedCourse.isEmpty()) {
                     buttonAddCourse.setVisibility(View.VISIBLE);
+                    buttonRateCourse.setVisibility(View.VISIBLE);
+
+                    // If a valid course is selected, fetch and display the reviews.
+                    selectedCourseId = courseIds.get(position);
+                    loadCourseReviews(selectedCourseId);  // Call the method to load and display the reviews
                 } else {
                     buttonAddCourse.setVisibility(View.GONE);
-                }
-
-                if(selectedCourse != null && !selectedCourse.isEmpty()) {
-                    buttonRateCourse.setVisibility(View.VISIBLE);
-                } else {
                     buttonRateCourse.setVisibility(View.GONE);
-                }
-
-                if(position >= 0 && position < courseIds.size()) {
-                    selectedCourseId = courseIds.get(position);
-                } else {
                     selectedCourseId = null;
+
+                    // Since no course is selected, clear any previous reviews.
+                    LinearLayout reviewsLayout = binding.linearLayoutCourseReviews;
+                    reviewsLayout.removeAllViews();
                 }
             }
+
 
             /**
              * Called when no item is selected in the spinner.
@@ -176,10 +178,14 @@ public class CoursesFragment extends Fragment  {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Update UI elements to reflect the lack of a selected course.
-                textViewSelectedCourse.setText("No Course Selected");
+           //     textViewSelectedCourse.setText("No Course Selected");
                 buttonAddCourse.setVisibility(View.GONE);
                 buttonRateCourse.setVisibility(View.GONE);
                 textViewCourseDescription.setText("Course Description: None");
+                // Clear the reviews if no course is selected
+                LinearLayout reviewsLayout = binding.linearLayoutCourseReviews;
+                reviewsLayout.removeAllViews();
+
             }
         });
 
@@ -319,6 +325,105 @@ public class CoursesFragment extends Fragment  {
         // Add the created request to the Volley request queue
         Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
     }
+
+    // Method to load reviews for a specific course
+    private void loadCourseReviews(int courseId) {
+        // Construct the URL for the GET request
+        String url = "http://coms-309-030.class.las.iastate.edu:8080/course/" + courseId;
+
+        // Create a new JSON object request to receive a JSON object from the given URL
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            // Clear any existing reviews from the layout
+                            LinearLayout reviewsLayout = binding.linearLayoutCourseReviews;
+                            reviewsLayout.removeAllViews();
+
+                            // Extract the "reviews" JSON array from the response
+                            JSONArray reviews = response.getJSONArray("reviews");
+
+                            // Iterate through the "reviews" JSON array
+                            for (int i = 0; i < reviews.length(); i++) {
+                                // Get each review as a JSON object
+                                JSONObject review = reviews.getJSONObject(i);
+
+                                // Extract review details
+                                String comment = review.getString("comment");
+                                int rating = review.getInt("rating");
+                                int difficulty = review.getInt("difficulty");
+                                int timeCommitment = review.getInt("time_commitment");
+                                int userId = review.getInt("userId");
+
+                                // Fetch the username for the userId
+                                fetchUsername(userId, username -> {
+                                    // Create a TextView for the review
+                                    TextView reviewView = new TextView(getContext());
+                                    reviewView.setText(String.format("@%s:\nCommented: \"%s\"\nRates Difficulty: %d/5\nRates Time Commitment: %d/5",
+                                            username, comment, difficulty, timeCommitment));
+
+
+
+                                    // Set the layout parameters for the TextView
+                                    reviewView.setLayoutParams(new LinearLayout.LayoutParams(
+                                            LinearLayout.LayoutParams.MATCH_PARENT,
+                                            LinearLayout.LayoutParams.WRAP_CONTENT));
+
+                                    // Add padding for better readability
+                                    int paddingPx = (int) (16 * getResources().getDisplayMetrics().density);
+                                    reviewView.setPadding(paddingPx, paddingPx, paddingPx, paddingPx);
+
+                                    // Set some text styling (optional)
+                                    reviewView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f);
+                                    reviewView.setTextColor(Color.BLACK);
+
+                                    // Add the review view to the layout inside the callback
+                                    getActivity().runOnUiThread(() -> reviewsLayout.addView(reviewView));
+                                });
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error
+                        Toast.makeText(getContext(), "Error fetching reviews: " + error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+        // Add the request to the Volley request queue
+        Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
+    }
+
+    // Method to fetch username for a given userId
+    private void fetchUsername(int userId, Consumer<String> callback) {
+        String url = "http://coms-309-030.class.las.iastate.edu:8080/userprofile/" + userId;
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        // Extract username from the response
+                        String username = response.getString("username"); // Adjust if the JSON key is different
+                        callback.accept(username);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        callback.accept("Unknown User"); // Default username if there's an error
+                    }
+                },
+                error -> {
+                    Toast.makeText(getContext(), "Error fetching username: " + error.toString(), Toast.LENGTH_LONG).show();
+                    callback.accept("Unknown User"); // Default username if there's a network error
+                }
+        );
+
+        Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
+    }
+
+
 
 
     /**

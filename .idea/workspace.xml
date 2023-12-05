@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ff63b8b-1b94-4c02-9a5e-589e927a418f" name="Changes" comment="Commiting my demo with both examples">
-      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/navigation_screen/ui/settings/SettingViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/navigation_screen/ui/settings/SettingsFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/drawable/baseline_settings_24.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/navigation_screen/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/navigation_screen/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/res/menu/bottom_nav_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/menu/bottom_nav_menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/res/navigation/mobile_navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/navigation/mobile_navigation.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Experiments/muslicb/navigation_screen/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Experiments/muslicb/navigation_screen/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/navigation_screen/ui/courses/CoursesFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/java/com/example/navigation_screen/ui/courses/CoursesFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/app/src/main/res/layout/fragment_home.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +46,7 @@
     "WebServerToolWindowFactoryState": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "20-creating-backend-sturucture-and-my-part-for-demo2-ks",
-    "last_opened_file_path": "C:/Users/BiHFo/StudioProjects/lg_113/Frontend",
+    "last_opened_file_path": "/Users/benjaminmuslic/AndroidStudioProjects/lg_113",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
