@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -39,6 +40,7 @@ public class Login extends AppCompatActivity{
 
     // Static variable to hold the user ID after successful login.
     public static int userid = 0;
+    public static String userrole = "";
 
     // Binding for the main activity layout.
     private ActivityMainBinding binding;
@@ -63,22 +65,22 @@ public class Login extends AppCompatActivity{
 
             @Override
             public void onClick(View view) {
-                login();
                 getID();
+                login();
                 System.out.println(userid);
 
-                binding = ActivityMainBinding.inflate(getLayoutInflater());
-                setContentView(binding.getRoot());
-
-                BottomNavigationView navView = findViewById(R.id.nav_view);
-                // Passing each menu ID as a set of Ids because each
-                // menu should be considered as top level destinations.
-                AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                        R.id.courses, R.id.chat, R.id.profile, R.id.schedule, R.id.settings)
-                        .build();
-                NavController navController = Navigation.findNavController(Login.this, R.id.nav_host_fragment_activity_main);
-                NavigationUI.setupActionBarWithNavController(Login.this, navController, appBarConfiguration);
-                NavigationUI.setupWithNavController(binding.navView, navController);
+//                binding = ActivityMainBinding.inflate(getLayoutInflater());
+//                setContentView(binding.getRoot());
+//
+//                BottomNavigationView navView = findViewById(R.id.nav_view);
+//                // Passing each menu ID as a set of Ids because each
+//                // menu should be considered as top level destinations.
+//                AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+//                        R.id.courses, R.id.chat, R.id.profile, R.id.schedule, R.id.settings)
+//                        .build();
+//                NavController navController = Navigation.findNavController(Login.this, R.id.nav_host_fragment_activity_main);
+//                NavigationUI.setupActionBarWithNavController(Login.this, navController, appBarConfiguration);
+//                NavigationUI.setupWithNavController(binding.navView, navController);
 
             }
         });
@@ -119,17 +121,29 @@ public class Login extends AppCompatActivity{
                             PreferencesUtil.saveUserId(getApplicationContext(), response.getInt("userid"));
                             userid = response.getInt("userid");
                             Log.d("userid: ", ""+ userid);
+                            System.out.println(response);
+
+                            if(jsonResponse == null){
+                                loginFail();
+                            }else if(userrole.equals("Student")){
+                                loginSuccessStudent();
+                            }
+                            else if(userrole.equals("Advisor")){
+                                loginSuccessAdvisor();
+                            }
+                            else if(userrole.equals("Admin")){
+                                loginSuccessAdmin();
+                            }
+
                         }
                         catch (JSONException e) {
                             // Print stack trace for JSONException
                             e.printStackTrace();
+                            //System.out.println("error");
+                            //Toast.makeText(Login.this, "Login Failed! Try again!", Toast.LENGTH_SHORT).show();
                         }
                         System.out.println(jsonResponse);
                         Log.d("DEBUG", jsonResponse);
-
-                        if(jsonResponse == null){
-
-                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -165,11 +179,13 @@ public class Login extends AppCompatActivity{
                             // Get the first (and only) object from the array
                             JSONObject firstObject = response.getJSONObject(0);
 
-                            // Access the "user ID" value
+                            // Access the "user ID" and "user role" value
                             userid = firstObject.getInt("userid");
+                            userrole = firstObject.getString("role");
 
-                            // Now, userId contains the user ID value
+                            // Now, userId contains the user ID value and userrole contains the userrole value
                             System.out.println("userid: " + userid);
+                            System.out.println("role: " + userrole);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -187,6 +203,61 @@ public class Login extends AppCompatActivity{
         // Add the created request to the Volley request queue
         requestQueue.add(jsonArrayRequest);
         //Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
+    }
+
+    public void loginSuccessStudent() {
+        Toast.makeText(Login.this, "Student Login Successful!", Toast.LENGTH_SHORT).show();
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.courses, R.id.chat, R.id.profile, R.id.schedule, R.id.settings)
+                .build();
+        NavController navController = Navigation.findNavController(Login.this, R.id.nav_host_fragment_activity_main);
+        NavigationUI.setupActionBarWithNavController(Login.this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(binding.navView, navController);
+    }
+
+    public void loginSuccessAdmin() {
+        Toast.makeText(Login.this, "Admin Login Successful!", Toast.LENGTH_SHORT).show();
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.courses, R.id.chat, R.id.profile, R.id.schedule, R.id.settings)
+                .build();
+        NavController navController = Navigation.findNavController(Login.this, R.id.nav_host_fragment_activity_main);
+        NavigationUI.setupActionBarWithNavController(Login.this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(binding.navView, navController);
+    }
+
+    public void loginSuccessAdvisor() {
+        Toast.makeText(Login.this, "Advisor Login Successful!", Toast.LENGTH_SHORT).show();
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.courses, R.id.chat, R.id.profile, R.id.schedule, R.id.settings)
+                .build();
+        NavController navController = Navigation.findNavController(Login.this, R.id.nav_host_fragment_activity_main);
+        NavigationUI.setupActionBarWithNavController(Login.this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(binding.navView, navController);
+    }
+
+    public void loginFail() {
+        Toast.makeText(Login.this, "Login Failed! Try again!", Toast.LENGTH_SHORT).show();
     }
 
     /**
