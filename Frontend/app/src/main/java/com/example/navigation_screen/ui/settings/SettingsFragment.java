@@ -1,9 +1,11 @@
 package com.example.navigation_screen.ui.settings;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Switch;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
+import com.example.navigation_screen.MainActivity;
 import com.example.navigation_screen.PreferencesUtil;
 import com.example.navigation_screen.R;
 import com.example.navigation_screen.databinding.FragmentSettingsBinding;
@@ -19,10 +22,14 @@ public class SettingsFragment extends Fragment {
 
     private FragmentSettingsBinding binding;
 
+    Button logoutbtn;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        logoutbtn = root.findViewById(R.id.logoutbtn);
 
         // Initialize the switch
         Switch darkModeSwitch = root.findViewById(R.id.switch_dark_mode);
@@ -31,6 +38,15 @@ public class SettingsFragment extends Fragment {
         boolean isDarkModeEnabled = PreferencesUtil.getDarkModePreference(getContext());
         darkModeSwitch.setChecked(isDarkModeEnabled);
 
+        logoutbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myintent = new Intent(getActivity(), MainActivity.class);
+                startActivity(myintent);
+                //setContentView(R.layout.login);
+            }
+        });
+
         darkModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (buttonView.isPressed()) {
                 showConfirmationDialog(isChecked);
@@ -38,6 +54,8 @@ public class SettingsFragment extends Fragment {
         });
 
         return root;
+
+
     }
 
     private void showConfirmationDialog(boolean isEnabled) {
