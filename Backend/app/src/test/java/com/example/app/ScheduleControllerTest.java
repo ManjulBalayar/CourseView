@@ -9,6 +9,7 @@ import com.example.app.controller.CourseController;
 import com.example.app.controller.ReviewController;
 import com.example.app.controller.ScheduleController;
 import com.example.app.miscellaneous.AddCourse;
+import com.example.app.miscellaneous.Workload;
 import com.example.app.model.Course;
 import com.example.app.model.Review;
 import com.example.app.model.Schedule;
@@ -77,10 +78,15 @@ public class ScheduleControllerTest {
     public void returnSchedule() throws Exception {
         Schedule schedule = new Schedule();
         schedule.setScheduleid(1L);
+        Course course = new Course();
+        course.setCourseid(1L);
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUser_id(1L);
 
 
         // Example using Mockito
         when(scheduleRepository.findById(1L)).thenReturn(Optional.of(schedule));
+        scheduleCourseService.addStudentLikesCourse(1L,1L);
 
 
         mockMvc.perform(get("/schedule/1"))
@@ -116,6 +122,15 @@ public class ScheduleControllerTest {
         schedule.setCourses(null);
         schedule.setUserProfile(null);
         schedule.getUserProfile();
+
+        Workload workload = new Workload(1F,1F,1F);
+        workload.getDifficulty();
+        workload.getRating();
+        workload.getTime_commitment();
+        workload.setDifficulty(3F);
+        workload.setRating(3F);
+        workload.setTime_commitment(3F);
+
 
         ObjectMapper objectMapper = new ObjectMapper();
         String addCourseJson = objectMapper.writeValueAsString(schedule);
