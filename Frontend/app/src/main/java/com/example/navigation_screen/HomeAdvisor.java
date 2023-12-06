@@ -66,6 +66,8 @@ public class HomeAdvisor extends AppCompatActivity{
     // List of course IDs, corresponding to the course names in courseNames
     private List<Integer> courseIds = new ArrayList<>();
 
+    private List<String> names = new ArrayList<>();
+
     // The ID of the currently selected course.
     private Integer selectedCourseId;
 
@@ -209,7 +211,7 @@ public class HomeAdvisor extends AppCompatActivity{
              */
             public void onClick(View view) {
                 //TODO get list of students for advisor
-
+                getUsers();
             }
         });
 
@@ -537,6 +539,53 @@ public class HomeAdvisor extends AppCompatActivity{
         //Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
     }
 
+
+    private void getUsers() {
+        String url = "http://coms-309-030.class.las.iastate.edu:8080/users/addFriend/" + userid + "/friends";
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                // Listener for successful responses
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        System.out.println(response.toString());
+                        try {
+                            for (int i = 0; i < response.length(); i++) {
+                                // Get each course as a JSON object
+                                JSONObject course = response.getJSONObject(i);
+                                // Extract and store relevant information from each course object
+                                String username = course.getString("username");
+                                System.out.println(username);
+                                names.add(username);
+                            }
+
+                            System.out.println(response.toString());
+                            AlertDialog.Builder builder = new AlertDialog.Builder(HomeAdvisor.this);
+                            builder.setTitle("Courses Reviewed:");
+                            builder.setMessage(names.toString());
+                            builder.setPositiveButton("OK", null);
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                // Listener for error responses
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Log error responses with tag "VolleyError"
+                        Log.e("VolleyError", error.toString());
+                    }
+                });
+
+        // Add the created request to the Volley request queue
+        requestQueue.add(jsonArrayRequest);
+        //Volley.newRequestQueue(getContext()).add(jsonArrayRequest);
+    }
 
 
 
