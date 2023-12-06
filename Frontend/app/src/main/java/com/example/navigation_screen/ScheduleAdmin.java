@@ -60,7 +60,7 @@ public class ScheduleAdmin extends AppCompatActivity {
      */
     //@Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_schedule, container, false);
+        View root = inflater.inflate(R.layout.fragment_schedule_admin_advisor, container, false);
 
         // Set up the ListView and adapter
         ListView listViewCourses = root.findViewById(R.id.listView_courses);
@@ -70,8 +70,9 @@ public class ScheduleAdmin extends AppCompatActivity {
         // Load courses for the given student ID
         loadCourses(userid);
 
-        // Find the button by ID and set an OnClickListener
+        // Find the buttons by ID and set an OnClickListener
         Button calculateWorkloadButton = root.findViewById(R.id.button_calculate_workload);
+        Button backButton = root.findViewById(R.id.button_back);
         calculateWorkloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +80,18 @@ public class ScheduleAdmin extends AppCompatActivity {
                 calculateWorkload();
                 // Start the WorkloadGaugeActivity
                 Intent intent = new Intent(ScheduleAdmin.this, WorkloadGauge.class);
+
+                startActivity(intent);
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                calculateWorkload();
+                // Start the WorkloadGaugeActivity
+                Intent intent = new Intent(ScheduleAdmin.this, HomeAdmin.class);
 
                 startActivity(intent);
             }
