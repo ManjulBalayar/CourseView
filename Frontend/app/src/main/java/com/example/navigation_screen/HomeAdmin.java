@@ -58,6 +58,16 @@ public class HomeAdmin extends AppCompatActivity{
     private Button buttonAddCourse;
     // Button widget for rating a course
     private Button buttonRateCourse;
+    // Button widget for updateing a course
+    private Button buttonUpdateCourse;
+    // Button widget for deleting a course
+    private Button buttonDeleteCourse;
+    // Button widget for schedule a course
+    private Button buttonScheduleCourse;
+    // Button widget for view schedule
+    private Button buttonViewSchedule;
+
+
 
     // List of course IDs, corresponding to the course names in courseNames
     private List<Integer> courseIds = new ArrayList<>();
@@ -90,8 +100,14 @@ public class HomeAdmin extends AppCompatActivity{
         courseDescriptions = new ArrayList<>();
         // Find and assign the Add Course button from the layout.
         buttonAddCourse = findViewById(R.id.button_add_course);
-        // Find and assign the Rate Course button from the layout.
         buttonRateCourse = findViewById(R.id.button_rate_course);
+        buttonUpdateCourse = findViewById(R.id.button_update_course);
+        buttonDeleteCourse = findViewById(R.id.button_delete_course);
+        buttonScheduleCourse = findViewById(R.id.button_schedule_course);
+        buttonViewSchedule = findViewById(R.id.button_view_schedule);
+
+
+
         // Find and assign TextView for selected course display.
         // TextView textViewSelectedCourse = root.findViewById(R.id.textView_selected_course);
 
@@ -164,7 +180,7 @@ public class HomeAdmin extends AppCompatActivity{
         });
 
         // Set a click listener for the Add Course button.
-        buttonAddCourse.setOnClickListener(new View.OnClickListener() {
+        buttonScheduleCourse.setOnClickListener(new View.OnClickListener() {
 
             /**
              * Called when the Add Course button is clicked.
@@ -211,6 +227,110 @@ public class HomeAdmin extends AppCompatActivity{
                     Intent myintent = new Intent(HomeAdmin.this, RateCourse.class);
                     myintent.putExtra("COURSE_ID", selectedCourseId);
                     startActivity(myintent);
+                } else {
+                    // Show a toast message if an invalid course is selected.
+                    Toast.makeText(HomeAdmin.this, "Please select a valid course", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        //TODO
+        buttonDeleteCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            /**
+             * button
+             */
+            public void onClick(View view) {
+                // Retrieve selected position in the Spinner.
+                int position = spinnerCourses.getSelectedItemPosition();
+
+                // Log.d("DEBUG", "Selected Position: " + position);
+
+                // Validate selected position and ensure it corresponds to a valid course, then add the course.
+                if (selectedCourseId != null) {
+                    Intent myintent = new Intent(HomeAdmin.this, RateCourse.class);
+                    myintent.putExtra("COURSE_ID", selectedCourseId);
+                    startActivity(myintent);
+                } else {
+                    // Show a toast message if an invalid course is selected.
+                    Toast.makeText(HomeAdmin.this, "Please select a valid course", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        //TODO
+        buttonUpdateCourse.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Called when the Add Course button is clicked.
+             * This method checks the selected position in the spinner, validates it,
+             * and triggers the addition of the course if the selection is valid.
+             * A toast message is displayed if an invalid course is selected.
+             *
+             * @param view The view (button) that was clicked.
+             */
+            @Override
+            public void onClick(View view) {
+                // Retrieve selected position in the Spinner.
+                int position = spinnerCourses.getSelectedItemPosition();
+
+
+                // Log.d("DEBUG", "Selected Position: " + position);
+
+                // Validate selected position and ensure it corresponds to a valid course, then add the course.
+                if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
+                    int selectedCourseId = courseIds.get(position);
+                    System.out.println(selectedCourseId);
+                    addCourse(selectedCourseId);
+                } else {
+                    // Show a toast message if an invalid course is selected.
+                    Toast.makeText(HomeAdmin.this, "Please select a valid course", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        //TODO
+        buttonViewSchedule.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Called when the Add Course button is clicked.
+             * This method checks the selected position in the spinner, validates it,
+             * and triggers the addition of the course if the selection is valid.
+             * A toast message is displayed if an invalid course is selected.
+             *
+             * @param view The view (button) that was clicked.
+             */
+            @Override
+            public void onClick(View view) {
+                Intent myintent = new Intent(HomeAdmin.this, ScheduleAdmin.class);
+                startActivity(myintent);
+            }
+        });
+
+        //TODO
+        buttonAddCourse.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Called when the Add Course button is clicked.
+             * This method checks the selected position in the spinner, validates it,
+             * and triggers the addition of the course if the selection is valid.
+             * A toast message is displayed if an invalid course is selected.
+             *
+             * @param view The view (button) that was clicked.
+             */
+            @Override
+            public void onClick(View view) {
+                // Retrieve selected position in the Spinner.
+                int position = spinnerCourses.getSelectedItemPosition();
+
+
+                // Log.d("DEBUG", "Selected Position: " + position);
+
+                // Validate selected position and ensure it corresponds to a valid course, then add the course.
+                if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
+                    int selectedCourseId = courseIds.get(position);
+                    System.out.println(selectedCourseId);
+                    addCourse(selectedCourseId);
                 } else {
                     // Show a toast message if an invalid course is selected.
                     Toast.makeText(HomeAdmin.this, "Please select a valid course", Toast.LENGTH_SHORT).show();

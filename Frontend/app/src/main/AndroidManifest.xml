@@ -62,6 +62,9 @@
         <activity android:name=".HomeAdmin">
 
         </activity>
+        <activity android:name=".ScheduleAdmin">
+
+        </activity>
 
     </application>
 </manifest>
