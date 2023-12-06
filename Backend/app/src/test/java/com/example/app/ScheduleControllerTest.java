@@ -113,6 +113,9 @@ public class ScheduleControllerTest {
         // Create a sample AddCourse object
         Schedule schedule = new Schedule();
         schedule.setScheduleid(1L);
+        schedule.setCourses(null);
+        schedule.setUserProfile(null);
+        schedule.getUserProfile();
 
         ObjectMapper objectMapper = new ObjectMapper();
         String addCourseJson = objectMapper.writeValueAsString(schedule);
