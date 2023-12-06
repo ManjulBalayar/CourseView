@@ -59,6 +59,21 @@
         <activity android:name=".WorkloadGauge">
 
         </activity>
+        <activity android:name=".HomeAdmin">
+
+        </activity>
+        <activity android:name=".ScheduleAdmin">
+
+        </activity>
+        <activity android:name=".HomeAdvisor">
+
+        </activity>
+        <activity android:name=".ScheduleAdvisor">
+
+        </activity>
+        <activity android:name=".AddCourse">
+
+        </activity>
 
     </application>
 </manifest>

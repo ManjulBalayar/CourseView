@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/courses">
+
+    <fragment
+        android:id="@+id/courses"
+        android:name="com.example.navigation_screen.ui.courses.CoursesFragment"
+        android:label="Courses"
+        tools:layout="@layout/fragment_home_admin" />
+
+    <fragment
+        android:id="@+id/chat"
+        android:name="com.example.navigation_screen.ui.chat.ChatFragment"
+        android:label="@string/title_chat"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.navigation_screen.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile_admin" />
+
+    <fragment
+        android:id="@+id/schedule"
+        android:name="com.example.navigation_screen.ui.schedule.ScheduleFragment"
+        android:label="Schedule"
+        tools:layout="@layout/fragment_schedule" />
+
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.example.navigation_screen.ui.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings"/>
+
+
+
+</navigation>

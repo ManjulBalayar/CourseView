@@ -1,5 +1,6 @@
 package com.example.navigation_screen;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.navigation_screen.databinding.ActivityMainAdminBinding;
 import com.example.navigation_screen.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -44,6 +46,7 @@ public class Login extends AppCompatActivity{
 
     // Binding for the main activity layout.
     private ActivityMainBinding binding;
+    private ActivityMainAdminBinding adminBinding;
 
     /**
      * Called when the activity is starting.
@@ -225,35 +228,21 @@ public class Login extends AppCompatActivity{
     public void loginSuccessAdmin() {
         Toast.makeText(Login.this, "Admin Login Successful!", Toast.LENGTH_SHORT).show();
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+//        adminBinding = ActivityMainAdminBinding.inflate(getLayoutInflater());
+//        setContentView(adminBinding.getRoot());
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.courses, R.id.chat, R.id.profile, R.id.schedule, R.id.settings)
-                .build();
-        NavController navController = Navigation.findNavController(Login.this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(Login.this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        Intent myintent = new Intent(Login.this, HomeAdmin.class);
+        startActivity(myintent);
     }
 
     public void loginSuccessAdvisor() {
         Toast.makeText(Login.this, "Advisor Login Successful!", Toast.LENGTH_SHORT).show();
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+//        binding = ActivityMainBinding.inflate(getLayoutInflater());
+//        setContentView(binding.getRoot());
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.courses, R.id.chat, R.id.profile, R.id.schedule, R.id.settings)
-                .build();
-        NavController navController = Navigation.findNavController(Login.this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(Login.this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        Intent myintent = new Intent(Login.this, HomeAdvisor.class);
+        startActivity(myintent);
     }
 
     public void loginFail() {
