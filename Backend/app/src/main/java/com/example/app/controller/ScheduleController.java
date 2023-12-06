@@ -16,7 +16,6 @@ import java.util.List;
  * ScheduleCourseService for handling course scheduling.
  */
 @RestController
-@RequestMapping("/api/schedule")
 public class ScheduleController {
 
     @Autowired
@@ -39,12 +38,6 @@ public class ScheduleController {
         return addCourse;
     }
 
-    /**
-     * Adds a new Schedule entity to the database.
-     *
-     * @param schedule The Schedule entity to be added.
-     * @return The added Schedule entity.
-     */
     @PostMapping("/schedule")
     public Schedule addReview(@RequestBody Schedule schedule) {
         repo.save(schedule);
