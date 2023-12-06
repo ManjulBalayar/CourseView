@@ -13,7 +13,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-@EnableJpaRepositories
 @Configuration
 public class AppApplication {
 
@@ -21,12 +20,12 @@ public class AppApplication {
 		SpringApplication.run(AppApplication.class, args);
 	}
 
-	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.select()
-				.apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.any())
-				.build();
-	}
+//	@Bean
+//	public Docket api() {
+//		return new Docket(DocumentationType.SWAGGER_2)
+//				.select()
+//				.apis(RequestHandlerSelectors.any())
+//				.paths(PathSelectors.any())
+//				.build();
+//	}
 }
