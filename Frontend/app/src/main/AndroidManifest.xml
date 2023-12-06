@@ -71,6 +71,9 @@
         <activity android:name=".ScheduleAdvisor">
 
         </activity>
+        <activity android:name=".AddCourse">
+
+        </activity>
 
     </application>
 </manifest>

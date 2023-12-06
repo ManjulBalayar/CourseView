@@ -57,15 +57,15 @@ public class HomeAdmin extends AppCompatActivity{
     // Button widget for adding a course
     private Button buttonAddCourse;
     // Button widget for rating a course
-    private Button buttonRateCourse;
+    //private Button buttonRateCourse;
     // Button widget for updateing a course
     private Button buttonUpdateCourse;
     // Button widget for deleting a course
     private Button buttonDeleteCourse;
     // Button widget for schedule a course
-    private Button buttonScheduleCourse;
+    //private Button buttonScheduleCourse;
     // Button widget for view schedule
-    private Button buttonViewSchedule;
+    //private Button buttonViewSchedule;
 
 
 
@@ -100,11 +100,11 @@ public class HomeAdmin extends AppCompatActivity{
         courseDescriptions = new ArrayList<>();
         // Find and assign the Add Course button from the layout.
         buttonAddCourse = findViewById(R.id.button_add_course);
-        buttonRateCourse = findViewById(R.id.button_rate_course);
+        //buttonRateCourse = findViewById(R.id.button_rate_course);
         buttonUpdateCourse = findViewById(R.id.button_update_course);
         buttonDeleteCourse = findViewById(R.id.button_delete_course);
-        buttonScheduleCourse = findViewById(R.id.button_schedule_course);
-        buttonViewSchedule = findViewById(R.id.button_view_schedule);
+        //buttonScheduleCourse = findViewById(R.id.button_schedule_course);
+        //buttonViewSchedule = findViewById(R.id.button_view_schedule);
 
 
 
@@ -141,14 +141,14 @@ public class HomeAdmin extends AppCompatActivity{
                 // Check if a valid course is selected and adjust the visibility of the Add Course button and Rate Course button accordingly.
                 if(selectedCourse != null && !selectedCourse.isEmpty()) {
                     buttonAddCourse.setVisibility(View.VISIBLE);
-                    buttonRateCourse.setVisibility(View.VISIBLE);
+                    //buttonRateCourse.setVisibility(View.VISIBLE);
 
                     // If a valid course is selected, fetch and display the reviews.
                     selectedCourseId = courseIds.get(position);
                     loadCourseReviews(selectedCourseId);  // Call the method to load and display the reviews
                 } else {
                     buttonAddCourse.setVisibility(View.GONE);
-                    buttonRateCourse.setVisibility(View.GONE);
+                    //buttonRateCourse.setVisibility(View.GONE);
                     selectedCourseId = null;
 
                     // Since no course is selected, clear any previous reviews.
@@ -170,7 +170,7 @@ public class HomeAdmin extends AppCompatActivity{
                 // Update UI elements to reflect the lack of a selected course.
                 //     textViewSelectedCourse.setText("No Course Selected");
                 buttonAddCourse.setVisibility(View.GONE);
-                buttonRateCourse.setVisibility(View.GONE);
+                //buttonRateCourse.setVisibility(View.GONE);
                 textViewCourseDescription.setText("Course Description: None");
                 // Clear the reviews if no course is selected
                 LinearLayout reviewsLayout = findViewById(R.id.linearLayout_course_reviews);
@@ -180,59 +180,59 @@ public class HomeAdmin extends AppCompatActivity{
         });
 
         // Set a click listener for the Add Course button.
-        buttonScheduleCourse.setOnClickListener(new View.OnClickListener() {
-
-            /**
-             * Called when the Add Course button is clicked.
-             * This method checks the selected position in the spinner, validates it,
-             * and triggers the addition of the course if the selection is valid.
-             * A toast message is displayed if an invalid course is selected.
-             *
-             * @param view The view (button) that was clicked.
-             */
-            @Override
-            public void onClick(View view) {
-                // Retrieve selected position in the Spinner.
-                int position = spinnerCourses.getSelectedItemPosition();
-
-
-                // Log.d("DEBUG", "Selected Position: " + position);
-
-                // Validate selected position and ensure it corresponds to a valid course, then add the course.
-                if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
-                    int selectedCourseId = courseIds.get(position);
-                    System.out.println(selectedCourseId);
-                    addCourse(selectedCourseId);
-                } else {
-                    // Show a toast message if an invalid course is selected.
-                    Toast.makeText(HomeAdmin.this, "Please select a valid course", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-
-        buttonRateCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            /**
-             * button
-             */
-            public void onClick(View view) {
-                // Retrieve selected position in the Spinner.
-                int position = spinnerCourses.getSelectedItemPosition();
-
-                // Log.d("DEBUG", "Selected Position: " + position);
-
-                // Validate selected position and ensure it corresponds to a valid course, then add the course.
-                if (selectedCourseId != null) {
-                    Intent myintent = new Intent(HomeAdmin.this, RateCourse.class);
-                    myintent.putExtra("COURSE_ID", selectedCourseId);
-                    startActivity(myintent);
-                } else {
-                    // Show a toast message if an invalid course is selected.
-                    Toast.makeText(HomeAdmin.this, "Please select a valid course", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        buttonScheduleCourse.setOnClickListener(new View.OnClickListener() {
+//
+//            /**
+//             * Called when the Add Course button is clicked.
+//             * This method checks the selected position in the spinner, validates it,
+//             * and triggers the addition of the course if the selection is valid.
+//             * A toast message is displayed if an invalid course is selected.
+//             *
+//             * @param view The view (button) that was clicked.
+//             */
+//            @Override
+//            public void onClick(View view) {
+//                // Retrieve selected position in the Spinner.
+//                int position = spinnerCourses.getSelectedItemPosition();
+//
+//
+//                // Log.d("DEBUG", "Selected Position: " + position);
+//
+//                // Validate selected position and ensure it corresponds to a valid course, then add the course.
+//                if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
+//                    int selectedCourseId = courseIds.get(position);
+//                    System.out.println(selectedCourseId);
+//                    addCourse(selectedCourseId);
+//                } else {
+//                    // Show a toast message if an invalid course is selected.
+//                    Toast.makeText(HomeAdmin.this, "Please select a valid course", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//
+//
+//        buttonRateCourse.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            /**
+//             * button
+//             */
+//            public void onClick(View view) {
+//                // Retrieve selected position in the Spinner.
+//                int position = spinnerCourses.getSelectedItemPosition();
+//
+//                // Log.d("DEBUG", "Selected Position: " + position);
+//
+//                // Validate selected position and ensure it corresponds to a valid course, then add the course.
+//                if (selectedCourseId != null) {
+//                    Intent myintent = new Intent(HomeAdmin.this, RateCourse.class);
+//                    myintent.putExtra("COURSE_ID", selectedCourseId);
+//                    startActivity(myintent);
+//                } else {
+//                    // Show a toast message if an invalid course is selected.
+//                    Toast.makeText(HomeAdmin.this, "Please select a valid course", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
         //TODO
         buttonDeleteCourse.setOnClickListener(new View.OnClickListener() {
@@ -244,13 +244,14 @@ public class HomeAdmin extends AppCompatActivity{
                 // Retrieve selected position in the Spinner.
                 int position = spinnerCourses.getSelectedItemPosition();
 
+
                 // Log.d("DEBUG", "Selected Position: " + position);
 
                 // Validate selected position and ensure it corresponds to a valid course, then add the course.
-                if (selectedCourseId != null) {
-                    Intent myintent = new Intent(HomeAdmin.this, RateCourse.class);
-                    myintent.putExtra("COURSE_ID", selectedCourseId);
-                    startActivity(myintent);
+                if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
+                    int selectedCourseId = courseIds.get(position);
+                    System.out.println(selectedCourseId);
+                    deleteCourse(selectedCourseId);
                 } else {
                     // Show a toast message if an invalid course is selected.
                     Toast.makeText(HomeAdmin.this, "Please select a valid course", Toast.LENGTH_SHORT).show();
@@ -290,51 +291,35 @@ public class HomeAdmin extends AppCompatActivity{
         });
 
         //TODO
-        buttonViewSchedule.setOnClickListener(new View.OnClickListener() {
-
-            /**
-             * Called when the Add Course button is clicked.
-             * This method checks the selected position in the spinner, validates it,
-             * and triggers the addition of the course if the selection is valid.
-             * A toast message is displayed if an invalid course is selected.
-             *
-             * @param view The view (button) that was clicked.
-             */
-            @Override
-            public void onClick(View view) {
-                Intent myintent = new Intent(HomeAdmin.this, ScheduleAdmin.class);
-                startActivity(myintent);
-            }
-        });
+//        buttonViewSchedule.setOnClickListener(new View.OnClickListener() {
+//
+//            /**
+//             * Called when the Add Course button is clicked.
+//             * This method checks the selected position in the spinner, validates it,
+//             * and triggers the addition of the course if the selection is valid.
+//             * A toast message is displayed if an invalid course is selected.
+//             *
+//             * @param view The view (button) that was clicked.
+//             */
+//            @Override
+//            public void onClick(View view) {
+//                Intent myintent = new Intent(HomeAdmin.this, ScheduleAdmin.class);
+//                startActivity(myintent);
+//            }
+//        });
 
         //TODO
         buttonAddCourse.setOnClickListener(new View.OnClickListener() {
 
             /**
              * Called when the Add Course button is clicked.
-             * This method checks the selected position in the spinner, validates it,
-             * and triggers the addition of the course if the selection is valid.
-             * A toast message is displayed if an invalid course is selected.
              *
              * @param view The view (button) that was clicked.
              */
             @Override
             public void onClick(View view) {
-                // Retrieve selected position in the Spinner.
-                int position = spinnerCourses.getSelectedItemPosition();
-
-
-                // Log.d("DEBUG", "Selected Position: " + position);
-
-                // Validate selected position and ensure it corresponds to a valid course, then add the course.
-                if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
-                    int selectedCourseId = courseIds.get(position);
-                    System.out.println(selectedCourseId);
-                    addCourse(selectedCourseId);
-                } else {
-                    // Show a toast message if an invalid course is selected.
-                    Toast.makeText(HomeAdmin.this, "Please select a valid course", Toast.LENGTH_SHORT).show();
-                }
+                Intent myintent = new Intent(HomeAdmin.this, AddCourse.class);
+                startActivity(myintent);
             }
         });
 
@@ -613,6 +598,101 @@ public class HomeAdmin extends AppCompatActivity{
         requestQueue.add(jsonObjectRequest);
         //Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
     }
+
+
+    private void deleteCourse(int courseId) {
+        // URL endpoint for adding courses
+        userid = PreferencesUtil.getUserId(HomeAdmin.this);
+        String url = "http://coms-309-030.class.las.iastate.edu:8080/courses/delete/" + courseId + "/" + userid;
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        Log.d("userid: ", "" + userid);
+        Log.d("courseId: ", "" + courseId);
+        // JSON object that will contain the payload of the POST request
+//        JSONObject postData = new JSONObject();
+//        try {
+//            // Populating postData with student_id and course_id
+//            postData.put("user_id", userid);
+//            postData.put("course_id", courseId);
+//
+//        } catch (JSONException e) {
+//            // Print stack trace for any JSON exception while populating postData
+//            e.printStackTrace();
+//        }
+
+        // Create a new JSON object request to send a JSON object to the server
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.DELETE, url, null,
+                // Listener for successful responses
+                new Response.Listener<JSONObject>() {
+
+                    /**
+                     * On response create a dialog builder for user feedback
+                     * Check if response contains student_id and course_id indicating success
+                     * Show alert dialog for successful addition of course
+                     * @param response
+                     */
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        // Log.d("DEBUG", "Received response: " + response.toString());
+                        System.out.println(response);
+                        // Create a dialog builder for user feedback
+                        AlertDialog.Builder builder = new AlertDialog.Builder(HomeAdmin.this);
+
+                        // Check if response contains student_id and course_id indicating success
+//                        if (response.has("user_id") && response.has("course_id")) {
+//                            // Show success message to the user
+//                            builder.setTitle("Success");
+//                            builder.setMessage("Course successfully deleted!");
+//                        } else {
+//                            // Handle unknown errors and inform the user
+//                            builder.setTitle("Error");
+//                            builder.setMessage("Unknown Error");
+//                        }
+                        builder.setTitle("Success");
+                        builder.setMessage("Course successfully deleted!");
+
+                        // Create and show the alert dialog
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                },
+                // Listener for error responses
+                new Response.ErrorListener() {
+
+                    /**
+                     * Log Volley error on error response
+                     * @param error
+                     */
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Create a dialog builder for displaying error messages to the user
+                        AlertDialog.Builder builder = new AlertDialog.Builder(HomeAdmin.this);
+                        builder.setTitle("Network Error");
+
+                        // Log the details of the network error
+                        Log.e("VolleyError", "Error: " + error.toString());
+
+                        // Check if there is a network response and display appropriate error message
+                        if (error.networkResponse != null && error.networkResponse.data != null) {
+                            String responseBody = new String(error.networkResponse.data);
+                            builder.setMessage("Response error: " + responseBody);
+                        } else {
+                            builder.setMessage("Network error: " + error.toString());
+                        }
+
+                        // Create and show the alert dialog with the error message
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                }
+        );
+
+        // Add the created request to the Volley request queue
+        requestQueue.add(jsonObjectRequest);
+        //Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
+    }
+
 
 
 
