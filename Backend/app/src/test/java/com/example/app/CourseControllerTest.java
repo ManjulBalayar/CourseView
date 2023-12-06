@@ -45,8 +45,36 @@ public class CourseControllerTest {
         when(userRepository.findByNameStartingWithOrderByName(name)).thenReturn(Arrays.asList(course));
 
         mockMvc.perform(get("/courses/{search}", name))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name", is(name)));
+    }
+
+    @Test
+    public void returnCourseID() throws Exception {
+        String name = "testName";
+        Course course = new Course();
+        course.setCourseid(1L);
+        course.setName(name);
+
+        when(userRepository.findByNameStartingWithOrderByName(name)).thenReturn(Arrays.asList(course));
+
+        mockMvc.perform(get("/course/{course_id}", 1L))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void returnCourses() throws Exception {
+        String name = "testName";
+        Course course = new Course();
+        course.setCourseid(1L);
+        course.setName(name);
+
+        when(userRepository.findByNameStartingWithOrderByName(name)).thenReturn(Arrays.asList(course));
+
+        mockMvc.perform(get("/courses"))
+                .andExpect(status().isOk());
+    }
+
 
 
 }
