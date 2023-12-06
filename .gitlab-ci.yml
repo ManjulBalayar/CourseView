@@ -14,7 +14,7 @@ maven-build:
     - mvn package       # maven package
   artifacts:            # where to output the packaged jar file, change 'Backend' to to where you have the pom.xml
     paths:
-      - Backend/target/*.jar
+      - Backend/app/target/*.jar
 
 maven-test:
   stage: maventest     # one of the stages listed above
