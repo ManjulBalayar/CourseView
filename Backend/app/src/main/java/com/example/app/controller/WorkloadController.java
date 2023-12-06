@@ -22,7 +22,6 @@ import java.util.Optional;
  * It uses ReviewRepository and ScheduleRepository for retrieving necessary data.
  */
 @RestController
-@RequestMapping("/api/workload")
 public class WorkloadController {
 
     @Autowired

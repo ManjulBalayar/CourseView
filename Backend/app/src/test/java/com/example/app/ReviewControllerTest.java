@@ -6,9 +6,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
 import com.example.app.controller.CourseController;
+import com.example.app.controller.ReviewController;
 import com.example.app.model.Course;
+import com.example.app.model.Review;
 import com.example.app.model.Schedule;
 import com.example.app.repository.CourseRepository;
+import com.example.app.repository.ReviewRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,55 +31,60 @@ import static org.hamcrest.Matchers.is;
 
 import java.util.*;
 
-@WebMvcTest(CourseController.class)
-public class CourseControllerTest {
+@WebMvcTest(ReviewController.class)
+public class ReviewControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private CourseRepository userRepository;
+    private ReviewRepository userRepository;
 
     @Test
-    public void returnsUsernameTest() throws Exception {
-        String name = "testName";
-        Course course = new Course();
-        course.setName(name);
+    public void returnReviews() throws Exception {
+        Review review = new Review();
+        review.setReview_id(1L);
+        review.setCourseId(1L);
+        review.setComment("test");
+        review.setDifficulty(3L);
+        review.setRating(3L);
+        review.setTime_commitment(3L);
 
-        when(userRepository.findByNameStartingWithOrderByName(name)).thenReturn(Arrays.asList(course));
 
-        mockMvc.perform(get("/courses/{search}", name))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].name", is(name)));
-    }
-
-    @Test
-    public void returnCourseID() throws Exception {
-        String name = "testName";
-        Course course = new Course();
-        course.setCourseid(1L);
-        course.setName(name);
-
-        when(userRepository.findByNameStartingWithOrderByName(name)).thenReturn(Arrays.asList(course));
-
-        mockMvc.perform(get("/course/{course_id}", 1L))
+        mockMvc.perform(get("/reviews"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void returnCourses() throws Exception {
-        String name = "testName";
-        Course course = new Course();
-        course.setCourseid(1L);
-        course.setName(name);
+    public void returnReviewID() throws Exception {
+        Review review = new Review();
+        review.setReview_id(1L);
+        review.setCourseId(1L);
+        review.setComment("test");
+        review.setDifficulty(3L);
+        review.setRating(3L);
+        review.setTime_commitment(3L);
 
-        when(userRepository.findByNameStartingWithOrderByName(name)).thenReturn(Arrays.asList(course));
 
-        mockMvc.perform(get("/courses"))
+        mockMvc.perform(get("/review/1"))
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void returnReviewByUser() throws Exception {
+        Review review = new Review();
+        review.setReview_id(1L);
+        review.setCourseId(1L);
+        review.setUserId(1L);
+        review.setComment("test");
+        review.setDifficulty(3L);
+        review.setRating(3L);
+        review.setTime_commitment(3L);
 
+
+        mockMvc.perform(get("/reviews/byUser/1"))
+                .andExpect(status().isOk());
+    }
 
 
 }

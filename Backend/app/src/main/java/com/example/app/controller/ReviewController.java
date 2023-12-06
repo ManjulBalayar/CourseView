@@ -13,7 +13,6 @@ import java.util.Optional;
  * It interacts with ReviewRepository to perform CRUD operations on Review entities.
  */
 @RestController
-@RequestMapping("/api/review")
 public class ReviewController {
 
     @Autowired
