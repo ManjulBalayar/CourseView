@@ -55,6 +55,23 @@ public class UserController {
         return userRepository.findById(user_id);
     }
 
+    @GetMapping("/users/{user_id}/friends")
+    public ResponseEntity<List<UserProfile>> getUserFriends(@PathVariable("user_id") Long userId) {
+        Optional<UserProfile> userOptional = userRepository.findById(userId);
+
+        if (userOptional.isPresent()) {
+            UserProfile user = userOptional.get();
+            List<UserProfile> friends = user.getFriends();
+
+            // You may want to exclude certain fields to prevent circular reference issues
+            friends.forEach(friend -> friend.setFriends(null));
+
+            return ResponseEntity.ok(friends);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     /**
      * Retrieves all UserProfile entities in the database.
      *
@@ -164,6 +181,28 @@ public class UserController {
             }
         }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized to update course");
+    }
+
+    @PostMapping("/users/addFriend/{userId}/{friendId}")
+    public ResponseEntity<?> addFriend(@PathVariable Long userId, @PathVariable Long friendId) {
+
+        Optional<UserProfile> userOptional = userRepository.findById(userId);
+        Optional<UserProfile> friendOptional = userRepository.findById(friendId);
+        if (userOptional.isPresent() && friendOptional.isPresent()) {
+            UserProfile user = userOptional.get();
+            UserProfile friend = friendOptional.get();
+
+            user.getFriends().add(friend);
+            friend.getFriends().add(user);
+
+            userRepository.save(user);
+            userRepository.save(friend);
+
+            return ResponseEntity.ok().body("Friendship updated successfully");
+        }
+
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized to do");
     }
 
 

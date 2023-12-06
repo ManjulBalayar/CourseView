@@ -1,5 +1,6 @@
 package com.example.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.MutablePropertyValues;
 
 import javax.persistence.*;
@@ -21,6 +22,24 @@ public class UserProfile {
 
     @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL, orphanRemoval = true)
     private Schedule schedule;
+
+    // Self-referencing relationship for friends
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id")
+    )
+    private List<UserProfile> friends;
+
+    public List<UserProfile> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<UserProfile> friends) {
+        this.friends = friends;
+    }
 
     public void setUser_id(Long userId) {
         this.userid = userId;
