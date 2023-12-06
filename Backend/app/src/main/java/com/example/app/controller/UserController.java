@@ -30,8 +30,8 @@ public class UserController {
     @Autowired
     ScheduleRepository scheduleRepository;
 
-    @Autowired
-    private CourseRepository courseRepository;
+//    @Autowired
+//    private CourseRepository courseRepository;
 
     /**
      * Retrieves a UserProfile entity by its username.
@@ -128,43 +128,43 @@ public class UserController {
     }
 
 
-    @DeleteMapping("/courses/delete/{courseId}/{username}")
-    public ResponseEntity<?> deleteCourse(@PathVariable Long courseId, @PathVariable String username) {
-        UserProfile user = userRepository.findByUsername(username);
-        if (user != null && "Admin".equals(user.getRole())) {
-            if (courseRepository.existsById(courseId)) {
-                courseRepository.deleteById(courseId);
-                return ResponseEntity.ok().build();
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
-            }
-        }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized to delete course");
-    }
+//    @DeleteMapping("/courses/delete/{courseId}/{username}")
+//    public ResponseEntity<?> deleteCourse(@PathVariable Long courseId, @PathVariable String username) {
+//        UserProfile user = userRepository.findByUsername(username);
+//        if (user != null && "Admin".equals(user.getRole())) {
+//            if (courseRepository.existsById(courseId)) {
+//                courseRepository.deleteById(courseId);
+//                return ResponseEntity.ok().build();
+//            } else {
+//                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
+//            }
+//        }
+//        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized to delete course");
+//    }
 
-    @PutMapping("/courses/update/{courseId}/{userId}")
-    public ResponseEntity<?> updateCourse(@PathVariable Long courseId, @PathVariable Long userId, @RequestBody Course updatedCourse) {
-        Optional<UserProfile> userOptional = userRepository.findById(userId);
-
-        if (userOptional.isPresent()) {
-            UserProfile user = userOptional.get();
-            if ("Admin".equals(user.getRole())) {
-                Optional<Course> courseOptional = courseRepository.findById(courseId);
-                if (courseOptional.isPresent()) {
-                    Course course = courseOptional.get();
-                    course.setName(updatedCourse.getName());
-                    course.setDescription(updatedCourse.getDescription());
-                    course.setDepartment(updatedCourse.getDepartment());
-                    courseRepository.save(course);
-
-                    return ResponseEntity.ok().body("Course updated successfully");
-                } else {
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
-                }
-            }
-        }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized to update course");
-    }
+//    @PutMapping("/courses/update/{courseId}/{userId}")
+//    public ResponseEntity<?> updateCourse(@PathVariable Long courseId, @PathVariable Long userId, @RequestBody Course updatedCourse) {
+//        Optional<UserProfile> userOptional = userRepository.findById(userId);
+//
+//        if (userOptional.isPresent()) {
+//            UserProfile user = userOptional.get();
+//            if ("Admin".equals(user.getRole())) {
+//                Optional<Course> courseOptional = courseRepository.findById(courseId);
+//                if (courseOptional.isPresent()) {
+//                    Course course = courseOptional.get();
+//                    course.setName(updatedCourse.getName());
+//                    course.setDescription(updatedCourse.getDescription());
+//                    course.setDepartment(updatedCourse.getDepartment());
+//                    courseRepository.save(course);
+//
+//                    return ResponseEntity.ok().body("Course updated successfully");
+//                } else {
+//                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
+//                }
+//            }
+//        }
+//        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unauthorized to update course");
+//    }
 
 
 }
