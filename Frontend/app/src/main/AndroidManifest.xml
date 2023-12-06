@@ -59,6 +59,9 @@
         <activity android:name=".WorkloadGauge">
 
         </activity>
+        <activity android:name=".HomeAdmin">
+
+        </activity>
 
     </application>
 </manifest>
