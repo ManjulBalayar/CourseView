@@ -65,6 +65,12 @@
         <activity android:name=".ScheduleAdmin">
 
         </activity>
+        <activity android:name=".HomeAdvisor">
+
+        </activity>
+        <activity android:name=".ScheduleAdvisor">
+
+        </activity>
 
     </application>
 </manifest>
