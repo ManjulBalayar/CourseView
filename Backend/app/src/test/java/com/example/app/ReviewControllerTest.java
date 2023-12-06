@@ -86,5 +86,27 @@ public class ReviewControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void testReviewPost() throws Exception {
+        Review review = new Review();
+        review.setReview_id(1L);
+        review.setCourseId(1L);
+        review.setUserId(1L);
+        review.setComment("test");
+        review.setDifficulty(3L);
+        review.setRating(3L);
+        review.setTime_commitment(3L);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String addCourseJson = objectMapper.writeValueAsString(review);
+
+
+        // Perform the POST request
+        mockMvc.perform(post("/review")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(addCourseJson)) // Convert object to JSON string
+                .andExpect(status().isOk());
+    }
+
 
 }

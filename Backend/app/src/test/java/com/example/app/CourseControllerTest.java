@@ -76,6 +76,23 @@ public class CourseControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void testCoursePost() throws Exception {
+        String name = "testName";
+        Course course = new Course();
+        course.setCourseid(1L);
+        course.setName(name);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String addCourseJson = objectMapper.writeValueAsString(course);
+
+        // Perform the POST request
+        mockMvc.perform(post("/course")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(addCourseJson)) // Convert object to JSON string
+                .andExpect(status().isOk());
+    }
+
 
 
 

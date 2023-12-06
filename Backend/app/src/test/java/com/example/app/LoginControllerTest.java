@@ -65,4 +65,26 @@ public class LoginControllerTest {
                 .andExpect(jsonPath("$.username", is(testUsername)));
     }
 
+    @Test
+    public void testUserLoginFailure() throws Exception {
+        String testUsername = "testUser";
+        String testPassword = "testPass";
+        UserProfile testUser = new UserProfile();
+        testUser.setUsername(testUsername);
+        testUser.setPassword(testPassword);
+
+        when(userRepository.findByUsername(testUsername)).thenReturn(testUser);
+
+        // Construct request body
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("username", "wrong");
+        requestBody.put("password", "wrong");
+        String jsonRequestBody = new ObjectMapper().writeValueAsString(requestBody);
+
+        mockMvc.perform(post("/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonRequestBody))
+                .andExpect(status().isOk());
+    }
+
 }
