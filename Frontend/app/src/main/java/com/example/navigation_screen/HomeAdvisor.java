@@ -54,7 +54,7 @@ public class HomeAdvisor extends AppCompatActivity{
     private ArrayAdapter<String> adapter;
 
     // Button widget for adding a course
-    private Button buttonAddCourse;
+    //private Button buttonAddCourse;
     // Button widget for viewing students
     private Button buttonViewStudents;
 
@@ -133,14 +133,14 @@ public class HomeAdvisor extends AppCompatActivity{
 
                 // Check if a valid course is selected and adjust the visibility of the Add Course button and Rate Course button accordingly.
                 if(selectedCourse != null && !selectedCourse.isEmpty()) {
-                    buttonAddCourse.setVisibility(View.VISIBLE);
+                    //buttonAddCourse.setVisibility(View.VISIBLE);
                     buttonViewStudents.setVisibility(View.VISIBLE);
 
                     // If a valid course is selected, fetch and display the reviews.
                     selectedCourseId = courseIds.get(position);
                     loadCourseReviews(selectedCourseId);  // Call the method to load and display the reviews
                 } else {
-                    buttonAddCourse.setVisibility(View.GONE);
+                    //buttonAddCourse.setVisibility(View.GONE);
                     buttonViewStudents.setVisibility(View.GONE);
                     selectedCourseId = null;
 
@@ -162,7 +162,7 @@ public class HomeAdvisor extends AppCompatActivity{
             public void onNothingSelected(AdapterView<?> parent) {
                 // Update UI elements to reflect the lack of a selected course.
                 //     textViewSelectedCourse.setText("No Course Selected");
-                buttonAddCourse.setVisibility(View.GONE);
+                //buttonAddCourse.setVisibility(View.GONE);
                 buttonViewStudents.setVisibility(View.GONE);
                 textViewCourseDescription.setText("Course Description: None");
                 // Clear the reviews if no course is selected
@@ -173,66 +173,6 @@ public class HomeAdvisor extends AppCompatActivity{
         });
 
         // Set a click listener for the Add Course button.
-        buttonAddCourse.setOnClickListener(new View.OnClickListener() {
-
-            /**
-             * Called when the Add Course button is clicked.
-             * This method checks the selected position in the spinner, validates it,
-             * and triggers the addition of the course if the selection is valid.
-             * A toast message is displayed if an invalid course is selected.
-             *
-             * @param view The view (button) that was clicked.
-             */
-            @Override
-            public void onClick(View view) {
-                // Retrieve selected position in the Spinner.
-                int position = spinnerCourses.getSelectedItemPosition();
-
-
-                // Log.d("DEBUG", "Selected Position: " + position);
-
-                // Validate selected position and ensure it corresponds to a valid course, then add the course.
-                if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
-                    int selectedCourseId = courseIds.get(position);
-                    System.out.println(selectedCourseId);
-                    addCourse(selectedCourseId);
-                } else {
-                    // Show a toast message if an invalid course is selected.
-                    Toast.makeText(HomeAdvisor.this, "Please select a valid course", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-
-        buttonViewStudents.setOnClickListener(new View.OnClickListener() {
-            @Override
-            /**
-             * button
-             */
-            public void onClick(View view) {
-                //TODO get list of students for advisor
-                getUsers();
-            }
-        });
-
-//        buttonViewSchedule.setOnClickListener(new View.OnClickListener() {
-//
-//            /**
-//             * Called when the Add Course button is clicked.
-//             * This method checks the selected position in the spinner, validates it,
-//             * and triggers the addition of the course if the selection is valid.
-//             * A toast message is displayed if an invalid course is selected.
-//             *
-//             * @param view The view (button) that was clicked.
-//             */
-//            @Override
-//            public void onClick(View view) {
-//                Intent myintent = new Intent(HomeAdvisor.this, ScheduleAdmin.class);
-//                startActivity(myintent);
-//            }
-//        });
-
-        //TODO
 //        buttonAddCourse.setOnClickListener(new View.OnClickListener() {
 //
 //            /**
@@ -263,6 +203,17 @@ public class HomeAdvisor extends AppCompatActivity{
 //            }
 //        });
 
+
+        buttonViewStudents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            /**
+             * button
+             */
+            public void onClick(View view) {
+                //TODO get list of students for advisor
+                getUsers();
+            }
+        });
     }
 
     /**
@@ -541,7 +492,7 @@ public class HomeAdvisor extends AppCompatActivity{
 
 
     private void getUsers() {
-        String url = "http://coms-309-030.class.las.iastate.edu:8080/users/addFriend/" + userid + "/friends";
+        String url = "http://coms-309-030.class.las.iastate.edu:8080/users/" + userid + "/friends";
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -563,7 +514,7 @@ public class HomeAdvisor extends AppCompatActivity{
 
                             System.out.println(response.toString());
                             AlertDialog.Builder builder = new AlertDialog.Builder(HomeAdvisor.this);
-                            builder.setTitle("Courses Reviewed:");
+                            builder.setTitle("Students:");
                             builder.setMessage(names.toString());
                             builder.setPositiveButton("OK", null);
                             AlertDialog dialog = builder.create();
