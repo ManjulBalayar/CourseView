@@ -25,7 +25,7 @@ import org.json.JSONObject;
  * Allows users to submit ratings for a course including
  * difficulty, time commitment, and additional comments.
  */
-public class AddCourse extends AppCompatActivity {
+public class UpdateCourse extends AppCompatActivity {
 
     // UI elements for submitting ratings and navigating back.
     Button submitbtn;
@@ -83,7 +83,7 @@ public class AddCourse extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //finish(); // This will close the current activity and go back to the previous activity
-                Intent myintent = new Intent(AddCourse.this, HomeAdmin.class);
+                Intent myintent = new Intent(UpdateCourse.this, HomeAdmin.class);
                 startActivity(myintent);
             }
         });
@@ -99,7 +99,7 @@ public class AddCourse extends AppCompatActivity {
         //int courseId = intent.getIntExtra("COURSE_ID", -1);
         //Log.d("AddCourse", "Received Course ID: " + courseId);
         try {
-            String url = "http://coms-309-030.class.las.iastate.edu:8080/course";
+            String url = "http://coms-309-030.class.las.iastate.edu:8080/";
 
             JSONObject postData = new JSONObject();
             //postData.put("courseid", Integer.valueOf(courseid.getText().toString()));
@@ -114,14 +114,14 @@ public class AddCourse extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             // Handle response
-                            Toast.makeText(AddCourse.this, "Course added successfully!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateCourse.this, "Course added successfully!", Toast.LENGTH_SHORT).show();
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             // Handle error
-                            Toast.makeText(AddCourse.this, "Failed to add course: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(UpdateCourse.this, "Failed to add course: " + error.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     });
 
