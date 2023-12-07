@@ -90,10 +90,10 @@ public class UserController {
         return userRepository.findByUsernameStartingWithOrderByUsername(search);
     }
 
-//    @GetMapping({"/byRoles/{role}"})
-//    public List<UserProfile> getUserByRole(@PathVariable("role") String role) {
-//        return userRepository.findByRole(role);
-//    }
+    @GetMapping({"/byRoles/{role}"})
+    public List<UserProfile> getUserByRole(@PathVariable("role") String role) {
+        return userRepository.findByRole(role);
+    }
 
     @PostMapping({"users/post"})
     UserProfile PostUserByBody(@RequestBody UserProfile newUser) {
@@ -105,9 +105,9 @@ public class UserController {
     }
 
 
-    @DeleteMapping("/courses/delete/{courseId}/{username}")
-    public ResponseEntity<?> deleteCourse(@PathVariable Long courseId, @PathVariable String username) {
-        UserProfile user = userRepository.findByUsername(username);
+    @DeleteMapping("/courses/delete/{courseId}/{userId}")
+    public ResponseEntity<?> deleteCourse(@PathVariable Long courseId, @PathVariable Long userId) {
+        UserProfile user = userRepository.findById(userId).orElse(null);
         if (user != null && "Admin".equals(user.getRole())) {
             if (courseRepository.existsById(courseId)) {
                 courseRepository.deleteById(courseId);
