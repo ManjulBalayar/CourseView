@@ -272,21 +272,8 @@ public class HomeAdmin extends AppCompatActivity{
              */
             @Override
             public void onClick(View view) {
-                // Retrieve selected position in the Spinner.
-                int position = spinnerCourses.getSelectedItemPosition();
-
-
-                // Log.d("DEBUG", "Selected Position: " + position);
-
-                // Validate selected position and ensure it corresponds to a valid course, then add the course.
-                if (position != AdapterView.INVALID_POSITION && position < courseIds.size()) {
-                    int selectedCourseId = courseIds.get(position);
-                    System.out.println(selectedCourseId);
-                    addCourse(selectedCourseId);
-                } else {
-                    // Show a toast message if an invalid course is selected.
-                    Toast.makeText(HomeAdmin.this, "Please select a valid course", Toast.LENGTH_SHORT).show();
-                }
+                Intent myintent = new Intent(HomeAdmin.this, UpdateCourse.class);
+                startActivity(myintent);
             }
         });
 
@@ -651,6 +638,97 @@ public class HomeAdmin extends AppCompatActivity{
 //                        }
                         builder.setTitle("Success");
                         builder.setMessage("Course successfully deleted!");
+
+                        // Create and show the alert dialog
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                },
+                // Listener for error responses
+                new Response.ErrorListener() {
+
+                    /**
+                     * Log Volley error on error response
+                     * @param error
+                     */
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Create a dialog builder for displaying error messages to the user
+                        AlertDialog.Builder builder = new AlertDialog.Builder(HomeAdmin.this);
+                        builder.setTitle("Network Error");
+
+                        // Log the details of the network error
+                        Log.e("VolleyError", "Error: " + error.toString());
+
+                        // Check if there is a network response and display appropriate error message
+                        if (error.networkResponse != null && error.networkResponse.data != null) {
+                            String responseBody = new String(error.networkResponse.data);
+                            builder.setMessage("Response error: " + responseBody);
+                        } else {
+                            builder.setMessage("Network error: " + error.toString());
+                        }
+
+                        // Create and show the alert dialog with the error message
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                }
+        );
+
+        // Add the created request to the Volley request queue
+        requestQueue.add(jsonObjectRequest);
+        //Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
+    }
+
+    private void updateCourse(int courseId) {
+        // URL endpoint for adding courses
+        userid = PreferencesUtil.getUserId(HomeAdmin.this);
+        String url = "http://coms-309-030.class.las.iastate.edu:8080/courses/update/" + courseId + "/" + userid;
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        Log.d("userid: ", "" + userid);
+        Log.d("courseId: ", "" + courseId);
+        // JSON object that will contain the payload of the POST request
+        JSONObject postData = new JSONObject();
+        try {
+            // Populating postData with student_id and course_id
+            postData.put("user_id", userid);
+            postData.put("course_id", courseId);
+
+        } catch (JSONException e) {
+            // Print stack trace for any JSON exception while populating postData
+            e.printStackTrace();
+        }
+
+        // Create a new JSON object request to send a JSON object to the server
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST, url, postData,
+                // Listener for successful responses
+                new Response.Listener<JSONObject>() {
+
+                    /**
+                     * On response create a dialog builder for user feedback
+                     * Check if response contains student_id and course_id indicating success
+                     * Show alert dialog for successful addition of course
+                     * @param response
+                     */
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        // Log.d("DEBUG", "Received response: " + response.toString());
+
+                        // Create a dialog builder for user feedback
+                        AlertDialog.Builder builder = new AlertDialog.Builder(HomeAdmin.this);
+
+                        // Check if response contains student_id and course_id indicating success
+                        if (response.has("user_id") && response.has("course_id")) {
+                            // Show success message to the user
+                            builder.setTitle("Success");
+                            builder.setMessage("Course successfully added!");
+                        } else {
+                            // Handle unknown errors and inform the user
+                            builder.setTitle("Error");
+                            builder.setMessage("Unknown Error");
+                        }
 
                         // Create and show the alert dialog
                         AlertDialog dialog = builder.create();
