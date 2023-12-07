@@ -1,6 +1,7 @@
 package com.example.navigation_screen;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,6 +58,8 @@ public class HomeAdvisor extends AppCompatActivity{
     //private Button buttonAddCourse;
     // Button widget for viewing students
     private Button buttonViewStudents;
+    // Button widget for logout
+    private Button buttonLogout;
 
     // Button widget for view schedule
     private Button buttonViewSchedule;
@@ -97,6 +100,7 @@ public class HomeAdvisor extends AppCompatActivity{
         // Find and assign the Add Course button from the layout.
         //buttonAddCourse = findViewById(R.id.button_add_course);
         buttonViewStudents = findViewById(R.id.button_view_students);
+        buttonLogout = findViewById(R.id.button_logout);
         //buttonViewSchedule = findViewById(R.id.button_view_schedule);
 
 
@@ -203,6 +207,16 @@ public class HomeAdvisor extends AppCompatActivity{
 //            }
 //        });
 
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            /**
+             * button
+             */
+            public void onClick(View view) {
+                Intent myintent = new Intent(HomeAdvisor.this, MainActivity.class);
+                startActivity(myintent);
+            }
+        });
 
         buttonViewStudents.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -503,6 +517,7 @@ public class HomeAdvisor extends AppCompatActivity{
                     public void onResponse(JSONArray response) {
                         System.out.println(response.toString());
                         try {
+                            names.clear();
                             for (int i = 0; i < response.length(); i++) {
                                 // Get each course as a JSON object
                                 JSONObject course = response.getJSONObject(i);

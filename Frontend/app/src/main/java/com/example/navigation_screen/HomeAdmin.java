@@ -59,13 +59,16 @@ public class HomeAdmin extends AppCompatActivity{
     // Button widget for rating a course
     //private Button buttonRateCourse;
     // Button widget for updateing a course
-    private Button buttonUpdateCourse;
+    //private Button buttonUpdateCourse;
     // Button widget for deleting a course
     private Button buttonDeleteCourse;
     // Button widget for schedule a course
     //private Button buttonScheduleCourse;
     // Button widget for view schedule
     //private Button buttonViewSchedule;
+    // Button widget for logging out
+    private Button buttonLogout;
+
 
 
 
@@ -103,6 +106,7 @@ public class HomeAdmin extends AppCompatActivity{
         //buttonRateCourse = findViewById(R.id.button_rate_course);
         //buttonUpdateCourse = findViewById(R.id.button_update_course);
         buttonDeleteCourse = findViewById(R.id.button_delete_course);
+        buttonLogout = findViewById(R.id.button_logout);
         //buttonScheduleCourse = findViewById(R.id.button_schedule_course);
         //buttonViewSchedule = findViewById(R.id.button_view_schedule);
 
@@ -234,6 +238,17 @@ public class HomeAdmin extends AppCompatActivity{
 //            }
 //        });
 
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            /**
+             * button
+             */
+            public void onClick(View view) {
+                Intent myintent = new Intent(HomeAdmin.this, MainActivity.class);
+                startActivity(myintent);
+            }
+        });
+
         //TODO
         buttonDeleteCourse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -260,22 +275,22 @@ public class HomeAdmin extends AppCompatActivity{
         });
 
         //TODO
-        buttonUpdateCourse.setOnClickListener(new View.OnClickListener() {
-
-            /**
-             * Called when the Add Course button is clicked.
-             * This method checks the selected position in the spinner, validates it,
-             * and triggers the addition of the course if the selection is valid.
-             * A toast message is displayed if an invalid course is selected.
-             *
-             * @param view The view (button) that was clicked.
-             */
-            @Override
-            public void onClick(View view) {
-                Intent myintent = new Intent(HomeAdmin.this, UpdateCourse.class);
-                startActivity(myintent);
-            }
-        });
+//        buttonUpdateCourse.setOnClickListener(new View.OnClickListener() {
+//
+//            /**
+//             * Called when the Add Course button is clicked.
+//             * This method checks the selected position in the spinner, validates it,
+//             * and triggers the addition of the course if the selection is valid.
+//             * A toast message is displayed if an invalid course is selected.
+//             *
+//             * @param view The view (button) that was clicked.
+//             */
+//            @Override
+//            public void onClick(View view) {
+//                Intent myintent = new Intent(HomeAdmin.this, UpdateCourse.class);
+//                startActivity(myintent);
+//            }
+//        });
 
         //TODO
 //        buttonViewSchedule.setOnClickListener(new View.OnClickListener() {
