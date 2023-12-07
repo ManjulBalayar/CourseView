@@ -101,7 +101,7 @@ public class HomeAdmin extends AppCompatActivity{
         // Find and assign the Add Course button from the layout.
         buttonAddCourse = findViewById(R.id.button_add_course);
         //buttonRateCourse = findViewById(R.id.button_rate_course);
-        buttonUpdateCourse = findViewById(R.id.button_update_course);
+        //buttonUpdateCourse = findViewById(R.id.button_update_course);
         buttonDeleteCourse = findViewById(R.id.button_delete_course);
         //buttonScheduleCourse = findViewById(R.id.button_schedule_course);
         //buttonViewSchedule = findViewById(R.id.button_view_schedule);
