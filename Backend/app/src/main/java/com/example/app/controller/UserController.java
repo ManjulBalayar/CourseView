@@ -104,7 +104,6 @@ public class UserController {
         return newUser;
     }
 
-
     @DeleteMapping("/courses/delete/{courseId}/{userId}")
     public ResponseEntity<?> deleteCourse(@PathVariable Long courseId, @PathVariable Long userId) {
         UserProfile user = userRepository.findById(userId).orElse(null);
